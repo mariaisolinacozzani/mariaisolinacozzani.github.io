@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maria Isolina Cozzani — violinist & multimedia artist</title>
+  <meta name="description" content="Violinist, composer‑performer, and multimedia artist based in Cologne. Performances, works, media, teaching, and contact." />
+  <meta property="og:title" content="Maria Isolina Cozzani" />
+  <meta property="og:description" content="Violinist, composer‑performer, and multimedia artist based in Cologne." />
+  <meta property="og:type" content="website" />
+  <!-- Glitchy fonts (Google Fonts). Nota: richiedono caricamento esterno -->
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ====== THEME: ICY/GLITCH DARK — with glitchy fonts ====== */
+    :root{
+      --txt:#eaf6ff;           /* testo principale (ghiaccio) */
+      --bg:#070a0d;            /* sfondo quasi nero con blu */
+      --muted:#9fb4c4;         /* testo secondario freddo */
+      --accent:#7ee3ff;        /* ciano ghiaccio */
+      --accent2:#b5a6ff;       /* lavanda fredda per il glitch */
+      --max:980px;             /* larghezza contenuto */
+      --font-base:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --font-heading:'Chakra Petch', var(--font-base);
+      --radius:14px;
+    }
+
+    @media (prefers-color-scheme: dark){
+      :root{ --txt:#eaf6ff; --bg:#05070a; --muted:#98adbd; --accent:#86e9ff; --accent2:#c2b8ff; }
+    }
+
+    html{box-sizing:border-box}
+    *,*:before,*:after{box-sizing:inherit}
+
+    body{
+      margin:0; color:var(--txt); background:var(--bg);
+      font:16px/1.7 var(--font-base);
+      text-rendering:optimizeLegibility;
+      background-image: radial-gradient(1200px 600px at 20% -10%, rgba(90,130,200,0.08), transparent 40%),
+                        radial-gradient(800px 400px at 100% 0%, rgba(0,180,255,0.08), transparent 60%),
+                        linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.2));
+      background-attachment: fixed;
+    }
+
+    body::before{
+      content:""; position:fixed; inset:0; pointer-events:none; z-index:-1; /* behind canvas */
+      background:
+        repeating-linear-gradient(transparent 0 2px, rgba(255,255,255,0.02) 2px 3px),
+        radial-gradient(1200px 600px at 80% 120%, rgba(0,120,180,0.05), transparent 60%);
+      mix-blend-mode:soft-light; opacity:0.8;
+      transform: translate3d(0, calc(var(--scroll, 0) * -0.04px), 0);
+      will-change: transform;
+    }
+
+    /* Canvas particle fx (behind content) */
+    #fx{ position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.35; mix-blend-mode:screen; }
+    @media (prefers-reduced-motion: reduce){ #fx{ display:none } }
+
+    .wrap{position:relative; z-index:1; max-width:var(--max); margin:auto; padding:28px 18px}
+    header{margin:8px 0 18px}
+
+    h1{font-family:var(--font-heading); font-size:36px; font-weight:700; letter-spacing:0.02em; margin:0 0 6px; text-transform:uppercase}
+    .glitch{position:relative; display:inline-block}
+    .glitch::before, .glitch::after{ content:attr(data-text); position:absolute; left:0; top:0; pointer-events:none; opacity:.85; }
+    .glitch::before{ transform:translate(-1px,0); text-shadow:2px 0 var(--accent); mix-blend-mode:screen; }
+    .glitch::after{  transform:translate(1px,0);  text-shadow:-2px 0 var(--accent2); mix-blend-mode:screen; }
+    @keyframes glitchshift{ 0%{transform:translate(0,0)} 10%{transform:translate(1px,-0.5px)} 20%{transform:translate(-1px,0.5px)} 30%{transform:translate(2px,0)} 40%{transform:translate(-2px,0)} 50%{transform:translate(0,0)} 60%{transform:translate(1px,1px)} 70%{transform:translate(-1px,-1px)} 80%{transform:translate(0.5px,-1px)} 90%{transform:translate(-0.5px,1px)} 100%{transform:translate(0,0)} }
+    .glitch::before,.glitch::after{ animation: glitchshift 2.6s infinite steps(12); }
+
+    .tag{color:var(--muted); font-size:13px}
+
+    nav{margin:14px 0 26px; font-family:var(--font-heading); letter-spacing:0.04em; text-transform:uppercase; font-weight:500}
+    nav a{margin:0 8px; white-space:nowrap; position:relative}
+    nav a::after{ content:""; position:absolute; left:0; right:0; bottom:-2px; height:1px; background:currentColor; transform:scaleX(0); transform-origin:left; transition:transform .25s ease; }
+    nav a:hover::after{ transform:scaleX(1) }
+    nav a:hover{ text-shadow:0 0 8px var(--accent); }
+    nav .dot{color:var(--muted)}
+
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:none}
+
+    main section{margin:38px 0}
+    h2{font-family:var(--font-heading); font-size:20px; margin:0 0 12px; color:var(--accent); letter-spacing:0.02em; text-transform:uppercase}
+    ul{padding-left:18px; margin:0}
+    li{margin:6px 0}
+    .muted{color:var(--muted)}
+
+    .grid{display:grid; gap:12px}
+    .two{grid-template-columns:1fr}
+    @media (min-width:820px){ .two{grid-template-columns:1fr 1fr} }
+
+    figure{margin:0}
+    img{max-width:100%; height:auto; display:block}
+
+    .card{
+      padding:14px; border-radius:var(--radius);
+      background:rgba(255,255,255,0.02);
+      border:1px solid rgba(126,227,255,0.25);
+      box-shadow:0 0 0 1px rgba(181,166,255,0.05) inset;
+      backdrop-filter:blur(2px);
+    }
+    .card:hover{ box-shadow:0 0 18px rgba(126,227,255,0.15); }
+
+    /* ====== GALLERY (top video previews) ====== */
+    #gallery{margin-top:6px}
+    .thumbs{grid-template-columns:repeat(2,1fr)}
+    @media (min-width:640px){ .thumbs{grid-template-columns:repeat(3,1fr)} }
+    @media (min-width:980px){ .thumbs{grid-template-columns:repeat(4,1fr)} }
+
+    .thumb{position:relative; display:block; border-radius:12px; overflow:hidden; border:1px solid rgba(126,227,255,0.25); background:rgba(255,255,255,0.02)}
+    .thumb .poster{aspect-ratio:16/9; width:100%; object-fit:cover; display:block; filter:saturate(0.9) contrast(1.05)}
+    .thumb .overlay{position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:space-between; padding:8px 10px; background:linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55));}
+    .thumb .t{font:600 12px/1.2 var(--font-heading); letter-spacing:0.04em; text-transform:uppercase; color:#dff7ff}
+    .thumb .badge{font:600 10px/1 var(--font-base); padding:6px 8px; border-radius:8px; background:rgba(126,227,255,0.18); color:#eaf6ff; border:1px solid rgba(126,227,255,0.35)}
+    .thumb .play{position:absolute; left:10px; top:10px; width:28px; height:28px; border-radius:50%; border:1px solid rgba(126,227,255,0.5); display:grid; place-items:center; background:rgba(255,255,255,0.04)}
+    .thumb .play:before{content:"▶"; font-size:12px; transform:translateX(1px)}
+    .thumb:hover{ box-shadow:0 0 18px rgba(126,227,255,0.2) }
+    .thumb:hover .poster{ filter:saturate(1) contrast(1.1) }
+
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+
+    /* ====== DETAIL VIEW ====== */
+    body.is-detail main > section:not(#work-detail){ display:none }
+    #work-detail{ margin-top:10px }
+    #work-detail .back{ display:inline-block; margin:6px 0 16px; font-size:13px; color:var(--muted) }
+    #work-detail .back:hover{ color:var(--txt) }
+    .embed{ position:relative; padding-top:56.25%; border-radius:var(--radius); overflow:hidden; border:1px solid rgba(126,227,255,0.25); background:rgba(255,255,255,0.02); margin-bottom:14px }
+    .embed iframe{ position:absolute; inset:0; width:100%; height:100%; border:0 }
+
+    footer{margin:44px 0 12px; font-size:13px; color:var(--muted)}
+    .legal{font-size:13px}
+
+    .skip{position:absolute; left:-9999px}
+    .skip:focus{left:18px; top:12px; background:rgba(0,0,0,0.7); color:#fff; border:1px solid var(--accent); padding:6px 8px}
+
+    ::selection{ background:rgba(126,227,255,0.25); color:var(--txt); }
+  </style>
+</head>
+<body>
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <a class="skip" href="#content">Skip to content</a>
+  <div class="wrap">
+    <header>
+      <h1 class="glitch" data-text="Maria Isolina Cozzani">Maria Isolina Cozzani</h1>
+      <div class="tag">violinist • composer‑performer • multimedia artist</div>
+      <nav aria-label="Primary">
+        <a href="#bio">bio</a><span class="dot"> · </span>
+        <a href="#works">works</a><span class="dot"> · </span>
+        <a href="#events">events</a><span class="dot"> · </span>
+        <a href="#media">media</a><span class="dot"> · </span>
+        <a href="#teaching">teaching</a><span class="dot"> · </span>
+        <a href="#contact">contact</a>
+      </nav>
+    </header>
+
+    <main id="content" tabindex="-1">
+      <!-- Top gallery of video previews -->
+      <section id="gallery" aria-label="Featured works">
+        <h2 class="sr-only">Featured works</h2>
+        <div class="gallery grid thumbs" id="thumbs"></div>
+      </section>
+
+      <!-- Detail view container (single-work) -->
+      <section id="work-detail" class="work-detail" hidden></section>
+      <section id="bio">
+        <h2>Bio</h2>
+        <p><strong>Maria Isolina Cozzani</strong> (b. 1994, Ludwigsburg) is an Italian‑German violinist, composer‑performer and multimedia artist based in Cologne. Working at the edges of free improvisation, electro‑acoustic performance and installation, she focuses on timbral extremes of the violin, spectral/granular resynthesis and spatial sound (4–8‑channel and site‑responsive setups). Her practice often integrates audio‑reactive objects and upcycled technologies, assembling fragile yet vibrant ecosystems where sound, bodies and space co‑shape one another.</p>
+        <p>She trained in classical and jazz violin at the conservatories of La Spezia and Genoa and completed an MMus at ArtEZ University of the Arts (Arnhem, 2023) with research in free improvisation that culminated in <em>ISLN — Geography of sounds, shapeshifting multiplicities</em>. Recent and ongoing projects include the electroacoustic duo <em>O.P.M.L. — Our Past Microtonal Love</em> (with Matteo Traverso); the free‑improv quintet <em>Inopia</em> (album <em>Exoplanet</em>, 2025); and the ensembles <em>Trio Lavish</em> (winners of the <em>Erasmus Jazz Prijs 2023</em>) and <em>Edera Trees</em>.</p>
+        <p>Her music draws on microtonality (simple frequency relations beyond tempered systems), memory as layering/return, and a choreographic attention to gesture, instrument and space. She has appeared at Palazzo Ducale (Genoa), Museo Bagatti Valsecchi (Milan), MA/IN Matera Intermedia Festival (Matera), De Thomas (Amsterdam) and The Grey Space (The Hague).</p>
+        <p>Alongside artistic work, Maria is active as an educator (violin/viola, ensemble practice, theory & harmony, in Cologne and online) and as a project manager. In 2025 she coordinated the interdisciplinary project week <em>Connecting the Dots</em> at ArtEZ University of the Arts, leading planning and delivery for ~40 Master students across departments, guest‑lecturer scheduling, rooming and documentation.</p>
+        <p class="muted">Extended CV and photos are available in the <a href="#press">Press kit</a>. For duo/ensemble activities see <a href="#opml">O.P.M.L.</a> and the <a href="#works">Works</a> section.</p>
+      </section>
+
+      <section id="news">
+        <h2>News</h2>
+        <ul>
+          <li><strong>Oct 2025</strong> — <em>Exoplanet</em> (Inopia) album finalized; release concert TBA.</li>
+          <li><strong>Oct 2025</strong> — Project week <em>Connecting the Dots</em> at ArtEZ, Arnhem/Zwolle/Enschede.</li>
+        </ul>
+      </section>
+
+      <section id="works">
+        <h2>Selected works / projects</h2>
+
+        <article class="card" id="opml" data-title="Our Past Microtonal Love (O.P.M.L.)">
+          <h3><em>Our Past Microtonal Love (O.P.M.L.)</em></h3>
+          <p class="muted"><em>Find your future self in past lives</em></p>
+          <p>O.P.M.L. is an electroacoustic duo based in Arnhem, Netherlands. The project is composed of Maria Isolina Cozzani on violin and Matteo Traverso on modular synthesizer. Together, their work spans site-based installations, audiovisual performances, and free or guided improvisation.</p>
+          <p>Their artistic proposition has led them to perform in numerous Italian and European contexts, including Palazzo Ducale (Genoa), Bagatti Valsecchi Museum (Milan), MA/IN Matera Intermedia Festival (Matera), de Thomas (Amsterdam), and The Grey Space (The Hague).</p>
+          <p>At the heart of their research is improvisation as a compositional tool that lets the shared space-time with the audience permeate the proposal, so that the core of the artistic moment resides in the process and yields different experiences depending on the context. Recurring musical elements include microtonality&mdash;understood as combinations of frequencies beyond tonal and tempered systems&mdash;and memory as continuous overlay and re-proposal of gestures that avoid linear consequence in favor of fragmented, reassembled time.</p>
+          <p>O.P.M.L. invites listeners into an exploratory journey through unknown sonic territories. Improvisation becomes a vehicle for the unknown, continuously challenging language to reach new dimensions and understandings of sound perception.</p>
+        </article>
+
+
+        <article class="card" id="what-is-left" data-title="what is left, what there grows" data-drive="1PxZBF0uUqdAcqpShlq9IUOrqWa6HcPv5">
+          <h3><em>what is left, what there grows</em> (2025)</h3>
+          <p class="muted">Finalist at MA/IN Matera Intermedia Festival 2025.</p>
+          <p>&ldquo;what is left, what there grows&rdquo; is a self-reactive environment composed of sound, immersive multi-channel audio (4&ndash;8 channels), upcycled trash speakers, small robots, and obsolete or broken technological remains&mdash;motherboards, wires, machine parts. Although over 90% of the installation is built from discarded or recycled materials, the experience it offers is one of vitality, regeneration, and ongoing transformation&mdash;whether driven by internal desire or external intervention.</p>
+          <p>The installation evokes a kind of natural ritual in which the Anthropocene compresses geological eras, accelerating fossil formation through human waste. Decades of technological residue converge, reshaping sound, air, shadow, and perception, exposing a fractured sense of detachment from our consumer responsibilities.</p>
+          <p>This is a fragile, eroded, yet vibrant environment in constant flux. All elements&mdash;robots, sound structures, speakers&mdash;listen and respond to one another; the system is entirely audio-reactive, including its interaction with the audience. The presence of living, reactive technology gives the impression of stepping into a sacred terrain, made of a new kind of nature&mdash;where even stepping over a cable or past a tiny machine feels intrusive.</p>
+          <p>The installation sustains a delicate balance. It no longer needs the human, and barely welcomes them&mdash;except as careful listener, as silent observer.</p>
+          <p><strong>Media:</strong> <a href="https://drive.google.com/file/d/1PxZBF0uUqdAcqpShlq9IUOrqWa6HcPv5/view?usp=drive_link" target="_blank" rel="noopener">Video</a></p>
+        </article>
+
+        <article class="card" id="steps-to-be-taken" data-title="Steps to be taken in case of death:" data-vimeo="372936733" data-yt="PyPbwN7ewlA">
+          <h3><em>Steps to be taken in case of death:</em> (2019)</h3>
+          <p>&ldquo;Steps to be taken in case of death:&rdquo; is a 2019 audio-video installation by Cozzani and Traverso, simulating a surgical operation on a violin in an operating theater. Displayed to the audience through LCD monitors, it merges visual, gestural, and sound elements, influenced by composers like Cage and Lachenmann. The piece creates a metaphorical space to explore these artistic modalities, offering a controlled visual and auditory experience.</p>
+          <p>Drawing inspiration from composers such as John Cage, Helmut Lachenmann, and Mauricio Kagel, the project explores the coexistence and tension between sound, gesture, and image in performance. By situating the piece in a surgical setting&mdash;an almost sacred, restricted space&mdash;the artists create a controlled environment where reality and fiction intermingle. Sounds are carefully bound to scenic actions, alternating between live synthesis, processed audio, and sampled loops, producing a dramaturgy of tension and release. The work guides viewers between states of immersion and contemplation, often blurring the line between grotesque realism and poetic abstraction. After the violin&rsquo;s symbolic &ldquo;death&rdquo; and subsequent transformation through &ldquo;prostheses,&rdquo; the installation shifts into an interactive mode, inviting the audience to step into the operating theater and revisit moments of the performance, thereby extending the reflection on art, life, and transformation.</p>
+          <p><strong>Links:</strong> <a href="https://drive.google.com/file/d/114ErqvMAaSnCeRrN4SgSA9J8sbzXLAek/view?usp=sharing" target="_blank" rel="noopener">Concept</a> · <a href="https://vimeo.com/372936733" target="_blank" rel="noopener">Trailer</a> · <a href="https://youtu.be/PyPbwN7ewlA" target="_blank" rel="noopener">Full performance (Orrori Studios)</a></p>
+        </article>
+
+        <article class="card" id="artemide" data-title="Art&mide, Studio 1 — The evocation of Ἄρτεμις">
+          <h3><em>Art&amp;mide, Studio 1 &mdash; The evocation of Ἄρτεμις</em> (2023)</h3>
+          <p><em>art&amp;mide</em> is an installation/performance born from an idea of Maria Isolina Cozzani and subsequently developed by Maria Isolina Cozzani and Matteo Traverso. The current state of the work consists of an iterative audiovisual installation and a sound performance that includes generative and reactive video to movement/audio. The installation part, also called &ldquo;art&amp;mide golden age,&rdquo; consists of a particle-based generative video and a generative audio, realized through the granularization and re-composition of violin sounds.</p>
+          <p>The second part, the performance entitled &ldquo;art&amp;mide beginning/end of a cycle,&rdquo; is designed for violin, synthesizer and motion/audio responsive video. The video reacts to both the violinist&rsquo;s movements and the sound of the synthesizer, but in different ways: the violin&rsquo;s movements generate the shape and colour of the main core video, while the synthesizer sound corrupts it.</p>
+          <p><strong>Media:</strong> O.P.M.L. (Our past microtonal love) &mdash; art&amp;mide &mdash; YouTube.</p>
+        </article>
+
+        <article class="card" id="studio-sul-plasma" data-title="Studio sul plasma" data-yt="o3UOTGCL5_Q">
+          <h3><em>Studio sul plasma</em> (2019)</h3>
+          <p><em>Studio sul plasma</em> is a 3D particles graphic audio reactive system trying to emulate plasma's behaviour. It is a visual and musical work in which Maria Isolina Cozzani and Matteo Traverso analyse scratched sounds of the bow on a violin, which we re-elaborated with filters and combined with a moving particles-system reacting to the musical inputs.</p>
+          <p><strong>Media:</strong> <a href="https://www.youtube.com/watch?v=o3UOTGCL5_Q&ab_channel=art%C3%A8r%C3%ACa" target="_blank" rel="noopener">YouTube</a></p>
+        </article>
+
+        <article class="card" id="locked-outputs" data-title="locked:outputs" data-yt="LB4l8T4fsDM">
+          <h3><em>locked:outputs</em> (2020)</h3>
+          <p>&ldquo;locked:outputs&rdquo; is an explorative video game conceived and created by Maria Isolina Cozzani, Matteo Traverso and Filippo De Negri during the pandemic of Covid19. It is a deeply introspective project that functioned as a container of music, ideas, and feelings that we came across during the first lockdown in consequence to the pandemic of Covid19 in 2020. We approached 3D modelling by creating figures that represented our discomfort and unease. We shaped our thoughts in glitchy 3D models and created audio tracks for each of them. We packed everything into a videogame setting which can be navigated and explored.</p>
+          <p><strong>Gameplay:</strong> <a href="https://www.youtube.com/watch?v=LB4l8T4fsDM&t=147s" target="_blank" rel="noopener">YouTube</a></p>
+        </article>
+      </section>
+
+      <section id="events">
+        <h2>Events</h2>
+        <ul>
+          <li><strong>17 Jan 2026</strong> — Concert, Rathaussaal Xanten — tbc.</li>
+          <li><strong>16 Jan 2026</strong> — Concert, Immanuelskirche Wuppertal — tbc.</li>
+        </ul>
+      </section>
+
+      <section id="media">
+        <h2>Media</h2>
+        <div class="grid two">
+          <div class="card">
+            <p><strong>Video</strong></p>
+            <p class="muted">Embed a YouTube/Vimeo link (privacy‑enhanced) or a still image linking out.</p>
+          </div>
+          <div class="card">
+            <p><strong>Audio</strong></p>
+            <p class="muted">Link to Bandcamp / SoundCloud / Spotify artist page.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="teaching">
+        <h2>Teaching</h2>
+        <p>Private and school‑based violin/viola; ensemble coaching; theory & harmony. Cologne area and online.</p>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:maria.cozzani@gmail.com">maria.cozzani@gmail.com</a> 
+          <span class="muted">· Instagram / YouTube / Bandcamp links can go here</span></p>
+        <p><a href="#press">Press kit (EPK)</a> — short/long bio + photos.</p>
+      </section>
+
+      <section id="press">
+        <h2>Press kit</h2>
+        <h3>Short Bio (EN)</h3>
+        <p>Maria Isolina Cozzani is a violinist and creative working across free improvisation, audiovisual performance and installation. Trained in classical and jazz violin in La Spezia and Genoa, she completed an MMus at ArtEZ University of the Arts with a research project in free improvisation culminating in the performance <em>ISLN &mdash; Geography of sounds, shapeshifting multiplicities</em> (June 2023). Active across the Netherlands, Italy and Spain, she performs with Trio Lavish (winners of the Erasmus Jazz Prijs 2023), the duo O.P.M.L., and Edera.</p>
+        <h3>Photos</h3>
+        <div class="grid two photos">
+          <figure class="card"><img src="img/photo1.jpg" alt="Portrait 1 of Maria Isolina Cozzani" loading="lazy"><figcaption class="muted">Portrait 1</figcaption></figure>
+          <figure class="card"><img src="img/photo2.jpg" alt="Portrait 2 of Maria Isolina Cozzani" loading="lazy"><figcaption class="muted">Portrait 2</figcaption></figure>
+          <figure class="card"><img src="img/photo3.jpg" alt="Live 1" loading="lazy"><figcaption class="muted">Live 1</figcaption></figure>
+          <figure class="card"><img src="img/photo4.jpg" alt="Live 2" loading="lazy"><figcaption class="muted">Live 2</figcaption></figure>
+        </div>
+        <p class="muted">Replace the <code>img/*.jpg</code> paths with your photos. Suggested width &ge; 1600px.</p>
+      </section>
+
+      <section id="people">
+        <h2>People</h2>
+        <article class="card" id="bio-maria">
+          <h3>Maria Isolina Cozzani</h3>
+          <p>Maria Isolina Cozzani (Ludwigsburg, 1994) is a violinist and creative living in the Netherlands. She graduated in violin and jazz violin at the conservatories of La Spezia and Genoa and subsequently earned a Master of Music at the ArtEZ University of the Arts with a research project in the field of free improvisation and performance, culminating in the production of the performance <em>ISLN&ndash;Geography of sounds, shapeshifting multiplicities</em> in June 2023.</p>
+          <p>She is involved in several projects between the Netherlands, Italy, and Spain. With her Trio Lavish, an ensemble between jazz, free improv, and chamber music, she recently won the Erasmus Jazz Prijs 2023. In her duo O.P.M.L., she is engaged in producing installations/performances with a particular focus on microtonal research. With the Edera trio, she will release the eponymous album <em>Edera</em> in the spring of 2024.</p>
+        </article>
+        <article class="card" id="bio-matteo">
+          <h3>Matteo Traverso</h3>
+          <p>Matteo Traverso is a digital sound artist born in Santa Margherita Ligure (Italy) and currently based in Arnhem (Netherlands). He has participated and performed in various venues and festivals of digital arts, electronic and avant-garde music and sound art with his works in Italy, Spain, Germany and the Netherlands (MA/IN, Etherea, Paganini Festival, Suoni in cammino, Resid&egrave;ncia d'Investigaci&oacute; de M&uacute;sica contempor&agrave;nia, Connecting the dots).</p>
+          <p>His artistic research revolves around themes such as the use of technology as a mirror of the human being, the environmental sustainability of performances and the relationship between man, nature and technology, and digital media as a new tool for metaphysical inquiry.</p>
+        </article>
+      </section>
+
+      <section class="legal" id="impressum">
+        <h2>Impressum</h2>
+        <p>Responsible for this website: Maria Isolina Cozzani, Köln (DE). Contact via email above.</p>
+      </section>
+
+      <section class="legal" id="privacy">
+        <h2>Privacy</h2>
+        <p>This site uses no cookies and no trackers. External media links open on their platforms. If you embed third‑party players, add a cookie banner and a proper privacy policy.</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>© <span id="y"></span> Maria Isolina Cozzani</p>
+    </footer>
+  </div>
+
+  <script>
+    // Year in footer
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // ===== Simple router (#work/<slug>) and gallery builder =====
+    const worksSection = document.querySelector('#works');
+    const detail = document.querySelector('#work-detail');
+    const thumbsWrap = document.getElementById('thumbs');
+
+    function getYouTubeThumb(id){ return `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }
+
+    function buildThumb(article){
+      const id = article.id; const title = article.dataset.title || id;
+      let thumbURL = '';
+      let badge = '';
+      if(article.dataset.yt){ thumbURL = getYouTubeThumb(article.dataset.yt); badge = 'YouTube'; }
+      else if(article.dataset.vimeo){ thumbURL = ''; badge = 'Vimeo'; }
+      else if(article.dataset.drive){ thumbURL = ''; badge = 'Drive'; }
+
+      const a = document.createElement('a');
+      a.href = `#work/${id}`; a.className = 'thumb'; a.setAttribute('aria-label', title);
+
+      if(thumbURL){
+        const img = document.createElement('img');
+        img.className = 'poster'; img.loading = 'lazy'; img.decoding = 'async'; img.src = thumbURL; img.alt = '';
+        a.appendChild(img);
+      } else {
+        const ph = document.createElement('div'); ph.className = 'poster';
+        ph.style.background = 'linear-gradient(135deg, rgba(126,227,255,0.15), rgba(181,166,255,0.15))';
+        a.appendChild(ph);
+      }
+
+      const overlay = document.createElement('div'); overlay.className = 'overlay';
+      const t = document.createElement('div'); t.className = 't'; t.textContent = title;
+      const play = document.createElement('div'); play.className = 'play';
+      const b = document.createElement('div'); b.className = 'badge'; b.textContent = badge || 'Media';
+      overlay.appendChild(t); overlay.appendChild(b);
+      a.appendChild(play); a.appendChild(overlay);
+      return a;
+    }
+
+    function buildGallery(){
+      thumbsWrap.innerHTML = '';
+      const articles = worksSection.querySelectorAll('article');
+      articles.forEach(a => thumbsWrap.appendChild(buildThumb(a)));
+    }
+
+    function createEmbedFromDataset(ds){
+      if(ds.yt){
+        const id = ds.yt;
+        const url = `https://www.youtube-nocookie.com/embed/${id}`;
+        const div = document.createElement('div'); div.className = 'embed';
+        div.innerHTML = `<iframe src="${url}" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        return div;
+      }
+      if(ds.vimeo){
+        const id = ds.vimeo;
+        const url = `https://player.vimeo.com/video/${id}?dnt=1&byline=0&portrait=0`;
+        const div = document.createElement('div'); div.className = 'embed';
+        div.innerHTML = `<iframe src="${url}" title="Vimeo video" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+        return div;
+      }
+      if(ds.drive){
+        const id = ds.drive;
+        const url = `https://drive.google.com/file/d/${id}/preview`;
+        const div = document.createElement('div'); div.className = 'embed';
+        div.innerHTML = `<iframe src="${url}" title="Drive preview"></iframe>`;
+        return div;
+      }
+      return null;
+    }
+
+    function showHome(){
+      document.body.classList.remove('is-detail');
+      detail.setAttribute('hidden',''); detail.innerHTML = '';
+      window.scrollTo({top:0, behavior:'instant'});
+    }
+
+    function showWork(slug){
+      const article = document.getElementById(slug);
+      if(!article){ showHome(); return; }
+      document.body.classList.add('is-detail');
+      detail.removeAttribute('hidden');
+      const clone = article.cloneNode(true);
+      // Prepend embed if available
+      const emb = createEmbedFromDataset(article.dataset);
+      detail.innerHTML = `<a href="#" class="back">← All works</a>`;
+      if(emb) detail.appendChild(emb);
+      detail.appendChild(clone);
+      window.scrollTo({top:0, behavior:'instant'});
+    }
+
+    function handleRoute(){
+      const h = decodeURIComponent(location.hash || '');
+      const m = h.match(/^#work\/(.+)$/);
+      if(m){ showWork(m[1]); }
+      else { showHome(); }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => { buildGallery(); handleRoute(); });
+    window.addEventListener('hashchange', handleRoute);
+
+    // ====== Background particle field (subtle, mouse-attracted + linking lines) ======
+    (function(){
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const canvas = document.getElementById('fx');
+      if(!canvas || reduce) return;
+      const ctx = canvas.getContext('2d');
+      const DPR = Math.min(window.devicePixelRatio || 1, 2);
+      let W = 0, H = 0; let particles = []; let frameId = null;
+      const root = document.documentElement;
+
+      const MAX = Math.min(120, Math.round((window.innerWidth*window.innerHeight)/18000));
+      const LINES = innerWidth >= 720;               // draw connection lines only on wider screens
+      const LINK = 120 * DPR;                        // max link distance
+      const mouse = {x:0, y:0, t:0};
+
+      function resize(){
+        W = canvas.width = Math.floor(innerWidth*DPR);
+        H = canvas.height = Math.floor(innerHeight*DPR);
+        canvas.style.width = innerWidth+'px';
+        canvas.style.height = innerHeight+'px';
+        ctx.globalCompositeOperation = 'lighter';
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      function rnd(a,b){ return a + Math.random()*(b-a); }
+      function make(){
+        particles = new Array(MAX).fill(0).map(()=>({
+          x: rnd(0,W), y: rnd(0,H),
+          vx: rnd(-0.08,0.08)*DPR, vy: rnd(-0.08,0.08)*DPR,
+          r: rnd(0.6,1.8)*DPR,
+          c1: '126,227,255', // icy cyan
+          c2: '181,166,255', // lavender
+          bias: Math.random()<0.6 ? 1 : 2
+        }));
+      }
+      make();
+
+      function drawLinks(){
+        if(!LINES) return;
+        for(let i=0;i<particles.length;i++){
+          const p = particles[i];
+          for(let j=i+1;j<particles.length;j++){
+            const q = particles[j];
+            const dx = p.x - q.x; const dy = p.y - q.y; const d2 = dx*dx + dy*dy;
+            if(d2 < LINK*LINK){
+              const d = Math.sqrt(d2) || 1;
+              let a = 1 - (d / LINK); // 0..1
+              a *= 0.18;              // soften opacity
+              ctx.strokeStyle = `rgba(${i%2?p.c1:p.c2},${a})`;
+              ctx.lineWidth = Math.max(0.4*DPR*a, 0.1);
+              ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+            }
+          }
+        }
+      }
+
+      function step(){
+        ctx.clearRect(0,0,W,H);
+        const now = performance.now();
+        const active = (now - mouse.t) < 1400; // attract for 1.4s after move
+
+        // update motion
+        for(let p of particles){
+          if(active){
+            const dx = mouse.x - p.x; const dy = mouse.y - p.y;
+            const d2 = dx*dx + dy*dy; if(d2 < (220*DPR)*(220*DPR)){
+              const d = Math.sqrt(d2) || 1; const f = (1.8*DPR) / d; // gentle pull
+              p.vx += f*dx; p.vy += f*dy;
+            }
+          }
+          p.x += p.vx; p.y += p.vy;
+          p.vx *= 0.985; p.vy *= 0.985;
+          if(p.x < -5) p.x = W+5; else if(p.x > W+5) p.x = -5;
+          if(p.y < -5) p.y = H+5; else if(p.y > H+5) p.y = -5;
+        }
+
+        // links first, then particles (for glow layering)
+        drawLinks();
+        for(let p of particles){
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(${p.bias===1?p.c1:p.c2},${p.bias===1?0.22:0.15})`;
+          ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fill();
+        }
+        frameId = requestAnimationFrame(step);
+      }
+      frameId = requestAnimationFrame(step);
+
+      function onMove(e){
+        const x = (e.touches? e.touches[0].clientX : e.clientX) * DPR;
+        const y = (e.touches? e.touches[0].clientY : e.clientY) * DPR;
+        mouse.x = x; mouse.y = y; mouse.t = performance.now();
+      }
+      window.addEventListener('mousemove', onMove, {passive:true});
+      window.addEventListener('touchmove', onMove, {passive:true});
+
+      // Parallax: update CSS var --scroll with rAF throttle
+      let scrollPending = false;
+      function onScroll(){
+        if(scrollPending) return; scrollPending = true;
+        requestAnimationFrame(()=>{ root.style.setProperty('--scroll', String(window.scrollY||0)); scrollPending = false; });
+      }
+      window.addEventListener('scroll', onScroll, {passive:true});
+      onScroll();
+
+      document.addEventListener('visibilitychange', ()=>{
+        if(document.hidden){ cancelAnimationFrame(frameId); }
+        else { frameId = requestAnimationFrame(step); }
+      });
+    })();
+  </script>
+</body>
+</html>
