@@ -4,11 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>maria isolina cozzani — portfolio</title>
-  <meta name="description" content="violinist, composer-performer, multimedia artist. works, bio, where, contact." />
+  <meta name="description" content="violinist, composer-performer, multimedia artist. works, bio, contact." />
   
   <!-- SEO & Social Meta -->
   <meta property="og:title" content="Maria Isolina Cozzani - Violinist, Composer-Performer, Multimedia Artist">
-  <meta property="og:description" content="Portfolio of Maria Isolina Cozzani - works, bio, exhibitions and contact information">
+  <meta property="og:description" content="Portfolio of Maria Isolina Cozzani - works, bio, contact information">
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
@@ -60,6 +60,46 @@
       font-kerning: normal;
       font-variant-ligatures: common-ligatures;
       transition: background-color 0.3s ease, color 0.3s ease;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Violin background animation */
+    .violin-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .floating-violin {
+      position: absolute;
+      font-size: 24px;
+      opacity: 0.1;
+      animation: floatViolin linear infinite;
+      filter: grayscale(1);
+    }
+
+    @keyframes floatViolin {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      25% {
+        transform: translate(100px, 50px) rotate(90deg);
+      }
+      50% {
+        transform: translate(200px, -30px) rotate(180deg);
+      }
+      75% {
+        transform: translate(100px, 80px) rotate(270deg);
+      }
+      100% {
+        transform: translate(0, 0) rotate(360deg);
+      }
     }
 
     a {
@@ -79,6 +119,9 @@
       max-width: var(--max);
       margin: 0 auto;
       padding: 28px 18px;
+      position: relative;
+      z-index: 1;
+      background: var(--bg);
     }
 
     header {
@@ -176,6 +219,8 @@
       background: var(--bg);
       border: 1px solid var(--border);
       transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      position: relative;
+      z-index: 1;
     }
 
     .card:hover {
@@ -414,7 +459,7 @@
     }
 
     /* Performance optimizations */
-    #works-data, #bio, #where, #contact {
+    #works-data, #bio, #contact {
       content-visibility: auto;
       contain-intrinsic-size: 1px 1000px;
     }
@@ -442,17 +487,23 @@
       .card {
         padding: 12px;
       }
+
+      .floating-violin {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Violin background animation -->
+  <div class="violin-bg" id="violinBackground"></div>
+
   <div class="wrap">
     <header>
       <h1>maria isolina cozzani</h1>
       <nav aria-label="primary">
         <a href="#works">works</a>
         <a href="#bio">bio</a>
-        <a href="#where">where</a>
         <a href="#contact">contact</a>
       </nav>
     </header>
@@ -478,14 +529,6 @@
             <p>Alongside artistic work, Maria is active as an educator and as a project manager. In 2025 she coordinated the interdisciplinary project week <em>Connecting the Dots</em> at ArtEZ University of the Arts, leading planning and delivery for ~40 Master students across departments, guest-lecturer scheduling, rooming and documentation.</p>
           </div>
         </div>
-      </section>
-
-      <section id="where" hidden>
-        <h2>where</h2>
-        <ul>
-          <li><strong>17 Jan 2026</strong> — Concert, Rathaussaal Xanten — tbc.</li>
-          <li><strong>16 Jan 2026</strong> — Concert, Immanuelskirche Wuppertal — tbc.</li>
-        </ul>
       </section>
 
       <section id="contact" hidden>
@@ -712,6 +755,69 @@
     'solo-livingroom': 'assets/livingroom.jpg'
   };
 
+  // Violin background animation
+  function createViolinBackground() {
+    const violinBg = document.getElementById('violinBackground');
+    const violinCount = 12;
+    
+    for (let i = 0; i < violinCount; i++) {
+      const violin = document.createElement('div');
+      violin.className = 'floating-violin';
+      violin.innerHTML = '🎻';
+      
+      // Random starting position
+      const startX = Math.random() * 100;
+      const startY = Math.random() * 100;
+      
+      // Random animation duration and delay
+      const duration = 20 + Math.random() * 40; // 20-60 seconds
+      const delay = Math.random() * 20; // 0-20 seconds delay
+      
+      // Random movement pattern
+      const moveX1 = (Math.random() - 0.5) * 200;
+      const moveY1 = (Math.random() - 0.5) * 200;
+      const moveX2 = (Math.random() - 0.5) * 200;
+      const moveY2 = (Math.random() - 0.5) * 200;
+      const moveX3 = (Math.random() - 0.5) * 200;
+      const moveY3 = (Math.random() - 0.5) * 200;
+      
+      violin.style.left = `${startX}%`;
+      violin.style.top = `${startY}%`;
+      violin.style.animationDuration = `${duration}s`;
+      violin.style.animationDelay = `${delay}s`;
+      violin.style.fontSize = `${16 + Math.random() * 24}px`; // 16-40px
+      violin.style.opacity = `${0.05 + Math.random() * 0.1}`; // 0.05-0.15 opacity
+      
+      // Custom keyframes for each violin
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes floatViolin${i} {
+          0% {
+            transform: translate(0, 0) rotate(0deg);
+          }
+          25% {
+            transform: translate(${moveX1}px, ${moveY1}px) rotate(90deg);
+          }
+          50% {
+            transform: translate(${moveX2}px, ${moveY2}px) rotate(180deg);
+          }
+          75% {
+            transform: translate(${moveX3}px, ${moveY3}px) rotate(270deg);
+          }
+          100% {
+            transform: translate(0, 0) rotate(360deg);
+          }
+        }
+        .floating-violin:nth-child(${i + 1}) {
+          animation-name: floatViolin${i};
+        }
+      `;
+      document.head.appendChild(style);
+      
+      violinBg.appendChild(violin);
+    }
+  }
+
   // Get YouTube thumbnail URL
   function getYouTubeThumb(id) {
     return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
@@ -894,9 +1000,9 @@
     });
   }
 
-  // Show top-level section (works, bio, where, contact)
+  // Show top-level section (works, bio, contact)
   function showTop(section) {
-    ['works', 'bio', 'where', 'contact'].forEach(id => {
+    ['works', 'bio', 'contact'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.hidden = (id !== section);
     });
@@ -949,7 +1055,7 @@
     }
     
     const sec = h.replace('#', '');
-    if (['bio', 'where', 'contact', 'works'].includes(sec)) {
+    if (['bio', 'contact', 'works'].includes(sec)) {
       showTop(sec);
     } else {
       showTop('works');
@@ -961,7 +1067,7 @@
     document.querySelectorAll('nav a[href^="#"]').forEach(a => {
       a.addEventListener('click', (e) => {
         const target = a.getAttribute('href').slice(1);
-        if (['bio', 'where', 'contact', 'works'].includes(target)) {
+        if (['bio', 'contact', 'works'].includes(target)) {
           e.preventDefault();
           history.replaceState(null, '', `#${target}`);
           showTop(target);
@@ -998,6 +1104,7 @@
 
   // Initialize everything when DOM is ready
   document.addEventListener('DOMContentLoaded', () => {
+    createViolinBackground();
     buildGallery();
     handleRoute();
     initNavInstant();
