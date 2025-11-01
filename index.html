@@ -238,11 +238,17 @@
       <section id="works-data" hidden>
 
         <!-- what is left, what there grows -->
-        $1<p>“what is left, what there grows” is a self-reactive environment composed of sound, immersive multi-channel audio (4–8 channels), upcycled trash speakers, small robots, and obsolete or broken technological remains—motherboards, wires, machine parts. Although over 90% of the installation is built from discarded or recycled materials, the experience it offers is one of vitality, regeneration, and ongoing transformation—whether driven by internal desire or external intervention.</p>
+        <article class="card" id="what-is-left" data-title="what is left, what there grows"
+                 data-embed="eager"
+                 data-poster="assets/what-is-left-cover.jpg"
+                 data-drive="1PxZBF0uUqdAcqpShlq9IUOrqWa6HcPv5">
+          <h3><em>what is left, what there grows</em> (2025)</h3>
+          <p class="muted">Finalist at MA/IN Matera Intermedia Festival 2025.</p>
+          <p>“what is left, what there grows” is a self-reactive environment composed of sound, immersive multi-channel audio (4–8 channels), upcycled trash speakers, small robots, and obsolete or broken technological remains—motherboards, wires, machine parts. Although over 90% of the installation is built from discarded or recycled materials, the experience it offers is one of vitality, regeneration, and ongoing transformation—whether driven by internal desire or external intervention.</p>
           <p>The installation evokes a kind of natural ritual in which the Anthropocene compresses geological eras, accelerating fossil formation through human waste. Decades of technological residue converge, reshaping sound, air, shadow, and perception, exposing a fractured sense of detachment from our consumer responsibilities.</p>
           <p>This is a fragile, eroded, yet vibrant environment in constant flux. All elements—robots, sound structures, speakers—listen and respond to one another; the system is entirely audio-reactive, including its interaction with the audience. The presence of living, reactive technology gives the impression of stepping into a sacred terrain, made of a new kind of nature—where even stepping over a cable or past a tiny machine feels intrusive.</p>
           <p>The installation sustains a delicate balance. It no longer needs the human, and barely welcomes them—except as careful listener, as silent observer.</p>
-          $3
+          <p><strong>Media:</strong> <a href="https://drive.google.com/file/d/1PxZBF0uUqdAcqpShlq9IUOrqWa6HcPv5/preview" target="_blank" rel="noopener">Video (Drive)</a></p>
         </article>
 
         <!-- Artemide (videos now lazy via data-yt-list; iframes removed for performance) -->
@@ -651,6 +657,12 @@
         const node = buildThumb(el);
         const img = node.querySelector('img.poster');
         return !!img; // src will be resolved relative to baseURI
+      })());
+
+      // T4: Thumbnail for what-is-left exists (after buildGallery)
+      results.push((() => {
+        const link = document.querySelector('#thumbs a[href="#work/what-is-left"]');
+        return !!link;
       })());
 
       const passed = results.filter(Boolean).length;
