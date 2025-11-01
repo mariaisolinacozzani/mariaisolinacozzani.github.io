@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>maria isolina cozzani — portfolio</title>
   <meta name="description" content="violinist, composer-performer, multimedia artist. works, bio, where, contact." />
+  <!-- Preconnects for faster handshakes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.youtube-nocookie.com">
+  <link rel="preconnect" href="https://player.vimeo.com">
   <!-- Lighter font payload: only 2 families, limited weights -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 
@@ -55,9 +60,8 @@
 
     /* ===== GALLERY (works thumbnails) ===== */
     #gallery{margin-top:6px}
-    .thumbs{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; justify-content:start; justify-items:stretch }
-    @media (min-width:640px){ .thumbs{grid-template-columns:repeat(3,1fr)} }
-    @media (min-width:980px){ .thumbs{grid-template-columns:repeat(4,1fr)} }
+    /* Fluid grid: fill the full width with as many columns as fit */
+    .thumbs{ display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:14px; justify-content:start; justify-items:stretch }
 
     .thumb{ position:relative; display:block; border-radius:8px; overflow:hidden; background:#fff; border:1px solid var(--border); transition: transform .18s ease, border-color .18s ease, filter .18s ease }
     .thumb .poster{ aspect-ratio:16/9; width:100%; object-fit:cover; display:block; filter:grayscale(.15) contrast(1.05) }
@@ -135,6 +139,9 @@
     @media (min-width:720px){ .photo-grid, .media-grid{ grid-template-columns:repeat(3,1fr) } }
     .photo-grid img, .media-grid img{ width:100%; height:100%; object-fit:cover; border-radius:8px; border:1px solid var(--border); }
     .media-grid .span-3{ grid-column:1/-1 }
+
+    /* Performance: avoid work for offscreen sections */
+    #works-data, #bio, #where, #contact { content-visibility: auto; contain-intrinsic-size: 1px 1000px; }
 
     /* Disable heavy effects on mobile & in detail view */
     @media (max-width: 820px){
@@ -225,12 +232,12 @@
 
           <!-- six photos (order requested) -->
           <div class="photo-grid">
-            <img src="assets/artemide_6.jpg" alt="artemide photo 6" loading="lazy" decoding="async">
-            <img src="assets/artemide_3.jpg" alt="artemide photo 3" loading="lazy" decoding="async">
-            <img src="assets/artemide_4.jpg" alt="artemide photo 4" loading="lazy" decoding="async">
-            <img src="assets/artemide_2.jpg" alt="artemide photo 2" loading="lazy" decoding="async">
-            <img src="assets/artemide_1.jpg" alt="artemide photo 1" loading="lazy" decoding="async">
-            <img src="assets/artemide_5.jpg" alt="artemide photo 5" loading="lazy" decoding="async">
+            <img src="assets/artemide_6.jpg" alt="artemide photo 6" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide_3.jpg" alt="artemide photo 3" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide_4.jpg" alt="artemide photo 4" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide_2.jpg" alt="artemide photo 2" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide_1.jpg" alt="artemide photo 1" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide_5.jpg" alt="artemide photo 5" loading="lazy" decoding="async" width="800" height="450">
           </div>
         </article>
 
@@ -269,11 +276,11 @@
 
           <!-- mini gallery: hero cover + 4 photos -->
           <div class="media-grid">
-            <img class="span-3" src="assets/SM4830_cover%204000x4000px.jpg" alt="Exoplanet cover" loading="lazy" decoding="async">
-            <img src="assets/DSC_4362.jpg" alt="Inopia live 1" loading="lazy" decoding="async">
-            <img src="assets/DSC_4403.jpg" alt="Inopia live 2" loading="lazy" decoding="async">
-            <img src="assets/DSC_4930.jpg" alt="Inopia live 3" loading="lazy" decoding="async">
-            <img src="assets/unbenannt-8811.jpg" alt="Inopia portrait blurred" loading="lazy" decoding="async">
+            <img class="span-3" src="assets/SM4830_cover%204000x4000px.jpg" alt="Exoplanet cover" loading="lazy" decoding="async" width="1600" height="900">
+            <img src="assets/DSC_4362.jpg" alt="Inopia live 1" loading="lazy" decoding="async" width="800" height="533">
+            <img src="assets/DSC_4403.jpg" alt="Inopia live 2" loading="lazy" decoding="async" width="800" height="533">
+            <img src="assets/DSC_4930.jpg" alt="Inopia live 3" loading="lazy" decoding="async" width="800" height="533">
+            <img src="assets/unbenannt-8811.jpg" alt="Inopia portrait blurred" loading="lazy" decoding="async" width="800" height="533">
           </div>
         </article>
 
@@ -482,7 +489,7 @@
     const container = document.getElementById('float-words');
     if(!container) return;
     container.innerHTML = '';
-    const words = ['violinist','composer\u2009-performer','multimedia artist'];
+    const words = ['violinist','composer -performer','multimedia artist'];
     const count = words.length;
 
     let floats = [];
