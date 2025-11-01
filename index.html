@@ -780,49 +780,15 @@
       const startY = Math.random() * 100;
       
       // Random animation duration and delay
-      const duration = 20 + Math.random() * 40; // 20-60 seconds
-      const delay = Math.random() * 20; // 0-20 seconds delay
-      
-      // Random movement pattern
-      const moveX1 = (Math.random() - 0.5) * 200;
-      const moveY1 = (Math.random() - 0.5) * 200;
-      const moveX2 = (Math.random() - 0.5) * 200;
-      const moveY2 = (Math.random() - 0.5) * 200;
-      const moveX3 = (Math.random() - 0.5) * 200;
-      const moveY3 = (Math.random() - 0.5) * 200;
+      const duration = 20 + Math.random() * 40;
+      const delay = Math.random() * 20;
       
       violin.style.left = `${startX}%`;
       violin.style.top = `${startY}%`;
       violin.style.animationDuration = `${duration}s`;
       violin.style.animationDelay = `${delay}s`;
-      violin.style.fontSize = `${16 + Math.random() * 24}px`; // 16-40px
-      violin.style.opacity = `${0.05 + Math.random() * 0.1}`; // 0.05-0.15 opacity
-      
-      // Custom keyframes for each violin
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes floatViolin${i} {
-          0% {
-            transform: translate(0, 0) rotate(0deg);
-          }
-          25% {
-            transform: translate(${moveX1}px, ${moveY1}px) rotate(90deg);
-          }
-          50% {
-            transform: translate(${moveX2}px, ${moveY2}px) rotate(180deg);
-          }
-          75% {
-            transform: translate(${moveX3}px, ${moveY3}px) rotate(270deg);
-          }
-          100% {
-            transform: translate(0, 0) rotate(360deg);
-          }
-        }
-        .floating-violin:nth-child(${i + 1}) {
-          animation-name: floatViolin${i};
-        }
-      `;
-      document.head.appendChild(style);
+      violin.style.fontSize = `${16 + Math.random() * 24}px`;
+      violin.style.opacity = `${0.05 + Math.random() * 0.1}`;
       
       violinBg.appendChild(violin);
     }
@@ -830,10 +796,10 @@
 
   // Get YouTube thumbnail URL
   function getYouTubeThumb(id) {
-    return \`https://img.youtube.com/vi/\${id}/hqdefault.jpg\`;
+    return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
   }
 
-  // Build thumbnail element for gallery (prefer data-poster, then override, then YouTube)
+  // Build thumbnail element for gallery
   function buildThumb(article) {
     const id = article.id;
     const title = article.dataset.title || id;
@@ -841,11 +807,7 @@
 
     // 1) Prefer the article's own poster
     if (article.dataset.poster) {
-      try {
-        thumbURL = new URL(article.dataset.poster, document.baseURI).href;
-      } catch (e) {
-        thumbURL = article.dataset.poster;
-      }
+      thumbURL = article.dataset.poster;
     }
 
     // 2) If still empty, use an override
@@ -860,7 +822,7 @@
     }
 
     const a = document.createElement('a');
-    a.href = \`#work/\${id}\`;
+    a.href = `#work/${id}`;
     a.className = 'thumb';
     a.setAttribute('aria-label', title);
 
@@ -870,35 +832,6 @@
       img.loading = 'lazy';
       img.decoding = 'async';
       img.alt = title;
-      
-      img.onerror = () => {
-        // Try poster alternatives if provided
-        const altList = (article.dataset.posterAlts || '').split(',').map(s => s.trim()).filter(Boolean);
-        if (altList.length) {
-          const next = altList.shift();
-          article.dataset.posterAlts = altList.join(',');
-          img.src = next;
-          return;
-        }
-        
-        // Fallback to YouTube thumbnail(s)
-        if (article.dataset.yt) {
-          img.src = getYouTubeThumb(article.dataset.yt);
-          return;
-        }
-        if (article.dataset.ytList) {
-          img.src = getYouTubeThumb(article.dataset.ytList.split(',')[0].trim());
-          return;
-        }
-        
-        // Remove image and use placeholder
-        a.removeChild(img);
-        const ph = document.createElement('div');
-        ph.className = 'poster';
-        ph.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02))';
-        a.insertBefore(ph, a.firstChild);
-      };
-      
       img.src = thumbURL;
       a.appendChild(img);
     } else {
@@ -914,8 +847,9 @@
 
   // Build the gallery from works data
   function buildGallery() {
+    if (!thumbsWrap || !worksSection) return;
+    
     thumbsWrap.innerHTML = '';
-    if (!worksSection) return;
     
     const desiredOrder = [
       'violin-algorithm-duet', 'what-is-left', 'exoplanet', 'lavish-trio', 
@@ -925,9 +859,12 @@
     
     const orderMap = new Map(desiredOrder.map((id, i) => [id, i]));
     const articles = Array.from(worksSection.querySelectorAll('article'))
-      .sort((a, b) => (orderMap.get(a.id) ?? 9) - (orderMap.get(b.id) ?? 9));
+      .sort((a, b) => (orderMap.get(a.id) || 99) - (orderMap.get(b.id) || 99));
     
-    articles.forEach(a => thumbsWrap.appendChild(buildThumb(a)));
+    articles.forEach(a => {
+      const thumb = buildThumb(a);
+      if (thumb) thumbsWrap.appendChild(thumb);
+    });
   }
 
   // Create embed iframe for videos
@@ -937,14 +874,14 @@
     let url = '';
     
     if (kind === 'yt') {
-      url = \`https://www.youtube-nocookie.com/embed/\${id}\`;
-      div.innerHTML = \`<iframe loading="lazy" src="\${url}" title="\${title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>\`;
+      url = `https://www.youtube-nocookie.com/embed/${id}`;
+      div.innerHTML = `<iframe loading="lazy" src="${url}" title="${title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
     } else if (kind === 'vimeo') {
-      url = \`https://player.vimeo.com/video/\${id}?dnt=1&byline=0&portrait=0\`;
-      div.innerHTML = \`<iframe loading="lazy" src="\${url}" title="\${title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>\`;
+      url = `https://player.vimeo.com/video/${id}?dnt=1&byline=0&portrait=0`;
+      div.innerHTML = `<iframe loading="lazy" src="${url}" title="${title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
     } else if (kind === 'drive') {
-      url = \`https://drive.google.com/file/d/\${id}/preview\`;
-      div.innerHTML = \`<iframe loading="lazy" src="\${url}" title="\${title}"></iframe>\`;
+      url = `https://drive.google.com/file/d/${id}/preview`;
+      div.innerHTML = `<iframe loading="lazy" src="${url}" title="${title}"></iframe>`;
     }
     
     return div;
@@ -975,22 +912,6 @@
     
     if (entries.length === 0) return null;
 
-    // Special case: single media with poster but no inline images
-    if (entries.length === 1 && ds.poster && !article.querySelector('img')) {
-      const wrap = document.createElement('div');
-      wrap.className = 'detail-media-grid';
-      wrap.appendChild(createEmbedIframe(entries[0][0], entries[0][1], title));
-      
-      const img = document.createElement('img');
-      img.src = ds.poster;
-      img.alt = title;
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      wrap.appendChild(img);
-      
-      return wrap;
-    }
-
     // Multiple media entries
     const container = document.createElement('div');
     if (entries.length > 1) container.className = 'video-grid';
@@ -1006,7 +927,7 @@
   function setActiveNav(section) {
     document.querySelectorAll('nav a[href^="#"]').forEach(a => {
       a.removeAttribute('aria-current');
-      if (a.getAttribute('href') === \`#\${section}\`) a.setAttribute('aria-current', 'page');
+      if (a.getAttribute('href') === `#${section}`) a.setAttribute('aria-current', 'page');
     });
   }
 
@@ -1021,14 +942,16 @@
     const detailEl = document.getElementById('work-detail');
     
     if (detailEl) {
-      detailEl.setAttribute('hidden', '');
+      detailEl.hidden = true;
       detailEl.innerHTML = '';
     }
     
+    setActiveNav(section);
+    
+    // Scroll to top when switching sections
     if (section === 'works') {
       window.scrollTo(0, 0);
     }
-    setActiveNav(section);
   }
 
   // Show work detail view
@@ -1041,14 +964,14 @@
     
     document.body.classList.add('is-detail');
     const detailEl = document.getElementById('work-detail');
-    detailEl.removeAttribute('hidden');
-    detailEl.innerHTML = \`<a href="#works" class="back">← all works</a>\`;
+    detailEl.hidden = false;
+    detailEl.innerHTML = `<a href="#works" class="back">← all works</a>`;
 
     const media = createMediaBlock(article);
     if (media) detailEl.appendChild(media);
     
     const clone = article.cloneNode(true);
-    clone.removeAttribute('id'); // avoid duplicate IDs
+    clone.removeAttribute('id');
     detailEl.appendChild(clone);
     
     window.scrollTo(0, 0);
@@ -1056,7 +979,7 @@
 
   // Handle URL routing
   function handleRoute() {
-    const h = decodeURIComponent(location.hash || '#works');
+    const h = decodeURIComponent(window.location.hash || '#works');
     const m = h.match(/^#work\/(.+)$/);
     
     if (m) {
@@ -1079,25 +1002,9 @@
         const target = a.getAttribute('href').slice(1);
         if (['bio', 'contact', 'works'].includes(target)) {
           e.preventDefault();
-          history.replaceState(null, '', \`#\${target}\`);
+          window.history.replaceState(null, '', `#${target}`);
           showTop(target);
         }
-      });
-    });
-  }
-
-  // Initialize image fallbacks
-  function initImageFallbacks() {
-    document.querySelectorAll('img[data-fallbacks]').forEach(img => {
-      let list = (img.dataset.fallbacks || '').split(',').map(s => s.trim()).filter(Boolean);
-      if (!list.length) return;
-      
-      img.addEventListener('error', function onErr() {
-        if (!list.length) {
-          img.removeEventListener('error', onErr);
-          return;
-        }
-        img.src = list.shift();
       });
     });
   }
@@ -1118,7 +1025,6 @@
     buildGallery();
     handleRoute();
     initNavInstant();
-    initImageFallbacks();
     hardenExternalLinks();
   });
 
