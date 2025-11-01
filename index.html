@@ -503,7 +503,7 @@
           <strong>Machine listening, concatenative synthesis algorithm</strong> - Matteo Traverso<br>
           <strong>Concept</strong> - Maria Isolina Cozzani, Matteo Traverso</p>
           
-          <p>This piece is an improvised duo between violin and algorithm. During the first two minutes the violin improvises alone, providing the sound material. The algorithm’s playback is determined by the violin’s musical decisions. In the duet section, the two players influence each other—texturally and structurally.</p>
+          <p>This piece is an improvised duo between violin and algorithm. During the first two minutes the violin improvises alone, providing the sound material. The algorithm's playback is determined by the violin's musical decisions. In the duet section, the two players influence each other—texturally and structurally.</p>
           
           <p><strong>Video:</strong> <a href="https://youtu.be/dUpo4ffqWa8" target="_blank" rel="noopener">YouTube</a></p>
         </article>
@@ -587,6 +587,41 @@
           </div>
         </article>
 
+        <article class="card" id="edera" data-title="E D E R A"
+                 data-poster="assets/edera1.jpg">
+          <h3><em>E D E R A</em></h3>
+          <p>"Like ivy, which comes from the soil, grows on ruins and gives a new face to the past, the human being lives shaped by past experiences and knowledge; he welcomes the past with awareness to face the future."</p>
+          
+          <p>The suggestions of nostalgia and awareness of the past, originating from the decadence of the forts of Genoa, are the source of the aesthetics of the project Edera.</p>
+          
+          <h4>Aesthetics</h4>
+          <p>Imagine being on a hill, resting your feet on a ruined structure overlooking the sea, colliding with the wind and the rays of the sun. You watch the sunset color the sky red, hear the lapping of the waves in the distance, feel nostalgia and gratitude.</p>
+          <p>A dialogue is born between the individual (with his brevity and haste to live), the strong (slow to die like a secular tree) and the cyclical nature of sunset (a reflection of a time consumed but not yet concluded).</p>
+          <p>The sense of gratitude and nostalgia experienced strengthen the individual who becomes self-aware in relation to the time lived and the time to be lived, arriving at a fundamental conclusion: it is necessary to reconcile the past to face the future.</p>
+          
+          <h4>Music</h4>
+          <p>The harmonic language draws on contemporary jazz and the impressionist language of the early 1900s, creating nostalgic, ambiguous and poignant sounds; from a rhythmic point of view, the project plays on the coexistence of different meters and polyrhythms to give different faces to the meter and to the pulse.</p>
+          <p>The aforementioned dialogue translates into music with the improvisation through which the instruments take on the shapes of the interlocutors: the drums are the ground on which everything rests and from which the wind rises, the violin is air and light that gives shape and warmth, the guitar is the ivy, which is what comes from the past and thrives on it.</p>
+          
+          <p><strong>The project consists of:</strong><br>
+          Matteo Gherardi Vignolo, batteria<br>
+          Maria Isolina Cozzani, violino e violino baritono<br>
+          Luca Ambrosi, chitarra classica.</p>
+          
+          <p>I brani sono composti da Matteo Gherardi Vignolo e Maria Isolina Cozzani.</p>
+          
+          <p><strong>Listen:</strong> <a href="https://orcd.co/edera" target="_blank" rel="noopener">Streaming Platforms</a></p>
+          <p><strong>Links:</strong> 
+            <a href="https://www.instagram.com/edera_trees/" target="_blank" rel="noopener">Instagram</a>
+          </p>
+          
+          <div class="photo-grid">
+            <img src="assets/edera1.jpg" alt="Edera photo 1" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/edera2.jpg" alt="Edera photo 2" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/edera3.jpg" alt="Edera photo 3" loading="lazy" decoding="async" width="800" height="450">
+          </div>
+        </article>
+
         <article class="card" id="locked-outputs" data-title="locked:outputs" data-yt="LB4l8T4fsDM">
           <h3><em>locked:outputs</em> (2020)</h3>
           <p>Explorative video game by Cozzani, Traverso and De Negri created during the 2020 lockdown. Glitchy 3D models and original audio tracks packed into a navigable experience.</p>
@@ -628,7 +663,8 @@
     'artemide': 'assets/artemide_6.jpg',
     'exoplanet': 'assets/SM4830_cover%204000x4000px.jpg',
     'lavish-trio': 'assets/lavish-cover-1200.jpg',
-    'isln': 'assets/isln-cover-1200-1200.jpg'
+    'isln': 'assets/isln-cover-1200-1200.jpg',
+    'edera': 'assets/edera1.jpg'
   };
 
   // Get YouTube thumbnail URL
@@ -722,7 +758,7 @@
     
     const desiredOrder = [
       'violin-algorithm-duet', 'what-is-left', 'exoplanet', 'lavish-trio', 
-      'isln', 'artemide', 'locked-outputs', 
+      'isln', 'artemide', 'edera', 'locked-outputs',
       'studio-sul-plasma', 'steps-to-be-taken'
     ];
     
@@ -919,7 +955,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     buildGallery();
     handleRoute();
-    initNavInstant();
+    initNavInstant();is
     initImageFallbacks();
     hardenExternalLinks();
   });
