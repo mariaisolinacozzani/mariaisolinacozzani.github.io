@@ -14,7 +14,7 @@
   <style>
     :root{
       --txt:#0a0a0d; --bg:#fff; --muted:#5a5f66; --accent:#7ed321; --border:#e6e7ea;
-      --max:1440px; --radius:8px; --brand-pink:#ff4fd8;
+      --max:1440px; --radius:0px; --brand-pink:#ff4fd8;
       --font-base:'Source Sans 3', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       --font-heading:'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
@@ -36,13 +36,13 @@
     .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
 
     /* Cards */
-    .card{ padding:16px; border-radius:8px; background:#fff; border:1px solid var(--border) }
+    .card{ padding:16px; border-radius:0; background:#fff; border:1px solid var(--border) }
 
     /* ===== GALLERY ===== */
-    .thumbs{ display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:14px }
-    .thumb{ position:relative; display:block; border-radius:8px; overflow:hidden; background:#fff; border:1px solid var(--border); transition: transform .18s ease, border-color .18s ease }
-    .thumb .poster{ aspect-ratio:16/9; width:100%; object-fit:cover; display:block; filter:grayscale(.08) contrast(1.04) }
-    .thumb:hover{ transform: translateY(-2px); border-color: var(--brand-pink) }
+    .thumbs{ display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:16px }
+    .thumb{ position:relative; display:block; border-radius:0; overflow:hidden; background:#fff; border:1px solid var(--border); transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, filter .18s ease }
+    .thumb .poster{ aspect-ratio:16/9; width:100%; object-fit:cover; display:block; filter:grayscale(.08) contrast(1.04); transition: filter .18s ease; will-change: filter, transform }
+    .thumb:hover{ transform: translateY(-2px) scale(1.005); border-color: var(--brand-pink); box-shadow: 0 10px 26px rgba(255,79,216,.25), 0 0 0 2px rgba(255,79,216,.20), 0 0 28px rgba(255,79,216,.35) }
     .thumb:focus-visible{ outline:2px solid var(--brand-pink); outline-offset:2px }
 
     /* ===== DETAIL VIEW ===== */
@@ -57,14 +57,14 @@
     /* Detail: side-by-side media (embed + poster) */
     .detail-media-grid{ display:grid; grid-template-columns:1fr; gap:12px; margin-bottom:14px }
     @media (min-width:900px){ .detail-media-grid{ grid-template-columns:1fr 1fr } }
-    .detail-media-grid img{ width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:8px; border:1px solid var(--border); }
+    .detail-media-grid img{ width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:0; border:1px solid var(--border); }
 
     /* Media grids */
     .video-grid{ display:grid; grid-template-columns:1fr; gap:12px; margin:12px 0 }
     @media (min-width:820px){ .video-grid{ grid-template-columns:1fr 1fr } }
     .photo-grid, .media-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:10px 0 }
     @media (min-width:720px){ .photo-grid, .media-grid{ grid-template-columns:repeat(3,1fr) } }
-    .photo-grid img, .media-grid img{ width:100%; height:100%; object-fit:cover; border-radius:8px; border:1px solid var(--border); }
+    .photo-grid img, .media-grid img{ width:100%; height:100%; object-fit:cover; border-radius:0; border:1px solid var(--border); }
     .media-grid .span-3{ grid-column:1/-1 }
 
     /* BIO */
@@ -89,6 +89,12 @@
 
     /* Performance: don't render hidden sections offscreen */
     #works-data, #bio, #where, #contact { content-visibility: auto; contain-intrinsic-size: 1px 1000px; }
+      /* Hover glow on navigation */
+    nav a:hover{ text-shadow:0 0 8px rgba(255,79,216,.55), 0 0 18px rgba(255,79,216,.75) }
+    /* Slight color pop on headings */
+    .card h3:hover, h1:hover{ text-shadow:0 0 8px rgba(255,79,216,.35), 0 0 18px rgba(255,79,216,.45) }
+    /* Poster hover tweak for subtle pop */
+    .thumb:hover .poster{ filter:grayscale(0) contrast(1.08) saturate(1.12) }
   </style>
 </head>
 <body>
@@ -208,16 +214,16 @@
         <!-- ISLN: geography of sounds, shapeshifting multiplicities -->
         <article class="card" id="isln"
                  data-title="ISLN — geography of sounds, shapeshifting multiplicities"
+                 data-poster="assets/isln-cover.jpg"
                  data-yt-list="gFk8Gf295Xg, nQ2dfomDPyk, boeDsX6veuY">
           <h3><em>ISLN: geography of sounds, shapeshifting multiplicities</em> (2023)</h3>
           <p>In <em>ISLN — geography of sounds, shapeshifting multiplicities</em>, Maria Isolina Cozzani brings her master's research to the surface. ISLN enables an unexplored space and time for improvisation and takes place in an imaginary setting where the transposed laws of physics make room for renewed perspectives. A constellation of islands inhabited by sounding organisms describes a geography of sounds, a constellation of objects, entities, expressions, qualities, and territories that come together over time to ideally create new ways of functioning.</p>
           <p>This assemblage, by making countless and unexpected connections, creates an ecology, an entity out of it all, a shapeshifter made of organisms and sounds that bring people and ideas together. Created for a large ensemble of 17 improvising musicians, ISLN is an explorable, walk-through, live sounding installation/performance.</p>
           <p><strong>Concept:</strong> <a href="https://drive.google.com/file/d/1FS0cm8xwaXjvtb0ECSUtN845Y9qSDmga/view?usp=sharing" target="_blank" rel="noopener">Google Drive</a></p>
-          <p><strong>Outtakes of the performance:</strong>
-            <a href="https://youtu.be/gFk8Gf295Xg" target="_blank" rel="noopener">Clip 1</a> ·
-            <a href="https://youtu.be/nQ2dfomDPyk" target="_blank" rel="noopener">Clip 2</a> ·
-            <a href="https://youtu.be/boeDsX6veuY" target="_blank" rel="noopener">Clip 3</a>
-          </p>
+          
+          <div class="media-grid">
+            <img class="span-3" src="assets/isln-cover.jpg" alt="ISLN — geography of sounds poster" loading="lazy" decoding="async" width="1200" height="1700">
+          </div>
         </article>
 
         <!-- Artemide -->
@@ -278,7 +284,8 @@
   const POSTER_OVERRIDES = {
     artemide: 'assets/artemide_6.jpg',
     exoplanet: 'assets/SM4830_cover%204000x4000px.jpg',
-    'lavish-trio': 'assets/lavish-cover.jpg'
+    'lavish-trio': 'assets/lavish-cover.jpg',
+    isln: 'assets/isln-cover.jpg'
   };
 
   function getYouTubeThumb(id){ return `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }
@@ -306,13 +313,19 @@
       const img = document.createElement('img');
       img.className = 'poster'; img.loading = 'lazy'; img.decoding = 'async'; img.alt = title;
       img.onerror = () => {
-        if(article.dataset.yt){ img.src = getYouTubeThumb(article.dataset.yt); }
-        else {
-          a.removeChild(img);
-          const ph = document.createElement('div'); ph.className = 'poster';
-          ph.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02))';
-          a.insertBefore(ph, a.firstChild);
+        // try poster-alts if provided on the <article>
+        const altList = (article.dataset.posterAlts || '').split(',').map(s=>s.trim()).filter(Boolean);
+        if (altList.length) {
+          const next = altList.shift();
+          article.dataset.posterAlts = altList.join(',');
+          img.src = next;
+          return;
         }
+        if(article.dataset.yt){ img.src = getYouTubeThumb(article.dataset.yt); return; }
+        a.removeChild(img);
+        const ph = document.createElement('div'); ph.className = 'poster';
+        ph.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02))';
+        a.insertBefore(ph, a.firstChild);
       };
       img.src = thumbURL;
       a.appendChild(img);
@@ -417,11 +430,24 @@
     });
   }
 
+  // Fallback loader for inline <img> with data-fallbacks
+  function initImageFallbacks(){
+    document.querySelectorAll('img[data-fallbacks]').forEach(img => {
+      let list = (img.dataset.fallbacks || '').split(',').map(s=>s.trim()).filter(Boolean);
+      if (!list.length) return;
+      img.addEventListener('error', function onErr(){
+        if (!list.length) { img.removeEventListener('error', onErr); return; }
+        img.src = list.shift();
+      });
+    });
+  }
+
   // Boot
   document.addEventListener('DOMContentLoaded', () => {
     buildGallery();
     handleRoute();
     initNavInstant();
+    initImageFallbacks();
   });
   window.addEventListener('hashchange', handleRoute);
   </script>
