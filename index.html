@@ -5,77 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>maria isolina cozzani — portfolio</title>
   <meta name="description" content="violinist, composer-performer, multimedia artist. works, bio, where, contact." />
-  <!-- Preconnects for faster handshakes -->
+
+  <!-- Fast + light: just the fonts we need -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://www.youtube-nocookie.com">
-  <link rel="preconnect" href="https://player.vimeo.com">
-  <link rel="preconnect" href="https://drive.google.com">
-  <!-- Lighter font payload: only 2 families, limited weights -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --txt:#0a0a0d;
-      --bg:#ffffff;
-      --muted:#5a5f66;
-      --accent:#7ed321;
-      --max:1440px;
+      --txt:#0a0a0d; --bg:#fff; --muted:#5a5f66; --accent:#7ed321; --border:#e6e7ea;
+      --max:1440px; --radius:8px; --brand-pink:#ff4fd8;
       --font-base:'Source Sans 3', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       --font-heading:'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      --radius:8px;
-      --border:#e6e7ea;
-      --brand-pink:#ff4fd8;
-      --pink-glow: rgba(255, 79, 216, 0.55);
-      --pink-glow-strong: rgba(255, 79, 216, 0.75);
-      --pink-soft:#ffd1f1;
-      --font-juicy: var(--font-base);
     }
-
     html{box-sizing:border-box; scroll-behavior:smooth}
     *,*::before,*::after{box-sizing:inherit}
     body{ margin:0; color:var(--txt); background:var(--bg); font:16px/1.7 var(--font-base); text-rendering:optimizeLegibility; }
     a{ color:var(--accent); text-decoration:none }
 
-    .wrap{position:relative; z-index:1; max-width:var(--max); margin: 0 auto; padding:28px 18px}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px}
     header{margin:8px 0 18px}
-    h1{font-family:var(--font-heading); font-size:28px; font-weight:700; letter-spacing:0.02em; margin:0 0 6px; color:var(--accent)}
-    nav{margin:14px 0 26px; font-family:var(--font-heading); letter-spacing:0.01em; font-weight:600}
-    nav a{margin:0 10px 0 0; white-space:nowrap; position:relative; color:var(--brand-pink); transition:color .25s ease, text-shadow .25s ease}
-    nav a::after{ content:""; position:absolute; left:0; bottom:-2px; height:2px; width:100%; background:var(--brand-pink); transform:scaleX(0); transform-origin:left; transition:transform .25s ease }
-    nav a:hover::after{ transform:scaleX(1) }
-    nav a:hover{ color:var(--brand-pink); text-shadow:0 0 8px var(--pink-glow), 0 0 18px var(--pink-glow-strong) }
-
-    main, #work-detail, #works, #bio, #where, #contact{ font-family: var(--font-base); }
-    main h2, main h3, #work-detail h3, .thumb .t{ font-family: var(--font-heading); letter-spacing:0.005em; }
+    h1{font-family:var(--font-heading); font-size:28px; font-weight:700; letter-spacing:.02em; margin:0 0 6px; color:var(--accent)}
+    nav{margin:14px 0 26px; font-family:var(--font-heading); letter-spacing:.01em; font-weight:600}
+    nav a{margin:0 10px 0 0; white-space:nowrap; color:var(--brand-pink)}
 
     main section{margin:38px 0}
-    h2{font-family:var(--font-heading); font-size:18px; margin:0 0 12px; color:var(--accent); letter-spacing:0.02em}
-    h3{font-family:var(--font-heading); font-size:16px; margin:0 0 8px; color:var(--txt); letter-spacing:0.02em}
+    h2{font-family:var(--font-heading); font-size:18px; margin:0 0 12px; color:var(--accent)}
+    h3{font-family:var(--font-heading); font-size:16px; margin:0 0 8px}
     .muted{color:var(--muted)}
     .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
 
     /* Cards */
     .card{ padding:16px; border-radius:8px; background:#fff; border:1px solid var(--border) }
-    .card:hover{ border-color:#c8c9cc }
 
-    /* ===== GALLERY (works thumbnails) ===== */
-    #gallery{margin-top:6px}
-    /* Fluid grid: fill the full width with as many columns as fit */
-    .thumbs{ display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:14px; justify-content:start; justify-items:stretch }
-
-    .thumb{ position:relative; display:block; border-radius:8px; overflow:hidden; background:#fff; border:1px solid var(--border); transition: transform .18s ease, border-color .18s ease, filter .18s ease }
-    .thumb .poster{ aspect-ratio:16/9; width:100%; object-fit:cover; display:block; filter:grayscale(.15) contrast(1.05) }
-    .thumb .overlay{position:absolute; inset:auto 0 0 0; display:flex; align-items:center; justify-content:flex-start; gap:8px; padding:8px 10px; background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%)}
-    .thumb .t{font:600 12px/1.2 var(--font-heading); letter-spacing:0.01em; color:#eef2f3}
-    .thumb .play{ position:absolute; left:8px; top:8px; width:26px; height:26px; border-radius:6px; border:1px solid var(--brand-pink); display:grid; place-items:center; background:rgba(255,79,216,0.10); }
-    .thumb .play:before{content:"▶"; font-size:11px; transform:translateX(1px)}
-    .thumb:hover{ transform: translateY(-2px) scale(1.005); border-color: var(--brand-pink); box-shadow: 0 10px 26px rgba(255, 79, 216, 0.25), 0 0 0 2px rgba(255, 79, 216, 0.20), 0 0 28px rgba(255, 79, 216, 0.35) }
-    .thumb:hover .poster{ filter:grayscale(0) contrast(1.08) saturate(1.15) }
+    /* ===== GALLERY ===== */
+    .thumbs{ display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:14px }
+    .thumb{ position:relative; display:block; border-radius:8px; overflow:hidden; background:#fff; border:1px solid var(--border); transition: transform .18s ease, border-color .18s ease }
+    .thumb .poster{ aspect-ratio:16/9; width:100%; object-fit:cover; display:block; filter:grayscale(.08) contrast(1.04) }
+    .thumb:hover{ transform: translateY(-2px); border-color: var(--brand-pink) }
     .thumb:focus-visible{ outline:2px solid var(--brand-pink); outline-offset:2px }
-    .thumb:hover .t{ text-shadow:0 0 6px rgba(0,0,0,0.35) }
-    .thumb:hover .play{ border-color: var(--brand-pink); background:rgba(255,79,216,0.15); box-shadow:0 0 0 2px rgba(255,79,216,0.18) inset }
-    @media (hover: none){ .thumb:hover{ box-shadow:none; transform:none; } }
 
     /* ===== DETAIL VIEW ===== */
     body.is-detail main > section:not(#work-detail){ display:none }
@@ -83,62 +51,29 @@
     #work-detail .back{ display:inline-block; margin:6px 0 16px; font-size:13px; color:var(--muted) }
     #work-detail .back:hover{ color:var(--txt) }
 
-    /* Actual iframe wrapper */
     .embed{ position:relative; padding-top:56.25%; border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); background:rgba(0,0,0,0.03); margin-bottom:14px }
     .embed iframe{ position:absolute; inset:0; width:100%; height:100%; border:0 }
 
-    /* Click-to-play placeholder (lighter than loading iframes immediately) */
-    .embed-button{ position:relative; padding-top:56.25%; border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); background:linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02)); margin-bottom:14px; display:block; width:100%; cursor:pointer }
-    .embed-button img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; filter:contrast(1.05) }
-    .embed-button .play{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:48px; height:48px; border-radius:12px; border:1px solid var(--brand-pink); display:grid; place-items:center; background:rgba(255,79,216,0.10); box-shadow:0 0 0 2px rgba(255,79,216,0.18) inset }
-    .embed-button .play::before{ content:"▶"; font-size:16px; transform:translateX(1px); color:var(--brand-pink) }
-    .embed-button:hover .play{ background:rgba(255,79,216,0.15) }
+    /* Detail: side-by-side media (embed + poster) */
+    .detail-media-grid{ display:grid; grid-template-columns:1fr; gap:12px; margin-bottom:14px }
+    @media (min-width:900px){ .detail-media-grid{ grid-template-columns:1fr 1fr } }
+    .detail-media-grid img{ width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:8px; border:1px solid var(--border); }
 
-    /* Contact: plain mail (not clickable) */
-    .contact-line{ display:inline-flex; align-items:center; gap:10px; font-weight:600; color:var(--txt); }
-    .icon-mail{ width:18px; height:18px; fill:var(--accent); }
+    /* Media grids */
+    .video-grid{ display:grid; grid-template-columns:1fr; gap:12px; margin:12px 0 }
+    @media (min-width:820px){ .video-grid{ grid-template-columns:1fr 1fr } }
+    .photo-grid, .media-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:10px 0 }
+    @media (min-width:720px){ .photo-grid, .media-grid{ grid-template-columns:repeat(3,1fr) } }
+    .photo-grid img, .media-grid img{ width:100%; height:100%; object-fit:cover; border-radius:8px; border:1px solid var(--border); }
+    .media-grid .span-3{ grid-column:1/-1 }
 
-    footer{margin:44px 0 12px; font-size:13px; color:var(--muted)}
-
-    /* Floating words (lighter; disabled on mobile below) */
-    #float-words{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden }
-    .float-word{ position:absolute; white-space:nowrap; font:700 clamp(18px, 3.2vw, 44px)/1 var(--font-heading);
-      color:transparent;
-      background: linear-gradient(180deg, #ffd9f4 0%, #ff9ce8 28%, #ff4fd8 55%, #ff38c9 72%, #ffd1f1 100%);
-      -webkit-background-clip:text; background-clip:text;
-      -webkit-text-stroke: 0.5px rgba(255, 79, 216, 0.25);
-      text-shadow: 0 1px 0 rgba(255,255,255,0.75), 0 8px 16px rgba(255,79,216,0.22), 0 0 28px rgba(255,79,216,0.32);
-      transform-origin:50% 50%;
-    }
-
-    /* Sparkles overlay (disabled on mobile below) */
-    #sparkles{ position:fixed; inset:0; pointer-events:none; z-index:2; mix-blend-mode:screen }
-    #sparkles .sp{ position:absolute; width:3px; height:3px; border-radius:50%;
-      background: radial-gradient(circle, rgba(255,255,255,.95) 0 40%, rgba(255,255,255,0) 60%);
-      filter: drop-shadow(0 0 9px rgba(255,79,216,.55)) drop-shadow(0 0 24px rgba(255,79,216,.35));
-      opacity:0; }
-    @keyframes sparkleBlink{ 0%,100%{opacity:0} 10%{opacity:1} 50%{opacity:.35} 90%{opacity:1} }
-    @keyframes sparkleDrift{ 0%{ transform:translate(0,0) } 100%{ transform:translate(var(--dx,0px), var(--dy,0px)) } }
-    @keyframes sparkleShine{ 0%,100%{ filter: drop-shadow(0 0 9px rgba(255,79,216,.45)) drop-shadow(0 0 22px rgba(255,79,216,.30)); } 50%{ filter: drop-shadow(0 0 14px rgba(255,79,216,.75)) drop-shadow(0 0 32px rgba(255,79,216,.50)); } }
-
-    /* Lighter paragraph font */
-    #work-detail .card p, #work-detail .card li, #bio p, #bio li{
-      font-family: var(--font-juicy);
-      font-size: 17px;
-      line-height: 1.8;
-      letter-spacing: 0.005em;
-    }
-    /* Bio smaller text override */
-    #bio p, #bio li{ font-size:15px; line-height:1.75; }
-    #work-detail .card p + p{ margin-top: 10px }
-
-    /* BIO layout: asymmetric + optional two columns */
+    /* BIO */
     #bio{ --aside: 260px; }
     #bio .bio-grid{ display:grid; grid-template-columns:1fr; gap:18px; align-items:start; }
     #bio .bio-aside h2{ margin:0 0 8px; }
     #bio .bio-aside .small{ font-size:12px; }
-    #bio .bio-content{ text-wrap:pretty; hanging-punctuation:first; }
-    #bio .bio-content p{ margin:0 0 12px; text-align:justify; hyphens:auto; orphans:2; widows:2; }
+    #bio .bio-content{ text-wrap:pretty; }
+    #bio .bio-content p{ margin:0 0 12px; text-align:justify; hyphens:auto; orphans:2; widows:2; font-size:15px; line-height:1.75; }
     @media (min-width:980px){
       #bio .bio-grid{ grid-template-columns: var(--aside) 1fr; gap:28px; }
       #bio .bio-aside{ position:sticky; top:18px; align-self:start; }
@@ -146,37 +81,17 @@
       #bio .bio-content p{ break-inside:avoid; }
     }
 
-    /* Media grids */
-    .video-grid{ display:grid; grid-template-columns:1fr; gap:12px; margin:12px 0 }
-    @media (min-width:820px){ .video-grid{ grid-template-columns:1fr 1fr } }
+    /* Contact: plain mail */
+    .contact-line{ display:inline-flex; align-items:center; gap:10px; font-weight:600; color:var(--txt); }
+    .icon-mail{ width:18px; height:18px; fill:var(--accent); }
 
-    .photo-grid, .media-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:10px 0 }
-    @media (min-width:720px){ .photo-grid, .media-grid{ grid-template-columns:repeat(3,1fr) } }
-    .photo-grid img, .media-grid img{ width:100%; height:100%; object-fit:cover; border-radius:8px; border:1px solid var(--border); }
-    .media-grid .span-3{ grid-column:1/-1 }
+    footer{margin:44px 0 12px; font-size:13px; color:var(--muted)}
 
-    /* Detail: side-by-side media (embed + poster) */
-    .detail-media-grid{ display:grid; grid-template-columns:1fr; gap:12px; margin-bottom:14px }
-    @media (min-width:900px){ .detail-media-grid{ grid-template-columns:1fr 1fr } }
-    .detail-media-grid .embed, .detail-media-grid .embed-button{ margin:0 }
-    .detail-media-grid img{ width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:8px; border:1px solid var(--border); }
-
-    /* Performance: avoid work for offscreen sections */
+    /* Performance: don't render hidden sections offscreen */
     #works-data, #bio, #where, #contact { content-visibility: auto; contain-intrinsic-size: 1px 1000px; }
-
-    /* Disable heavy effects on mobile & in detail view */
-    @media (max-width: 820px){
-      #sparkles, #float-words{ display:none !important; }
-    }
-    body.is-detail #sparkles,
-    body.is-detail #float-words{
-      display:none !important;
-    }
   </style>
 </head>
 <body>
-  <div id="float-words" aria-hidden="true"></div>
-
   <div class="wrap">
     <header>
       <h1>maria isolina cozzani</h1>
@@ -251,46 +166,6 @@
           <p><strong>Media:</strong> <a href="https://drive.google.com/file/d/1PxZBF0uUqdAcqpShlq9IUOrqWa6HcPv5/preview" target="_blank" rel="noopener">Video (Drive)</a></p>
         </article>
 
-        <!-- Artemide (videos now lazy via data-yt-list; iframes removed for performance) -->
-        <article class="card" id="artemide"
-                 data-title="Art&mide, Studio 1 — The evocation of Ἄρτεμις"
-                 data-poster="assets/artemide_6.jpg"
-                 data-yt-list="INTPUDO6-Bg, arRRCQIwIKg">
-          <h3><em>Art&mide, Studio 1 — The evocation of Ἄρτεμις</em> (2023)</h3>
-          <p><em>art&mide</em> is an installation/performance born from an idea of Maria Isolina Cozzani and subsequently developed by Maria Isolina Cozzani and Matteo Traverso. The current state of the work consists of an iterative audiovisual installation and a sound performance with generative / reactive video to movement &amp; audio.</p>
-
-          <!-- six photos (order requested) -->
-          <div class="photo-grid">
-            <img src="assets/artemide_6.jpg" alt="artemide photo 6" loading="lazy" decoding="async" width="800" height="450">
-            <img src="assets/artemide_3.jpg" alt="artemide photo 3" loading="lazy" decoding="async" width="800" height="450">
-            <img src="assets/artemide_4.jpg" alt="artemide photo 4" loading="lazy" decoding="async" width="800" height="450">
-            <img src="assets/artemide_2.jpg" alt="artemide photo 2" loading="lazy" decoding="async" width="800" height="450">
-            <img src="assets/artemide_1.jpg" alt="artemide photo 1" loading="lazy" decoding="async" width="800" height="450">
-            <img src="assets/artemide_5.jpg" alt="artemide photo 5" loading="lazy" decoding="async" width="800" height="450">
-          </div>
-        </article>
-
-        <!-- Steps to be taken in case of death -->
-        <article class="card" id="steps-to-be-taken" data-title="Steps to be taken in case of death:" data-vimeo="372936733" data-yt="PyPbwN7ewlA">
-          <h3><em>Steps to be taken in case of death:</em> (2019)</h3>
-          <p>2019 audio-video installation by Cozzani and Traverso, simulating a surgical operation on a violin in an operating theater. It merges visual, gestural, and sound elements, influenced by Cage and Lachenmann, creating a controlled environment where reality and fiction intermingle.</p>
-          <p><strong>Links:</strong> <a href="https://vimeo.com/372936733" target="_blank" rel="noopener">Trailer (Vimeo)</a> · <a href="https://youtu.be/PyPbwN7ewlA" target="_blank" rel="noopener">Full performance</a></p>
-        </article>
-
-        <!-- Studio sul plasma -->
-        <article class="card" id="studio-sul-plasma" data-title="Studio sul plasma" data-yt="o3UOTGCL5_Q">
-          <h3><em>Studio sul plasma</em> (2019)</h3>
-          <p>3D particles audio-reactive system emulating plasma behaviour; scratched violin sounds re-elaborated with filters and a moving particles system.</p>
-          <p><strong>Media:</strong> <a href="https://www.youtube.com/watch?v=o3UOTGCL5_Q&ab_channel=art%C3%A8r%C3%ACa" target="_blank" rel="noopener">YouTube</a></p>
-        </article>
-
-        <!-- locked:outputs -->
-        <article class="card" id="locked-outputs" data-title="locked:outputs" data-yt="LB4l8T4fsDM">
-          <h3><em>locked:outputs</em> (2020)</h3>
-          <p>Explorative video game by Cozzani, Traverso and De Negri created during the 2020 lockdown. Glitchy 3D models and original audio tracks packed into a navigable experience.</p>
-          <p><strong>Gameplay:</strong> <a href="https://www.youtube.com/watch?v=LB4l8T4fsDM&t=147s" target="_blank" rel="noopener">YouTube</a></p>
-        </article>
-
         <!-- Exoplanet — Inopia -->
         <article class="card" id="exoplanet" data-title="Exoplanet — Inopia"
                  data-poster="assets/SM4830_cover%204000x4000px.jpg">
@@ -302,8 +177,6 @@
             <a href="https://pascalburbach.bandcamp.com/album/exoplanet" target="_blank" rel="noopener">Bandcamp</a> ·
             <a href="https://www.instagram.com/inopiasound/" target="_blank" rel="noopener">@inopiasound</a>
           </p>
-
-          <!-- mini gallery: hero cover + 4 photos -->
           <div class="media-grid">
             <img class="span-3" src="assets/SM4830_cover%204000x4000px.jpg" alt="Exoplanet cover" loading="lazy" decoding="async" width="1600" height="900">
             <img src="assets/DSC_4362.jpg" alt="Inopia live 1" loading="lazy" decoding="async" width="800" height="533">
@@ -347,6 +220,44 @@
           </p>
         </article>
 
+        <!-- Artemide -->
+        <article class="card" id="artemide"
+                 data-title="Art&mide, Studio 1 — The evocation of Ἄρτεμις"
+                 data-poster="assets/artemide_6.jpg"
+                 data-yt-list="INTPUDO6-Bg, arRRCQIwIKg">
+          <h3><em>Art&mide, Studio 1 — The evocation of Ἄρτεμις</em> (2023)</h3>
+          <p><em>art&mide</em> is an installation/performance born from an idea of Maria Isolina Cozzani and subsequently developed by Maria Isolina Cozzani and Matteo Traverso. The current state of the work consists of an iterative audiovisual installation and a sound performance with generative / reactive video to movement &amp; audio.</p>
+          <div class="photo-grid">
+            <img src="assets/artemide_6.jpg" alt="artemide photo 6" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide_3.jpg" alt="artemide photo 3" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide_4.jpg" alt="artemide photo 4" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide_2.jpg" alt="artemide photo 2" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide_1.jpg" alt="artemide photo 1" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide_5.jpg" alt="artemide photo 5" loading="lazy" decoding="async" width="800" height="450">
+          </div>
+        </article>
+
+        <!-- locked:outputs -->
+        <article class="card" id="locked-outputs" data-title="locked:outputs" data-yt="LB4l8T4fsDM">
+          <h3><em>locked:outputs</em> (2020)</h3>
+          <p>Explorative video game by Cozzani, Traverso and De Negri created during the 2020 lockdown. Glitchy 3D models and original audio tracks packed into a navigable experience.</p>
+          <p><strong>Gameplay:</strong> <a href="https://www.youtube.com/watch?v=LB4l8T4fsDM&t=147s" target="_blank" rel="noopener">YouTube</a></p>
+        </article>
+
+        <!-- Studio sul plasma -->
+        <article class="card" id="studio-sul-plasma" data-title="Studio sul plasma" data-yt="o3UOTGCL5_Q">
+          <h3><em>Studio sul plasma</em> (2019)</h3>
+          <p>3D particles audio-reactive system emulating plasma behaviour; scratched violin sounds re-elaborated with filters and a moving particles system.</p>
+          <p><strong>Media:</strong> <a href="https://www.youtube.com/watch?v=o3UOTGCL5_Q&ab_channel=art%C3%A8r%C3%ACa" target="_blank" rel="noopener">YouTube</a></p>
+        </article>
+
+        <!-- Steps to be taken in case of death -->
+        <article class="card" id="steps-to-be-taken" data-title="Steps to be taken in case of death:" data-vimeo="372936733" data-yt="PyPbwN7ewlA">
+          <h3><em>Steps to be taken in case of death:</em> (2019)</h3>
+          <p>2019 audio-video installation by Cozzani and Traverso, simulating a surgical operation on a violin in an operating theater. It merges visual, gestural, and sound elements, influenced by Cage and Lachenmann, creating a controlled environment where reality and fiction intermingle.</p>
+          <p><strong>Links:</strong> <a href="https://vimeo.com/372936733" target="_blank" rel="noopener">Trailer (Vimeo)</a> · <a href="https://youtu.be/PyPbwN7ewlA" target="_blank" rel="noopener">Full performance</a></p>
+        </article>
+
       </section>
     </main>
 
@@ -358,18 +269,17 @@
   <script>
   'use strict';
 
-  // Posters override (stable thumbnails)
-  const POSTER_OVERRIDES = {
-    artemide: 'assets/artemide_6.jpg',
-    exoplanet: 'assets/SM4830_cover%204000x4000px.jpg',
-    'lavish-trio': 'assets/lavish-cover.jpg'
-  };
-
   document.getElementById('y').textContent = new Date().getFullYear();
 
   const worksSection = document.querySelector('#works-data');
   const detail = document.querySelector('#work-detail');
   const thumbsWrap = document.getElementById('thumbs');
+
+  const POSTER_OVERRIDES = {
+    artemide: 'assets/artemide_6.jpg',
+    exoplanet: 'assets/SM4830_cover%204000x4000px.jpg',
+    'lavish-trio': 'assets/lavish-cover.jpg'
+  };
 
   function getYouTubeThumb(id){ return `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }
 
@@ -377,16 +287,13 @@
     const id = article.id; const title = article.dataset.title || id;
     let thumbURL = '';
 
-    // Override first
     if (POSTER_OVERRIDES[id]) thumbURL = POSTER_OVERRIDES[id];
 
-    // Poster attribute (resolves relative to baseURI)
     if(article.dataset.poster && !thumbURL){
       try { thumbURL = new URL(article.dataset.poster, document.baseURI).href; }
       catch(e){ thumbURL = article.dataset.poster; }
     }
 
-    // Media: choose a fallback thumbnail if YouTube is present
     if(article.dataset.yt || article.dataset.ytList){
       const firstId = (article.dataset.yt || article.dataset.ytList.split(',')[0].trim());
       thumbURL = thumbURL || getYouTubeThumb(firstId);
@@ -415,26 +322,19 @@
       a.appendChild(ph);
     }
 
-    // Neutral gallery: no overlay or play icon on thumbnails
     return a;
   }
 
   function buildGallery(){
     thumbsWrap.innerHTML = '';
     if(!worksSection){ return; }
-    // Desired order (newest → oldest)
     const desiredOrder = ['what-is-left','exoplanet','lavish-trio','isln','artemide','locked-outputs','studio-sul-plasma','steps-to-be-taken'];
     const orderMap = new Map(desiredOrder.map((id,i)=>[id,i]));
     const articles = Array.from(worksSection.querySelectorAll('article'))
-      .sort((a,b)=>{
-        const ai = orderMap.has(a.id) ? orderMap.get(a.id) : Number.MAX_SAFE_INTEGER;
-        const bi = orderMap.has(b.id) ? orderMap.get(b.id) : Number.MAX_SAFE_INTEGER;
-        return ai - bi;
-      });
+      .sort((a,b)=> (orderMap.get(a.id) ?? 9) - (orderMap.get(b.id) ?? 9));
     articles.forEach(a => thumbsWrap.appendChild(buildThumb(a)));
   }
 
-  // ===== Lightweight click-to-play media =====
   function createEmbedIframe(kind, id, title){
     const div = document.createElement('div'); div.className = 'embed';
     let url = '';
@@ -451,76 +351,34 @@
     return div;
   }
 
-  function createLazyButton(kind, id, title, posterFallback){
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'embed-button';
-    btn.setAttribute('aria-label', `Play ${title || 'media'}`);
-
-    let thumb = '';
-    if(kind === 'yt') thumb = getYouTubeThumb(id);
-    if(!thumb) thumb = posterFallback || '';
-
-    if(thumb){
-      const img = document.createElement('img');
-      img.loading = 'lazy'; img.decoding = 'async';
-      img.src = thumb; img.alt = '';
-      btn.appendChild(img);
-    }
-
-    const play = document.createElement('div'); play.className = 'play'; btn.appendChild(play);
-    btn.addEventListener('click', () => {
-      btn.replaceWith(createEmbedIframe(kind, id, title));
-    });
-    return btn;
-  }
-
   function createMediaBlock(article){
-    const ds = article.dataset;
-    const title = ds.title || article.id;
-    const entries = [];
-
-    // Lists (comma-separated)
+    const ds = article.dataset; const title = ds.title || article.id; const entries = [];
     if(ds.ytList){ ds.ytList.split(',').map(s=>s.trim()).filter(Boolean).forEach(id => entries.push(['yt', id])); }
     if(ds.vimeoList){ ds.vimeoList.split(',').map(s=>s.trim()).filter(Boolean).forEach(id => entries.push(['vimeo', id])); }
     if(ds.driveList){ ds.driveList.split(',').map(s=>s.trim()).filter(Boolean).forEach(id => entries.push(['drive', id])); }
-
-    // Singletons
     if(ds.yt) entries.push(['yt', ds.yt]);
     if(ds.vimeo) entries.push(['vimeo', ds.vimeo]);
     if(ds.drive) entries.push(['drive', ds.drive]);
-
     if(entries.length === 0) return null;
+
+    // If single media and we have a poster but no inline images in the article, show both side-by-side (smaller)
+    if (entries.length === 1 && ds.poster && !article.querySelector('img')) {
+      const wrap = document.createElement('div'); wrap.className = 'detail-media-grid';
+      wrap.appendChild(createEmbedIframe(entries[0][0], entries[0][1], title));
+      const img = document.createElement('img'); img.src = ds.poster; img.alt = title; img.loading = 'lazy'; img.decoding = 'async';
+      wrap.appendChild(img); return wrap;
+    }
 
     const container = document.createElement('div');
     if(entries.length > 1) container.className = 'video-grid';
-
-    const fallback = POSTER_OVERRIDES[article.id] || ds.poster || '';
-    const nodes = [];
-    entries.forEach(([kind,id]) => {
-      const node = (ds.embed === 'eager')
-        ? createEmbedIframe(kind, id, title)
-        : createLazyButton(kind, id, title, fallback);
-      nodes.push(node);
-    });
-    /* If single media and we have a poster but no inline images in the article,
-       show both side-by-side (smaller) */
-    if (nodes.length === 1 && ds.poster && !article.querySelector('img')) {
-      const wrap = document.createElement('div');
-      wrap.className = 'detail-media-grid';
-      wrap.appendChild(nodes[0]);
-      const img = document.createElement('img');
-      img.src = ds.poster; img.alt = title; img.loading = 'lazy'; img.decoding = 'async';
-      wrap.appendChild(img);
-      return wrap;
-    }
-    nodes.forEach(n => container.appendChild(n));
+    entries.forEach(([kind,id]) => container.appendChild(createEmbedIframe(kind, id, title)));
     return container;
   }
 
   function showTop(section){
-    const ids=['works','bio','where','contact'];
-    ids.forEach(id=>{ const el=document.getElementById(id); if(el) el.hidden = (id!==section); });
+    ['works','bio','where','contact'].forEach(id=>{
+      const el=document.getElementById(id); if(el) el.hidden = (id!==section);
+    });
     document.body.classList.remove('is-detail');
     const detailEl = document.getElementById('work-detail');
     if(detailEl){ detailEl.setAttribute('hidden',''); detailEl.innerHTML = ''; }
@@ -535,11 +393,8 @@
     detailEl.removeAttribute('hidden');
     detailEl.innerHTML = `<a href="#works" class="back">← all works</a>`;
 
-    const media = createMediaBlock(article);
-    if(media) detailEl.appendChild(media);
-
-    const clone = article.cloneNode(true);
-    detailEl.appendChild(clone);
+    const media = createMediaBlock(article); if(media) detailEl.appendChild(media);
+    const clone = article.cloneNode(true); detailEl.appendChild(clone);
     window.scrollTo(0, 0);
   }
 
@@ -548,202 +403,25 @@
     const m = h.match(/^#work\/(.+)$/);
     if(m){ showWork(m[1]); return; }
     const sec = h.replace('#','');
-    if(['bio','where','contact','works'].includes(sec)){
-      showTop(sec);
-    } else {
-      showTop('works');
-    }
+    if(['bio','where','contact','works'].includes(sec)) showTop(sec); else showTop('works');
   }
 
   function initNavInstant(){
-    const navLinks = document.querySelectorAll('nav a[href^="#"]');
-    navLinks.forEach(a => {
+    document.querySelectorAll('nav a[href^="#"]').forEach(a => {
       a.addEventListener('click', (e) => {
         const target = a.getAttribute('href').slice(1);
         if(['bio','where','contact','works'].includes(target)){
-          e.preventDefault();
-          history.replaceState(null, '', `#${target}`);
-          showTop(target);
+          e.preventDefault(); history.replaceState(null, '', `#${target}`); showTop(target);
         }
       });
     });
   }
 
-  function initFloatWords(){
-    const container = document.getElementById('float-words');
-    if(!container) return;
-    container.innerHTML = '';
-    const words = ['violinist','composer\u2009-performer','multimedia artist'];
-    const count = words.length;
-
-    let floats = [];
-    let bounds = {left:0,right:0,top:0,bottom:0};
-    function updateBounds(){
-      const header = document.querySelector('header');
-      const hb = header ? header.getBoundingClientRect().bottom : 80;
-      bounds.left = -40;
-      bounds.right = window.innerWidth + 40;
-      bounds.top = hb + 12;
-      bounds.bottom = window.innerHeight + 40;
-    }
-    updateBounds();
-
-    for(let i=0;i<count;i++){
-      const el = document.createElement('span');
-      el.className = 'float-word';
-      el.textContent = words[i % words.length];
-      container.appendChild(el);
-      const w = el.offsetWidth || 120;
-      const h = el.offsetHeight || 28;
-      const x = Math.random() * (bounds.right - bounds.left - w) + bounds.left;
-      const y = Math.random() * (bounds.bottom - bounds.top - h) + bounds.top;
-      const speed = 16 + Math.random()*10;
-      const bases = [45,135,225,315].map(d=>d*Math.PI/180);
-      let angle = bases[Math.floor(Math.random()*bases.length)] + (Math.random()*(Math.PI/18) - (Math.PI/36));
-      const vx = Math.cos(angle) * speed;
-      const vy = Math.sin(angle) * speed;
-      const rot = (Math.random()<0.5?-1:1) * (18 + Math.random()*10);
-      const rotSpeed = (Math.random()<0.5?-1:1) * (2 + Math.random()*4);
-      const timeScale = 0.9 + Math.random()*0.4;
-      const noiseA = 3 + Math.random()*4;
-      const noiseF = 0.4 + Math.random()*0.8;
-      const noiseP = Math.random()*Math.PI*2;
-      el.style.transform = `translate(${x}px, ${y}px) rotate(${rot}deg)`;
-      floats.push({el,x,y,w,h,vx,vy,rot,rotSpeed,timeScale,noiseA,noiseF,noiseP});
-    }
-
-    let last = performance.now();
-    function tick(now){
-      const dt = Math.min(0.05, (now - last) / 1000);
-      last = now;
-      const tsec = now/1000;
-      for(const f of floats){
-        const local = dt * f.timeScale;
-        const vx = f.vx + Math.cos(tsec*f.noiseF + f.noiseP)*f.noiseA;
-        const vy = f.vy + Math.sin(tsec*f.noiseF + f.noiseP)*f.noiseA;
-        f.x += vx * local;
-        f.y += vy * local;
-        if(f.x <= bounds.left || f.x + f.w >= bounds.right){ f.vx *= -1; f.x = Math.min(Math.max(f.x, bounds.left), bounds.right - f.w); }
-        if(f.y <= bounds.top  || f.y + f.h >= bounds.bottom){ f.vy *= -1; f.y = Math.min(Math.max(f.y, bounds.top), bounds.bottom - f.h); }
-        f.rot += f.rotSpeed * local;
-        f.el.style.transform = `translate(${f.x}px, ${f.y}px) rotate(${f.rot}deg)`;
-      }
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-
-    window.addEventListener('resize', () => { initSparkles(); }, { once:true });
-  }
-
-  function initPerfModes(){
-    const LIGHT_MODE =
-      (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) ||
-      (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) ||
-      (navigator.connection && navigator.connection.saveData);
-
-    if (!LIGHT_MODE) {
-      initFloatWords();
-      initSparkles();
-    }
-  }
-
-  // ===== Tiny self-tests to avoid regressions (run once, harmless) =====
-  function runSelfTests(){
-    try{
-      const results = [];
-      // T1: Build thumb with Vimeo-only dataset should not throw
-      results.push((() => {
-        const el = document.createElement('article');
-        el.id = 't1'; el.dataset.title = 'Test Vimeo'; el.dataset.vimeo = '12345';
-        const node = buildThumb(el);
-        return node && node.classList.contains('thumb');
-      })());
-
-      // T2: YT fallback uses img.youtube.com thumbnail
-      results.push((() => {
-        const el = document.createElement('article');
-        el.id = 't2'; el.dataset.title = 'Test YT'; el.dataset.yt = 'dQw4w9WgXcQ';
-        const node = buildThumb(el);
-        const img = node.querySelector('img.poster');
-        return img && /img\.youtube\.com/.test(img.src);
-      })());
-
-      // T3: Poster attr is used when present
-      results.push((() => {
-        const el = document.createElement('article');
-        el.id = 't3'; el.dataset.title = 'Test Poster'; el.dataset.poster = 'assets/test.jpg';
-        const node = buildThumb(el);
-        const img = node.querySelector('img.poster');
-        return !!img; // src resolved relative to baseURI
-      })());
-
-      // Ensure gallery exists for the remaining tests
-      if(!document.querySelector('#thumbs a')){ buildGallery(); }
-
-      // T4: Thumbnail for what-is-left exists
-      results.push((() => {
-        const link = document.querySelector('#thumbs a[href="#work/what-is-left"]');
-        return !!link;
-      })());
-
-      // T5: Order of thumbnails matches desired order (prefix match)
-      results.push((() => {
-        const expected = ['what-is-left','exoplanet','lavish-trio','isln','artemide','locked-outputs','studio-sul-plasma','steps-to-be-taken'];
-        const links = Array.from(document.querySelectorAll('#thumbs a')).map(a=>a.getAttribute('href').replace('#work/',''));
-        const subset = expected.filter(id => links.includes(id));
-        const firstN = links.slice(0, subset.length);
-        return subset.every((id, idx) => firstN[idx] === id);
-      })());
-
-      // T6: ISLN thumbnail exists
-      results.push((() => {
-        const link = document.querySelector('#thumbs a[href="#work/isln"]');
-        return !!link;
-      })());
-
-      // T7: Lavish thumbnail exists
-      results.push((() => {
-        const link = document.querySelector('#thumbs a[href="#work/lavish-trio"]');
-        return !!link;
-      })());
-
-      const passed = results.filter(Boolean).length;
-      if(passed !== results.length){
-        console.warn(`[self-test] ${passed}/${results.length} tests passed`, results);
-      } else {
-        console.log('[self-test] all tests passed');
-      }
-    }catch(err){
-      console.warn('[self-test] error while running tests', err);
-    }
-  }
-
-  // Lightweight sparkles (desktop only; gated by initPerfModes)
-  function initSparkles(){
-    const prev = document.getElementById('sparkles');
-    if(prev) prev.remove();
-    const c = document.createElement('div'); c.id = 'sparkles'; document.body.appendChild(c);
-    const n = 28; // lighter than 110
-    for(let i=0;i<n;i++){
-      const s = document.createElement('span'); s.className='sp';
-      const size = 2 + Math.random()*3; s.style.width = size+'px'; s.style.height = size+'px';
-      s.style.left = (Math.random()*100).toFixed(3)+'%'; s.style.top = (Math.random()*100).toFixed(3)+'%';
-      const dur = 5 + Math.random()*7;
-      const drift = 12 + Math.random()*28;
-      const ang = Math.random()*Math.PI*2; const dx = Math.cos(ang)*drift; const dy = Math.sin(ang)*drift;
-      s.style.setProperty('--dx', dx.toFixed(2)+'px'); s.style.setProperty('--dy', dy.toFixed(2)+'px');
-      const d1 = (-Math.random()*dur).toFixed(2)+'s'; const d2 = (-Math.random()*dur).toFixed(2)+'s';
-      s.style.animation = `sparkleBlink ${dur.toFixed(2)}s ease-in-out ${d1} infinite alternate, sparkleDrift ${(dur*1.2).toFixed(2)}s linear ${d2} infinite alternate, sparkleShine ${(dur*0.8).toFixed(2)}s ease-in-out ${d1} infinite alternate`;
-      c.appendChild(s);
-    }
-  }
-
+  // Boot
   document.addEventListener('DOMContentLoaded', () => {
     buildGallery();
     handleRoute();
     initNavInstant();
-    initPerfModes();
-    runSelfTests();
   });
   window.addEventListener('hashchange', handleRoute);
   </script>
