@@ -313,6 +313,40 @@
           </div>
         </article>
 
+        <!-- Lavish Trio -->
+        <article class="card" id="lavish-trio"
+                 data-title="Lavish Trio — Dump and Die"
+                 data-poster="assets/lavish-cover.jpg">
+          <h3><em>Dump and Die</em> — Lavish Trio</h3>
+          <p><strong>Lavish</strong> ist ein improvisierendes Trio, bestehend aus den komponierenden Musikern <em>Sol Jang</em> (Klavier), <em>Maria Isolina Cozzani</em> (Violine) und <em>Kim Kamilla Jäger</em> (Cello). Dieses Projekt entstand aus dem Drang heraus, musikalische Strukturen zu schaffen, die sich um ein zentrales Thema drehen. Klangbasierte Improvisation, Jazz und sich wiederholende Muster werden in einer kammermusikalischen Umgebung miteinander verwoben, die klein und zerbrechlich, aber auch brutal und brüllend klingen kann. Komponieren und Improvisieren sind gleichermaßen Teil ihres Materials, und die Stücke können auf überraschende Weise auseinandergenommen und neu kombiniert werden.</p>
+          <p><strong>Auszeichnungen:</strong> Gewinner des Erasmus Jazz Prijs 2023, Mittelyoung – Mittelfest 2023 und CS Carinthischer Sommer Under 30.</p>
+          <p><strong>Album – Dump and Die:</strong> Das erste Album des Lavish Trios ist eine Repräsentation der Millennials, die im Ausklang der analogen Ära geboren wurden und in der digitalen Revolution herangewachsen sind. In einem kammermusikalischen Setting kombiniert es rohe, texturierte Streicherklänge – mit der Rauheit des Analogen und der Direktheit des Akustischen. Komposition und Improvisation verweben sich zu dystopischen Visionen, künstlichen Wiegenliedern und einer Nostalgie für vergangene Technologie.</p>
+          <p><strong>Links:</strong>
+            <a href="https://unitrecords.com/artists/lavish-trio/" target="_blank" rel="noopener">Unit Records — Artist</a> ·
+            <a href="https://www.instagram.com/lavish_trio/" target="_blank" rel="noopener">Instagram</a> ·
+            <a href="https://open.spotify.com/intl-it/album/6tC4jCG4yMGOEeOhIDj9Gu" target="_blank" rel="noopener">Spotify (Album)</a>
+          </p>
+          <div class="media-grid">
+            <img class="span-3" src="assets/lavish-cover.jpg" alt="Lavish Trio — Dump and Die cover" loading="lazy" decoding="async" width="1200" height="1200">
+            <img src="assets/lavish-portrait.jpg" alt="Lavish Trio portrait" loading="lazy" decoding="async" width="950" height="950">
+          </div>
+        </article>
+
+        <!-- ISLN: geography of sounds, shapeshifting multiplicities -->
+        <article class="card" id="isln"
+                 data-title="ISLN — geography of sounds, shapeshifting multiplicities"
+                 data-yt-list="gFk8Gf295Xg, nQ2dfomDPyk, boeDsX6veuY">
+          <h3><em>ISLN: geography of sounds, shapeshifting multiplicities</em> (2023)</h3>
+          <p>In <em>ISLN — geography of sounds, shapeshifting multiplicities</em>, Maria Isolina Cozzani brings her master's research to the surface. ISLN enables an unexplored space and time for improvisation and takes place in an imaginary setting where the transposed laws of physics make room for renewed perspectives. A constellation of islands inhabited by sounding organisms describes a geography of sounds, a constellation of objects, entities, expressions, qualities, and territories that come together over time to ideally create new ways of functioning.</p>
+          <p>This assemblage, by making countless and unexpected connections, creates an ecology, an entity out of it all, a shapeshifter made of organisms and sounds that bring people and ideas together. Created for a large ensemble of 17 improvising musicians, ISLN is an explorable, walk-through, live sounding installation/performance.</p>
+          <p><strong>Concept:</strong> <a href="https://drive.google.com/file/d/1FS0cm8xwaXjvtb0ECSUtN845Y9qSDmga/view?usp=sharing" target="_blank" rel="noopener">Google Drive</a></p>
+          <p><strong>Outtakes of the performance:</strong>
+            <a href="https://youtu.be/gFk8Gf295Xg" target="_blank" rel="noopener">Clip 1</a> ·
+            <a href="https://youtu.be/nQ2dfomDPyk" target="_blank" rel="noopener">Clip 2</a> ·
+            <a href="https://youtu.be/boeDsX6veuY" target="_blank" rel="noopener">Clip 3</a>
+          </p>
+        </article>
+
       </section>
     </main>
 
@@ -327,7 +361,8 @@
   // Posters override (stable thumbnails)
   const POSTER_OVERRIDES = {
     artemide: 'assets/artemide_6.jpg',
-    exoplanet: 'assets/SM4830_cover%204000x4000px.jpg'
+    exoplanet: 'assets/SM4830_cover%204000x4000px.jpg',
+    'lavish-trio': 'assets/lavish-cover.jpg'
   };
 
   document.getElementById('y').textContent = new Date().getFullYear();
@@ -391,7 +426,15 @@
   function buildGallery(){
     thumbsWrap.innerHTML = '';
     if(!worksSection){ return; }
-    const articles = worksSection.querySelectorAll('article');
+    // Desired order (newest → oldest)
+    const desiredOrder = ['what-is-left','exoplanet','lavish-trio','isln','artemide','locked-outputs','studio-sul-plasma','steps-to-be-taken'];
+    const orderMap = new Map(desiredOrder.map((id,i)=>[id,i]));
+    const articles = Array.from(worksSection.querySelectorAll('article'))
+      .sort((a,b)=>{
+        const ai = orderMap.has(a.id) ? orderMap.get(a.id) : Number.MAX_SAFE_INTEGER;
+        const bi = orderMap.has(b.id) ? orderMap.get(b.id) : Number.MAX_SAFE_INTEGER;
+        return ai - bi;
+      });
     articles.forEach(a => thumbsWrap.appendChild(buildThumb(a)));
   }
 
@@ -614,76 +657,4 @@
       s.style.animation = `sparkleBlink ${dur.toFixed(2)}s ease-in-out ${d1} infinite alternate, sparkleDrift ${(dur*1.2).toFixed(2)}s linear ${d2} infinite alternate, sparkleShine ${(dur*0.8).toFixed(2)}s ease-in-out ${d1} infinite alternate`;
       c.appendChild(s);
     }
-    window.addEventListener('resize', () => { initSparkles(); }, { once:true });
-  }
-
-  function initPerfModes(){
-    const LIGHT_MODE =
-      (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) ||
-      (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) ||
-      (navigator.connection && navigator.connection.saveData);
-
-    if (!LIGHT_MODE) {
-      initFloatWords();
-      initSparkles();
-    }
-  }
-
-  // ===== Tiny self-tests to avoid regressions (run once, harmless) =====
-  function runSelfTests(){
-    try{
-      const results = [];
-      // T1: Build thumb with Vimeo-only dataset should not throw (regression for 'badge' ref)
-      results.push((() => {
-        const el = document.createElement('article');
-        el.id = 't1'; el.dataset.title = 'Test Vimeo'; el.dataset.vimeo = '12345';
-        const node = buildThumb(el);
-        return node && node.classList.contains('thumb');
-      })());
-
-      // T2: YT fallback uses img.youtube.com thumbnail
-      results.push((() => {
-        const el = document.createElement('article');
-        el.id = 't2'; el.dataset.title = 'Test YT'; el.dataset.yt = 'dQw4w9WgXcQ';
-        const node = buildThumb(el);
-        const img = node.querySelector('img.poster');
-        return img && /img\.youtube\.com/.test(img.src);
-      })());
-
-      // T3: Poster attr is used when present
-      results.push((() => {
-        const el = document.createElement('article');
-        el.id = 't3'; el.dataset.title = 'Test Poster'; el.dataset.poster = 'assets/test.jpg';
-        const node = buildThumb(el);
-        const img = node.querySelector('img.poster');
-        return !!img; // src will be resolved relative to baseURI
-      })());
-
-      // T4: Thumbnail for what-is-left exists (after buildGallery)
-      results.push((() => {
-        const link = document.querySelector('#thumbs a[href="#work/what-is-left"]');
-        return !!link;
-      })());
-
-      const passed = results.filter(Boolean).length;
-      if(passed !== results.length){
-        console.warn(`[self-test] ${passed}/${results.length} tests passed`, results);
-      } else {
-        console.log('[self-test] all tests passed');
-      }
-    }catch(err){
-      console.warn('[self-test] error while running tests', err);
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    buildGallery();
-    handleRoute();
-    initNavInstant();
-    initPerfModes();
-    runSelfTests();
-  });
-  window.addEventListener('hashchange', handleRoute);
-  </script>
-</body>
-</html>
+    window.addEventListener('resize', () => { initSparkles(); }, { o
