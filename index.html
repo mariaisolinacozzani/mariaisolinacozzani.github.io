@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://www.youtube-nocookie.com">
   <link rel="preconnect" href="https://player.vimeo.com">
+  <link rel="preconnect" href="https://drive.google.com">
   <!-- Lighter font payload: only 2 families, limited weights -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 
@@ -94,10 +95,9 @@
     .embed-button .play::before{ content:"▶"; font-size:16px; transform:translateX(1px); color:var(--brand-pink) }
     .embed-button:hover .play{ background:rgba(255,79,216,0.15) }
 
-    /* Contact: bubble mail */
-    .mail-link{ display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:999px; border:1px solid var(--border); background:#fff; color:var(--txt); font-weight:600 }
-    .mail-link:hover{ text-decoration:none; transform:translateY(-1px) }
-    .icon-mail{ width:18px; height:18px; fill:var(--accent); transition:transform .2s ease }
+    /* Contact: plain mail (not clickable) */
+    .contact-line{ display:inline-flex; align-items:center; gap:10px; font-weight:600; color:var(--txt); }
+    .icon-mail{ width:18px; height:18px; fill:var(--accent); }
 
     footer{margin:44px 0 12px; font-size:13px; color:var(--muted)}
 
@@ -129,7 +129,23 @@
       line-height: 1.8;
       letter-spacing: 0.005em;
     }
+    /* Bio smaller text override */
+    #bio p, #bio li{ font-size:15px; line-height:1.75; }
     #work-detail .card p + p{ margin-top: 10px }
+
+    /* BIO layout: asymmetric + optional two columns */
+    #bio{ --aside: 260px; }
+    #bio .bio-grid{ display:grid; grid-template-columns:1fr; gap:18px; align-items:start; }
+    #bio .bio-aside h2{ margin:0 0 8px; }
+    #bio .bio-aside .small{ font-size:12px; }
+    #bio .bio-content{ text-wrap:pretty; hanging-punctuation:first; }
+    #bio .bio-content p{ margin:0 0 12px; text-align:justify; hyphens:auto; orphans:2; widows:2; }
+    @media (min-width:980px){
+      #bio .bio-grid{ grid-template-columns: var(--aside) 1fr; gap:28px; }
+      #bio .bio-aside{ position:sticky; top:18px; align-self:start; }
+      #bio .bio-content{ column-count:2; column-gap:28px; column-fill:balance; }
+      #bio .bio-content p{ break-inside:avoid; }
+    }
 
     /* Media grids */
     .video-grid{ display:grid; grid-template-columns:1fr; gap:12px; margin:12px 0 }
@@ -179,12 +195,18 @@
 
       <!-- BIO -->
       <section id="bio" hidden>
-        <h2>bio</h2>
-        <p><strong>Maria Isolina Cozzani</strong> (b. 1994, Ludwigsburg) is an Italian-German violinist, composer-performer and multimedia artist based in Cologne. Working at the edges of free improvisation, electro-acoustic performance and installation, she focuses on timbral extremes of the violin, spectral/granular resynthesis and spatial sound (4–8-channel and site-responsive setups). Her practice often integrates audio-reactive objects and upcycled technologies, assembling fragile yet vibrant ecosystems where sound, bodies and space co-shape one another.</p>
-        <p>She trained in classical and jazz violin at the conservatories of La Spezia and Genoa and completed an MMus at ArtEZ University of the Arts (Arnhem, 2023) with research in free improvisation that culminated in <em>ISLN — Geography of sounds, shapeshifting multiplicities</em>. Recent and ongoing projects include the free-improv quintet <em>Inopia</em> (album <em>Exoplanet</em>, 2025); the electroacoustic duo <em>O.P.M.L. — Our Past Microtonal Love</em>; and the ensembles <em>Trio Lavish</em> (winners of the <em>Erasmus Jazz Prijs 2023</em>) and <em>Edera Trees</em>.</p>
-        <p>Her music draws on microtonality (simple frequency relations beyond tempered systems), memory as layering/return, and a choreographic attention to gesture, instrument and space. She has appeared at Palazzo Ducale (Genoa), Museo Bagatti Valsecchi (Milan), MA/IN Matera Intermedia Festival (Matera), De Thomas (Amsterdam) and The Grey Space (The Hague).</p>
-        <p>Alongside artistic work, Maria is active as an educator and as a project manager. In 2025 she coordinated the interdisciplinary project week <em>Connecting the Dots</em> at ArtEZ University of the Arts, leading planning and delivery for ~40 Master students across departments, guest-lecturer scheduling, rooming and documentation.</p>
-        <p class="muted">Extended CV and photos available on request.</p>
+        <div class="bio-grid">
+          <aside class="bio-aside">
+            <h2>bio</h2>
+            <p class="muted small">Extended CV and photos available on request.</p>
+          </aside>
+          <div class="bio-content">
+            <p><strong>Maria Isolina Cozzani</strong> (b. 1994, Ludwigsburg) is an Italian-German violinist, composer-performer and multimedia artist based in Cologne. Working at the edges of free improvisation, electro-acoustic performance and installation, she focuses on timbral extremes of the violin, spectral/granular resynthesis and spatial sound (4–8-channel and site-responsive setups). Her practice often integrates audio-reactive objects and upcycled technologies, assembling fragile yet vibrant ecosystems where sound, bodies and space co-shape one another.</p>
+            <p>She trained in classical and jazz violin at the conservatories of La Spezia and Genoa and completed an MMus at ArtEZ University of the Arts (Arnhem, 2023) with research in free improvisation that culminated in <em>ISLN — Geography of sounds, shapeshifting multiplicities</em>. Recent and ongoing projects include the free-improv quintet <em>Inopia</em> (album <em>Exoplanet</em>, 2025); the electroacoustic duo <em>O.P.M.L. — Our Past Microtonal Love</em>; and the ensembles <em>Trio Lavish</em> (winners of the <em>Erasmus Jazz Prijs 2023</em>) and <em>Edera Trees</em>.</p>
+            <p>Her music draws on microtonality (simple frequency relations beyond tempered systems), memory as layering/return, and a choreographic attention to gesture, instrument and space. She has appeared at Palazzo Ducale (Genoa), Museo Bagatti Valsecchi (Milan), MA/IN Matera Intermedia Festival (Matera), De Thomas (Amsterdam) and The Grey Space (The Hague).</p>
+            <p>Alongside artistic work, Maria is active as an educator and as a project manager. In 2025 she coordinated the interdisciplinary project week <em>Connecting the Dots</em> at ArtEZ University of the Arts, leading planning and delivery for ~40 Master students across departments, guest-lecturer scheduling, rooming and documentation.</p>
+          </div>
+        </div>
       </section>
 
       <!-- WHERE -->
@@ -199,13 +221,11 @@
       <!-- CONTACT -->
       <section id="contact" hidden>
         <h2>contact</h2>
-        <p>
-          <a class="mail-link" href="mailto:mariacozzani@gmail.com" aria-label="email me at mariacozzani@gmail.com">
-            <svg class="icon-mail" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M3 6.75A1.75 1.75 0 0 1 4.75 5h14.5A1.75 1.75 0 0 1 21 6.75v10.5A1.75 1.75 0 0 1 19.25 19H4.75A1.75 1.75 0 0 1 3 17.25V6.75Zm1.9.2 7.08 5.31c.13.1.31.1.44 0l7.08-5.31a.25.25 0 0 0-.15-.45H5.05a.25.25 0 0 0-.15.45Zm14.15 1.69-6.43 4.82a2.25 2.25 0 0 1-2.84 0L3.35 8.64v8.61c0 .14.11.25.25.25h16.8c.14 0 .25-.11.25-.25V8.64Z"></path>
-            </svg>
-            <span>mariacozzani@gmail.com</span>
-          </a>
+        <p class="contact-line">
+          <svg class="icon-mail" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M3 6.75A1.75 1.75 0 0 1 4.75 5h14.5A1.75 1.75 0 0 1 21 6.75v10.5A1.75 1.75 0 0 1 19.25 19H4.75A1.75 1.75 0 0 1 3 17.25V6.75Zm1.9.2 7.08 5.31c.13.1.31.1.44 0l7.08-5.31a.25.25 0 0 0-.15-.45H5.05a.25.25 0 0 0-.15.45Zm14.15 1.69-6.43 4.82a2.25 2.25 0 0 1-2.84 0L3.35 8.64v8.61c0 .14.11.25.25.25h16.8c.14 0 .25-.11.25-.25V8.64Z"></path>
+          </svg>
+          <span>mariacozzani@gmail.com</span>
         </p>
       </section>
 
@@ -214,6 +234,7 @@
 
         <!-- what is left, what there grows -->
         <article class="card" id="what-is-left" data-title="what is left, what there grows"
+                 data-embed="eager"
                  data-poster="assets/what-is-left-cover.jpg"
                  data-drive="1PxZBF0uUqdAcqpShlq9IUOrqWa6HcPv5">
           <h3><em>what is left, what there grows</em> (2025)</h3>
@@ -429,7 +450,10 @@
 
     const fallback = POSTER_OVERRIDES[article.id] || ds.poster || '';
     entries.forEach(([kind,id]) => {
-      container.appendChild(createLazyButton(kind, id, title, fallback));
+      const node = (ds.embed === 'eager')
+        ? createEmbedIframe(kind, id, title)
+        : createLazyButton(kind, id, title, fallback);
+      container.appendChild(node);
     });
     return container;
   }
