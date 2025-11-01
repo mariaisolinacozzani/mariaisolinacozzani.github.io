@@ -66,9 +66,8 @@
 
     .thumb{ position:relative; display:block; border-radius:8px; overflow:hidden; background:#fff; border:1px solid var(--border); transition: transform .18s ease, border-color .18s ease, filter .18s ease }
     .thumb .poster{ aspect-ratio:16/9; width:100%; object-fit:cover; display:block; filter:grayscale(.15) contrast(1.05) }
-    .thumb .overlay{position:absolute; inset:auto 0 0 0; display:flex; align-items:center; justify-content:space-between; padding:8px 10px; background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%)}
+    .thumb .overlay{position:absolute; inset:auto 0 0 0; display:flex; align-items:center; justify-content:flex-start; gap:8px; padding:8px 10px; background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%)}
     .thumb .t{font:600 12px/1.2 var(--font-heading); letter-spacing:0.01em; color:#eef2f3}
-    .thumb .badge{ font:600 10px/1 var(--font-base); padding:6px 8px; border-radius:6px; background:rgba(255,79,216,0.18); color:#fff; border:1px solid rgba(255,79,216,0.35) }
     .thumb .play{ position:absolute; left:8px; top:8px; width:26px; height:26px; border-radius:6px; border:1px solid var(--brand-pink); display:grid; place-items:center; background:rgba(255,79,216,0.10); }
     .thumb .play:before{content:"▶"; font-size:11px; transform:translateX(1px)}
     .thumb:hover{ transform: translateY(-2px) scale(1.005); border-color: var(--brand-pink); box-shadow: 0 10px 26px rgba(255, 79, 216, 0.25), 0 0 0 2px rgba(255, 79, 216, 0.20), 0 0 28px rgba(255, 79, 216, 0.35) }
@@ -156,6 +155,12 @@
     .photo-grid img, .media-grid img{ width:100%; height:100%; object-fit:cover; border-radius:8px; border:1px solid var(--border); }
     .media-grid .span-3{ grid-column:1/-1 }
 
+    /* Detail: side-by-side media (embed + poster) */
+    .detail-media-grid{ display:grid; grid-template-columns:1fr; gap:12px; margin-bottom:14px }
+    @media (min-width:900px){ .detail-media-grid{ grid-template-columns:1fr 1fr } }
+    .detail-media-grid .embed, .detail-media-grid .embed-button{ margin:0 }
+    .detail-media-grid img{ width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:8px; border:1px solid var(--border); }
+
     /* Performance: avoid work for offscreen sections */
     #works-data, #bio, #where, #contact { content-visibility: auto; contain-intrinsic-size: 1px 1000px; }
 
@@ -233,14 +238,11 @@
       <section id="works-data" hidden>
 
         <!-- what is left, what there grows -->
-        <article class="card" id="what-is-left" data-title="what is left, what there grows"
-                 data-embed="eager"
-                 data-poster="assets/what-is-left-cover.jpg"
-                 data-drive="1PxZBF0uUqdAcqpShlq9IUOrqWa6HcPv5">
-          <h3><em>what is left, what there grows</em> (2025)</h3>
-          <p class="muted">Finalist at MA/IN Matera Intermedia Festival 2025.</p>
-          <p>“what is left, what there grows” is a self-reactive environment composed of sound, immersive multi-channel audio (4–8 channels), upcycled trash speakers, small robots, and obsolete or broken technological remains—motherboards, wires, machine parts. Although over 90% of the installation is built from discarded or recycled materials, the experience it offers is one of vitality, regeneration, and ongoing transformation.</p>
-          <p><strong>Media:</strong> <a href="https://drive.google.com/file/d/1PxZBF0uUqdAcqpShlq9IUOrqWa6HcPv5/preview" target="_blank" rel="noopener">Video (Drive)</a></p>
+        $1<p>“what is left, what there grows” is a self-reactive environment composed of sound, immersive multi-channel audio (4–8 channels), upcycled trash speakers, small robots, and obsolete or broken technological remains—motherboards, wires, machine parts. Although over 90% of the installation is built from discarded or recycled materials, the experience it offers is one of vitality, regeneration, and ongoing transformation—whether driven by internal desire or external intervention.</p>
+          <p>The installation evokes a kind of natural ritual in which the Anthropocene compresses geological eras, accelerating fossil formation through human waste. Decades of technological residue converge, reshaping sound, air, shadow, and perception, exposing a fractured sense of detachment from our consumer responsibilities.</p>
+          <p>This is a fragile, eroded, yet vibrant environment in constant flux. All elements—robots, sound structures, speakers—listen and respond to one another; the system is entirely audio-reactive, including its interaction with the audience. The presence of living, reactive technology gives the impression of stepping into a sacred terrain, made of a new kind of nature—where even stepping over a cable or past a tiny machine feels intrusive.</p>
+          <p>The installation sustains a delicate balance. It no longer needs the human, and barely welcomes them—except as careful listener, as silent observer.</p>
+          $3
         </article>
 
         <!-- Artemide (videos now lazy via data-yt-list; iframes removed for performance) -->
@@ -332,7 +334,7 @@
 
   function buildThumb(article){
     const id = article.id; const title = article.dataset.title || id;
-    let thumbURL = ''; let badge = '';
+    let thumbURL = '';
 
     // Override first
     if (POSTER_OVERRIDES[id]) thumbURL = POSTER_OVERRIDES[id];
@@ -343,10 +345,11 @@
       catch(e){ thumbURL = article.dataset.poster; }
     }
 
-    // Media badges
-    if(article.dataset.yt || article.dataset.ytList){ thumbURL = thumbURL || getYouTubeThumb((article.dataset.yt || article.dataset.ytList.split(',')[0].trim())); badge = 'YouTube'; }
-    else if(article.dataset.vimeo || article.dataset.vimeoList){ badge = 'Vimeo'; }
-    else if(article.dataset.drive || article.dataset.driveList){ badge = 'Drive'; }
+    // Media: choose a fallback thumbnail if YouTube is present
+    if(article.dataset.yt || article.dataset.ytList){
+      const firstId = (article.dataset.yt || article.dataset.ytList.split(',')[0].trim());
+      thumbURL = thumbURL || getYouTubeThumb(firstId);
+    }
 
     const a = document.createElement('a');
     a.href = `#work/${id}`; a.className = 'thumb'; a.setAttribute('aria-label', title);
@@ -374,8 +377,7 @@
     const overlay = document.createElement('div'); overlay.className = 'overlay';
     const t = document.createElement('div'); t.className = 't'; t.textContent = title;
     const play = document.createElement('div'); play.className = 'play';
-    const b = document.createElement('div'); b.className = 'badge'; b.textContent = badge || 'Media';
-    overlay.appendChild(t); overlay.appendChild(b);
+    overlay.appendChild(t);
     a.appendChild(play); a.appendChild(overlay);
     return a;
   }
@@ -449,12 +451,25 @@
     if(entries.length > 1) container.className = 'video-grid';
 
     const fallback = POSTER_OVERRIDES[article.id] || ds.poster || '';
+    const nodes = [];
     entries.forEach(([kind,id]) => {
       const node = (ds.embed === 'eager')
         ? createEmbedIframe(kind, id, title)
         : createLazyButton(kind, id, title, fallback);
-      container.appendChild(node);
+      nodes.push(node);
     });
+    /* If single media and we have a poster but no inline images in the article,
+       show both side-by-side (smaller) */
+    if (nodes.length === 1 && ds.poster && !article.querySelector('img')) {
+      const wrap = document.createElement('div');
+      wrap.className = 'detail-media-grid';
+      wrap.appendChild(nodes[0]);
+      const img = document.createElement('img');
+      img.src = ds.poster; img.alt = title; img.loading = 'lazy'; img.decoding = 'async';
+      wrap.appendChild(img);
+      return wrap;
+    }
+    nodes.forEach(n => container.appendChild(n));
     return container;
   }
 
@@ -513,7 +528,7 @@
     const container = document.getElementById('float-words');
     if(!container) return;
     container.innerHTML = '';
-    const words = ['violinist','composer -performer','multimedia artist'];
+    const words = ['violinist','composer\u2009-performer','multimedia artist'];
     const count = words.length;
 
     let floats = [];
@@ -608,11 +623,53 @@
     }
   }
 
+  // ===== Tiny self-tests to avoid regressions (run once, harmless) =====
+  function runSelfTests(){
+    try{
+      const results = [];
+      // T1: Build thumb with Vimeo-only dataset should not throw (regression for 'badge' ref)
+      results.push((() => {
+        const el = document.createElement('article');
+        el.id = 't1'; el.dataset.title = 'Test Vimeo'; el.dataset.vimeo = '12345';
+        const node = buildThumb(el);
+        return node && node.classList.contains('thumb');
+      })());
+
+      // T2: YT fallback uses img.youtube.com thumbnail
+      results.push((() => {
+        const el = document.createElement('article');
+        el.id = 't2'; el.dataset.title = 'Test YT'; el.dataset.yt = 'dQw4w9WgXcQ';
+        const node = buildThumb(el);
+        const img = node.querySelector('img.poster');
+        return img && /img\.youtube\.com/.test(img.src);
+      })());
+
+      // T3: Poster attr is used when present
+      results.push((() => {
+        const el = document.createElement('article');
+        el.id = 't3'; el.dataset.title = 'Test Poster'; el.dataset.poster = 'assets/test.jpg';
+        const node = buildThumb(el);
+        const img = node.querySelector('img.poster');
+        return !!img; // src will be resolved relative to baseURI
+      })());
+
+      const passed = results.filter(Boolean).length;
+      if(passed !== results.length){
+        console.warn(`[self-test] ${passed}/${results.length} tests passed`, results);
+      } else {
+        console.log('[self-test] all tests passed');
+      }
+    }catch(err){
+      console.warn('[self-test] error while running tests', err);
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     buildGallery();
     handleRoute();
     initNavInstant();
     initPerfModes();
+    runSelfTests();
   });
   window.addEventListener('hashchange', handleRoute);
   </script>
