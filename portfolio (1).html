@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>maria isolina cozzani — portfolio</title>
+  <meta name="description" content="violinist, composer-performer, multimedia artist. works, bio, where, contact." />
+  
+  <!-- SEO & Social Meta -->
+  <meta property="og:title" content="Maria Isolina Cozzani - Violinist, Composer-Performer, Multimedia Artist">
+  <meta property="og:description" content="Portfolio of Maria Isolina Cozzani - works, bio, exhibitions and contact information">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Preload critical resources -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --txt: #0a0a0d;
+      --bg: #fff;
+      --muted: #5a5f66;
+      --accent: #7ed321;
+      --border: #e6e7ea;
+      --max: 1440px;
+      --radius: 0px;
+      --brand-pink: #ff4fd8;
+      --font-base: 'Source Sans 3', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-heading: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --txt: #ffffff;
+        --bg: #0a0a0d;
+        --muted: #a0a0a0;
+        --border: #333333;
+      }
+    }
+
+    html {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    *, *::before, *::after {
+      box-sizing: inherit;
+    }
+
+    body {
+      margin: 0;
+      color: var(--txt);
+      background: var(--bg);
+      font: 16px/1.7 var(--font-base);
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+      font-variant-ligatures: common-ligatures;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    a:focus-visible, 
+    button:focus-visible {
+      outline: 2px solid var(--brand-pink);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 18px;
+    }
+
+    header {
+      margin: 8px 0 18px;
+    }
+
+    h1 {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: .02em;
+      margin: 0 0 6px;
+      color: var(--accent);
+      transition: all 0.2s ease;
+    }
+
+    nav {
+      margin: 14px 0 26px;
+      font-family: var(--font-heading);
+      letter-spacing: .01em;
+      font-weight: 600;
+    }
+
+    nav a {
+      margin: 0 10px 0 0;
+      white-space: nowrap;
+      color: var(--brand-pink);
+      position: relative;
+      padding: 4px 0;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--brand-pink);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after,
+    nav a:focus-visible::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      text-shadow: 0 0 8px rgba(255,79,216,.55), 0 0 18px rgba(255,79,216,.75);
+    }
+
+    main section {
+      margin: 38px 0;
+    }
+
+    h2 {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      margin: 0 0 12px;
+      color: var(--accent);
+    }
+
+    h3 {
+      font-family: var(--font-heading);
+      font-size: 16px;
+      margin: 0 0 8px;
+      transition: all 0.2s ease;
+    }
+
+    .card h3:hover, h1:hover {
+      text-shadow: 0 0 8px rgba(255,79,216,.35), 0 0 18px rgba(255,79,216,.45);
+    }
+
+    .muted {
+      color: var(--muted);
+      opacity: 0.9;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Cards */
+    .card {
+      padding: 16px;
+      border-radius: 0;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border-color: var(--brand-pink);
+    }
+
+    /* Gallery */
+    .thumbs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+    }
+
+    .thumb {
+      position: relative;
+      display: block;
+      border-radius: 0;
+      overflow: hidden;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+
+    .thumb .poster {
+      aspect-ratio: 16/9;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(.08) contrast(1.04);
+      transition: filter .18s ease;
+      will-change: filter, transform;
+    }
+
+    .thumb:hover {
+      transform: translateY(-2px) scale(1.005);
+      border-color: var(--brand-pink);
+      box-shadow: 0 10px 26px rgba(255,79,216,.25), 0 0 0 2px rgba(255,79,216,.20), 0 0 28px rgba(255,79,216,.35);
+    }
+
+    .thumb:hover .poster {
+      filter: grayscale(0) contrast(1.08) saturate(1.12);
+    }
+
+    .thumb:focus-visible {
+      outline: 2px solid var(--brand-pink);
+      outline-offset: 2px;
+    }
+
+    /* Detail View */
+    body.is-detail main > section:not(#work-detail) {
+      display: none;
+    }
+
+    #work-detail {
+      margin-top: 10px;
+    }
+
+    #work-detail .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 6px 0 16px;
+      font-size: 13px;
+      color: var(--muted);
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      transition: all 0.2s ease;
+    }
+
+    #work-detail .back:hover {
+      color: var(--txt);
+      border-color: var(--brand-pink);
+      background: rgba(255,79,216,0.05);
+    }
+
+    .embed {
+      position: relative;
+      padding-top: 56.25%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.03);
+      margin-bottom: 14px;
+    }
+
+    .embed iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Detail media grid */
+    .detail-media-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    @media (min-width: 900px) {
+      .detail-media-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .detail-media-grid img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-radius: 0;
+      border: 1px solid var(--border);
+    }
+
+    /* Media grids */
+    .video-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin: 12px 0;
+    }
+
+    @media (min-width: 820px) {
+      .video-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .photo-grid, .media-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    @media (min-width: 720px) {
+      .photo-grid, .media-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .photo-grid img, .media-grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      border: 1px solid var(--border);
+    }
+
+    .media-grid .span-3 {
+      grid-column: 1/-1;
+    }
+
+    /* Bio */
+    #bio {
+      --aside: 260px;
+    }
+
+    #bio .bio-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    #bio .bio-aside h2 {
+      margin: 0 0 8px;
+    }
+
+    #bio .bio-aside .small {
+      font-size: 12px;
+    }
+
+    #bio .bio-content {
+      text-wrap: pretty;
+    }
+
+    #bio .bio-content p {
+      margin: 0 0 12px;
+      text-align: justify;
+      hyphens: auto;
+      orphans: 2;
+      widows: 2;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    @media (min-width: 980px) {
+      #bio .bio-grid {
+        grid-template-columns: var(--aside) 1fr;
+        gap: 28px;
+      }
+      #bio .bio-aside {
+        position: sticky;
+        top: 18px;
+        align-self: start;
+      }
+      #bio .bio-content {
+        column-count: 2;
+        column-gap: 28px;
+        column-fill: balance;
+      }
+      #bio .bio-content p {
+        break-inside: avoid;
+      }
+    }
+
+    /* Contact */
+    .contact-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      color: var(--txt);
+    }
+
+    .icon-mail {
+      width: 18px;
+      height: 18px;
+      fill: var(--accent);
+    }
+
+    footer {
+      margin: 44px 0 12px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* Performance optimizations */
+    #works-data, #bio, #where, #contact {
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 1000px;
+    }
+
+    /* Mobile improvements */
+    @media (max-width: 480px) {
+      .wrap {
+        padding: 20px 12px;
+      }
+      
+      h1 {
+        font-size: 24px;
+      }
+      
+      nav a {
+        margin: 0 8px 0 0;
+        font-size: 14px;
+      }
+      
+      .thumbs {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      
+      .card {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>maria isolina cozzani</h1>
+      <nav aria-label="primary">
+        <a href="#works">works</a>
+        <a href="#bio">bio</a>
+        <a href="#where">where</a>
+        <a href="#contact">contact</a>
+      </nav>
+    </header>
+
+    <main id="content" tabindex="-1">
+      <section id="works" aria-label="works">
+        <h2 class="sr-only">works</h2>
+        <div class="gallery grid thumbs" id="thumbs"></div>
+      </section>
+
+      <section id="work-detail" class="work-detail" hidden></section>
+
+      <section id="bio" hidden>
+        <div class="bio-grid">
+          <aside class="bio-aside">
+            <h2>bio</h2>
+            <p class="muted small">Extended CV and photos available on request.</p>
+          </aside>
+          <div class="bio-content">
+            <p><strong>Maria Isolina Cozzani</strong> (b. 1994, Ludwigsburg) is an Italian-German violinist, composer-performer and multimedia artist based in Cologne. Working at the edges of free improvisation, electroacoustic performance and installation, she focuses on timbral extremes of the violin, spectral/granular resynthesis and spatial sound (4–8-channel and site-responsive setups). Her practice often integrates audio-reactive objects and upcycled technologies, assembling fragile yet vibrant ecosystems where sound, bodies and space co-shape one another.</p>
+            <p>She trained in classical and jazz violin at the conservatories of La Spezia and Genoa and completed an MMus at ArtEZ University of the Arts (Arnhem, 2023) with research in free improvisation that culminated in <em>ISLN — Geography of sounds, shapeshifting multiplicities</em>. Recent and ongoing projects include the free-improv quintet <em>Inopia</em> (album <em>Exoplanet</em>, 2025); the electroacoustic duo <em>O.P.M.L. — Our Past Microtonal Love</em>; and the ensembles <em>Trio Lavish</em> (winners of the <em>Erasmus Jazz Prijs 2023</em>) and <em>Edera Trees</em>.</p>
+            <p>Her music draws on microtonality (simple frequency relations beyond tempered systems), memory as layering/return, and a choreographic attention to gesture, instrument and space. She has appeared at Palazzo Ducale (Genoa), Museo Bagatti Valsecchi (Milan), MA/IN Matera Intermedia Festival (Matera), De Thomas (Amsterdam) and The Grey Space (The Hague).</p>
+            <p>Alongside artistic work, Maria is active as an educator and as a project manager. In 2025 she coordinated the interdisciplinary project week <em>Connecting the Dots</em> at ArtEZ University of the Arts, leading planning and delivery for ~40 Master students across departments, guest-lecturer scheduling, rooming and documentation.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="where" hidden>
+        <h2>where</h2>
+        <ul>
+          <li><strong>17 Jan 2026</strong> — Concert, Rathaussaal Xanten — tbc.</li>
+          <li><strong>16 Jan 2026</strong> — Concert, Immanuelskirche Wuppertal — tbc.</li>
+        </ul>
+      </section>
+
+      <section id="contact" hidden>
+        <h2>contact</h2>
+        <p class="contact-line">
+          <svg class="icon-mail" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M3 6.75A1.75 1.75 0 0 1 4.75 5h14.5A1.75 1.75 0 0 1 21 6.75v10.5A1.75 1.75 0 0 1 19.25 19H4.75A1.75 1.75 0 0 1 3 17.25V6.75Zm1.9.2 7.08 5.31c.13.1.31.1.44 0l7.08-5.31a.25.25 0 0 0-.15-.45H5.05a.25.25 0 0 0-.15.45Zm14.15 1.69-6.43 4.82a2.25 2.25 0 0 1-2.84 0L3.35 8.64v8.61c0 .14.11.25.25.25h16.8c.14 0 .25-.11.25-.25V8.64Z"></path>
+          </svg>
+          <span>mariacozzani@gmail.com</span>
+        </p>
+      </section>
+
+      <section id="works-data" hidden>
+        <!-- Nuova opera aggiunta in prima posizione -->
+        <article class="card" id="violin-algorithm-duet" data-title="Violin and Algorithm Duet"
+                 data-yt="dUpo4ffqWa8"
+                 data-poster="https://img.youtube.com/vi/dUpo4ffqWa8/hqdefault.jpg">
+          <h3><em>Violin and Algorithm Duet</em> (2025)</h3>
+          <p><strong>Violin</strong> - Maria Isolina Cozzani<br>
+          <strong>Machine listening, concatenative synthesis algorithm</strong> - Matteo Traverso<br>
+          <strong>Concept</strong> - Maria Isolina Cozzani, Matteo Traverso</p>
+          
+          <p>This piece is an improvised duo between violin and algorithm. During the first two minutes the violin improvises alone, providing the sound material. The algorithm’s playback is determined by the violin’s musical decisions. In the duet section, the two players influence each other—texturally and structurally.</p>
+          
+          <p><strong>Video:</strong> <a href="https://youtu.be/dUpo4ffqWa8" target="_blank" rel="noopener">YouTube</a></p>
+        </article>
+
+        <article class="card" id="what-is-left" data-title="what is left, what there grows"
+                 data-poster="assets/what-is-left-cover.jpg"
+                 data-drive="1PxZBF0uUqdAcqpShlq9IUOrqWa6HcPv5">
+          <h3><em>what is left, what there grows</em> (2025)</h3>
+          <p class="muted">Finalist at MA/IN Matera Intermedia Festival 2025.</p>
+          <p>"what is left, what there grows" is a self-reactive environment composed of sound, immersive multi-channel audio (4–8 channels), upcycled trash speakers, small robots, and obsolete or broken technological remains—motherboards, wires, machine parts. Although over 90% of the installation is built from discarded or recycled materials, the experience it offers is one of vitality, regeneration, and ongoing transformation—whether driven by internal desire or external intervention.</p>
+          <p>The installation evokes a kind of natural ritual in which the Anthropocene compresses geological eras, accelerating fossil formation through human waste. Decades of technological residue converge, reshaping sound, air, shadow, and perception, exposing a fractured sense of detachment from our consumer responsibilities.</p>
+          <p>This is a fragile, eroded, yet vibrant environment in constant flux. All elements—robots, sound structures, speakers—listen and respond to one another; the system is entirely audio-reactive, including its interaction with the audience. The presence of living, reactive technology gives the impression of stepping into a sacred terrain, made of a new kind of nature—where even stepping over a cable or past a tiny machine feels intrusive.</p>
+          <p>The installation sustains a delicate balance. It no longer needs the human, and barely welcomes them—except as careful listener, as silent observer.</p>
+          <p><strong>Media:</strong> <a href="https://drive.google.com/file/d/1PxZBF0uUqdAcqpShlq9IUOrqWa6HcPv5/preview" target="_blank" rel="noopener">Video (Drive)</a></p>
+        </article>
+
+        <article class="card" id="exoplanet" data-title="Exoplanet — Inopia"
+                 data-poster="assets/SM4830_cover%204000x4000px.jpg">
+          <h3><em>Exoplanet</em> — Inopia (2025)</h3>
+          <p><strong>EXOPLANET</strong> is a sonic exploration of human existence in an age of global crises. The collective Inopia poses questions of empathy, responsibility, and the relationship between humanity and the environment—expanding the understanding of jazz as a social, emotional, and reflective art form.</p>
+          <p>The album unites composition and improvisation into an organic whole, merging elements of ambient, drone, electroacoustic music, and free improvisation. Sound becomes a medium of thought and emotion, a mirror of a world in transformation. Sounds interweave, lose their distinct origins, and create multilayered spaces of resonance filled with emotional and cultural depth.</p>
+          <p><strong>Listen / info:</strong>
+            <a href="https://listen.music-hub.com/bcFtvP" target="_blank" rel="noopener">Music-Hub</a> ·
+            <a href="https://pascalburbach.bandcamp.com/album/exoplanet" target="_blank" rel="noopener">Bandcamp</a> ·
+            <a href="https://www.instagram.com/inopiasound/" target="_blank" rel="noopener">@inopiasound</a>
+          </p>
+          <div class="media-grid">
+            <img class="span-3" src="assets/SM4830_cover%204000x4000px.jpg" alt="Exoplanet cover" loading="lazy" decoding="async" width="1600" height="900">
+            <img src="assets/DSC_4362.jpg" alt="Inopia live 1" loading="lazy" decoding="async" width="800" height="533">
+            <img src="assets/DSC_4403.jpg" alt="Inopia live 2" loading="lazy" decoding="async" width="800" height="533">
+            <img src="assets/DSC_4930.jpg" alt="Inopia live 3" loading="lazy" decoding="async" width="800" height="533">
+            <img src="assets/unbenannt-8811.jpg" alt="Inopia portrait blurred" loading="lazy" decoding="async" width="800" height="533">
+          </div>
+        </article>
+
+        <article class="card" id="lavish-trio"
+                 data-title="Lavish Trio — Dump and Die"
+                 data-poster="assets/lavish-cover-1200.jpg">
+          <h3><em>Dump and Die</em> — Lavish Trio</h3>
+          <p><strong>Lavish</strong> ist ein improvisierendes Trio, bestehend aus den komponierenden Musikern <em>Sol Jang</em> (Klavier), <em>Maria Isolina Cozzani</em> (Violine) und <em>Kim Kamilla Jäger</em> (Cello). Dieses Projekt entstand aus dem Drang heraus, musikalische Strukturen zu schaffen, die sich um ein zentrales Thema drehen. Klangbasierte Improvisation, Jazz und sich wiederholende Muster werden in einer kammermusikalischen Umgebung miteinander verwoben, die klein und zerbrechlich, aber auch brutal und brüllend klingen kann. Komponieren und Improvisieren sind gleichermaßen Teil ihres Materials, und die Stücke können auf überraschende Weise auseinandergenommen und neu kombiniert werden.</p>
+          <p><strong>Auszeichnungen:</strong> Gewinner des Erasmus Jazz Prijs 2023, Mittelyoung – Mittelfest 2023 und CS Carinthischer Sommer Under 30.</p>
+          <p><strong>Album – Dump and Die:</strong> Das erste Album des Lavish Trios ist eine Repräsentation der Millennials, die im Ausklang der analogen Ära geboren wurden und in der digitalen Revolution herangewachsen sind. In einem kammermusikalischen Setting kombiniert es rohe, texturierte Streicherklänge – mit der Rauheit des Analogen und der Direktheit des Akustischen. Komposition und Improvisation verweben sich zu dystopischen Visionen, künstlichen Wiegenliedern und einer Nostalgie für vergangene Technologie.</p>
+          <p><strong>Links:</strong>
+            <a href="https://unitrecords.com/artists/lavish-trio/" target="_blank" rel="noopener">Unit Records — Artist</a> ·
+            <a href="https://www.instagram.com/lavish_trio/" target="_blank" rel="noopener">Instagram</a> ·
+            <a href="https://open.spotify.com/intl-it/album/6tC4jCG4yMGOEeOhIDj9Gu" target="_blank" rel="noopener">Spotify (Album)</a>
+          </p>
+          <div class="media-grid">
+            <img class="span-3" src="assets/lavish-cover-1200.jpg" alt="Lavish Trio — Dump and Die cover" loading="lazy" decoding="async" width="1200" height="1200">
+            <img src="assets/lavish-portrait.jpg" alt="Lavish Trio portrait" loading="lazy" decoding="async" width="950" height="950">
+          </div>
+        </article>
+
+        <article class="card" id="isln"
+                 data-title="ISLN — geography of sounds, shapeshifting multiplicities"
+                 data-poster="assets/isln-cover-1200-1200.jpg"
+                 data-yt-list="gFk8Gf295Xg, nQ2dfomDPyk, boeDsX6veuY">
+          <h3><em>ISLN: geography of sounds, shapeshifting multiplicities</em> (2023)</h3>
+          <p>In <em>ISLN — geography of sounds, shapeshifting multiplicities</em>, Maria Isolina Cozzani brings her master's research to the surface. ISLN enables an unexplored space and time for improvisation and takes place in an imaginary setting where the transposed laws of physics make room for renewed perspectives. A constellation of islands inhabited by sounding organisms describes a geography of sounds, a constellation of objects, entities, expressions, qualities, and territories that come together over time to ideally create new ways of functioning.</p>
+          <p>This assemblage, by making countless and unexpected connections, creates an ecology, an entity out of it all, a shapeshifter made of organisms and sounds that bring people and ideas together. Created for a large ensemble of 17 improvising musicians, ISLN is an explorable, walk-through, live sounding installation/performance.</p>
+          <p><strong>Concept:</strong> <a href="https://drive.google.com/file/d/1FS0cm8xwaXjvtb0ECSUtN845Y9qSDmga/view?usp=sharing" target="_blank" rel="noopener">Google Drive</a></p>
+          
+          <div class="media-grid">
+            <img class="span-3" src="assets/isln-cover-1200-1200.jpg" alt="ISLN — geography of sounds poster" loading="lazy" decoding="async" width="1200" height="1700">
+          </div>
+        </article>
+
+        <article class="card" id="artemide"
+                 data-title="Art&mide, Studio 1 — The evocation of Ἄρτεμις"
+                 data-poster="assets/artemide_6.jpg"
+                 data-yt-list="INTPUDO6-Bg, arRRCQIwIKg">
+          <h3><em>Art&mide, Studio 1 — The evocation of Ἄρτεμις</em> (2023)</h3>
+          <p><em>art&mide</em> is an installation/performance born from an idea of Maria Isolina Cozzani and subsequently developed by Maria Isolina Cozzani and Matteo Traverso. The current state of the work consists of an iterative audiovisual installation and a sound performance with generative / reactive video to movement &amp; audio.</p>
+          <div class="photo-grid">
+            <img src="assets/artemide_6.jpg" alt="artemide photo 6" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide_3.jpg" alt="artemide photo 3" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide_4.jpg" alt="artemide photo 4" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide_2.jpg" alt="artemide photo 2" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide_1.jpg" alt="artemide photo 1" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide_5.jpg" alt="artemide photo 5" loading="lazy" decoding="async" width="800" height="450">
+          </div>
+        </article>
+
+        <article class="card" id="locked-outputs" data-title="locked:outputs" data-yt="LB4l8T4fsDM">
+          <h3><em>locked:outputs</em> (2020)</h3>
+          <p>Explorative video game by Cozzani, Traverso and De Negri created during the 2020 lockdown. Glitchy 3D models and original audio tracks packed into a navigable experience.</p>
+          <p><strong>Gameplay:</strong> <a href="https://www.youtube.com/watch?v=LB4l8T4fsDM&t=147s" target="_blank" rel="noopener">YouTube</a></p>
+        </article>
+
+        <article class="card" id="studio-sul-plasma" data-title="Studio sul plasma" data-yt="o3UOTGCL5_Q">
+          <h3><em>Studio sul plasma</em> (2019)</h3>
+          <p>3D particles audio-reactive system emulating plasma behaviour; scratched violin sounds re-elaborated with filters and a moving particles system.</p>
+          <p><strong>Media:</strong> <a href="https://www.youtube.com/watch?v=o3UOTGCL5_Q&ab_channel=art%C3%A8r%C3%ACa" target="_blank" rel="noopener">YouTube</a></p>
+        </article>
+
+        <article class="card" id="steps-to-be-taken" data-title="Steps to be taken in case of death:" data-vimeo="372936733" data-yt="PyPbwN7ewlA">
+          <h3><em>Steps to be taken in case of death:</em> (2019)</h3>
+          <p>2019 audio-video installation by Cozzani and Traverso, simulating a surgical operation on a violin in an operating theater. It merges visual, gestural, and sound elements, influenced by Cage and Lachenmann, creating a controlled environment where reality and fiction intermingle.</p>
+          <p><strong>Links:</strong> <a href="https://vimeo.com/372936733" target="_blank" rel="noopener">Trailer (Vimeo)</a> · <a href="https://youtu.be/PyPbwN7ewlA" target="_blank" rel="noopener">Full performance</a></p>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>© <span id="y"></span> Maria Isolina Cozzani</p>
+    </footer>
+  </div>
+
+  <script>
+  'use strict';
+
+  // Set current year in footer
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  const worksSection = document.querySelector('#works-data');
+  const detail = document.querySelector('#work-detail');
+  const thumbsWrap = document.getElementById('thumbs');
+
+  // Poster image overrides for specific works
+  const POSTER_OVERRIDES = {
+    'violin-algorithm-duet': 'https://img.youtube.com/vi/dUpo4ffqWa8/hqdefault.jpg',
+    'artemide': 'assets/artemide_6.jpg',
+    'exoplanet': 'assets/SM4830_cover%204000x4000px.jpg',
+    'lavish-trio': 'assets/lavish-cover-1200.jpg',
+    'isln': 'assets/isln-cover-1200-1200.jpg'
+  };
+
+  // Get YouTube thumbnail URL
+  function getYouTubeThumb(id) {
+    return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+  }
+
+  // Build thumbnail element for gallery (prefer data-poster, then override, then YouTube)
+  function buildThumb(article) {
+    const id = article.id;
+    const title = article.dataset.title || id;
+    let thumbURL = '';
+
+    // 1) Prefer the article's own poster
+    if (article.dataset.poster) {
+      try {
+        thumbURL = new URL(article.dataset.poster, document.baseURI).href;
+      } catch (e) {
+        thumbURL = article.dataset.poster;
+      }
+    }
+
+    // 2) If still empty, use an override
+    if (!thumbURL && POSTER_OVERRIDES[id]) {
+      thumbURL = POSTER_OVERRIDES[id];
+    }
+
+    // 3) Fallback to YouTube thumbnail if available
+    if (!thumbURL && (article.dataset.yt || article.dataset.ytList)) {
+      const firstId = (article.dataset.yt || article.dataset.ytList.split(',')[0].trim());
+      thumbURL = getYouTubeThumb(firstId);
+    }
+
+    const a = document.createElement('a');
+    a.href = `#work/${id}`;
+    a.className = 'thumb';
+    a.setAttribute('aria-label', title);
+
+    if (thumbURL) {
+      const img = document.createElement('img');
+      img.className = 'poster';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.alt = title;
+      
+      img.onerror = () => {
+        // Try poster alternatives if provided
+        const altList = (article.dataset.posterAlts || '').split(',').map(s => s.trim()).filter(Boolean);
+        if (altList.length) {
+          const next = altList.shift();
+          article.dataset.posterAlts = altList.join(',');
+          img.src = next;
+          return;
+        }
+        
+        // Fallback to YouTube thumbnail(s)
+        if (article.dataset.yt) {
+          img.src = getYouTubeThumb(article.dataset.yt);
+          return;
+        }
+        if (article.dataset.ytList) {
+          img.src = getYouTubeThumb(article.dataset.ytList.split(',')[0].trim());
+          return;
+        }
+        
+        // Remove image and use placeholder
+        a.removeChild(img);
+        const ph = document.createElement('div');
+        ph.className = 'poster';
+        ph.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02))';
+        a.insertBefore(ph, a.firstChild);
+      };
+      
+      img.src = thumbURL;
+      a.appendChild(img);
+    } else {
+      // Create placeholder if no image available
+      const ph = document.createElement('div');
+      ph.className = 'poster';
+      ph.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02))';
+      a.appendChild(ph);
+    }
+
+    return a;
+  }
+
+  // Build the gallery from works data
+  function buildGallery() {
+    thumbsWrap.innerHTML = '';
+    if (!worksSection) return;
+    
+    const desiredOrder = [
+      'violin-algorithm-duet', 'what-is-left', 'exoplanet', 'lavish-trio', 
+      'isln', 'artemide', 'locked-outputs', 
+      'studio-sul-plasma', 'steps-to-be-taken'
+    ];
+    
+    const orderMap = new Map(desiredOrder.map((id, i) => [id, i]));
+    const articles = Array.from(worksSection.querySelectorAll('article'))
+      .sort((a, b) => (orderMap.get(a.id) ?? 9) - (orderMap.get(b.id) ?? 9));
+    
+    articles.forEach(a => thumbsWrap.appendChild(buildThumb(a)));
+  }
+
+  // Create embed iframe for videos
+  function createEmbedIframe(kind, id, title) {
+    const div = document.createElement('div');
+    div.className = 'embed';
+    let url = '';
+    
+    if (kind === 'yt') {
+      url = `https://www.youtube-nocookie.com/embed/${id}`;
+      div.innerHTML = `<iframe loading="lazy" src="${url}" title="${title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    } else if (kind === 'vimeo') {
+      url = `https://player.vimeo.com/video/${id}?dnt=1&byline=0&portrait=0`;
+      div.innerHTML = `<iframe loading="lazy" src="${url}" title="${title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+    } else if (kind === 'drive') {
+      url = `https://drive.google.com/file/d/${id}/preview`;
+      div.innerHTML = `<iframe loading="lazy" src="${url}" title="${title}"></iframe>`;
+    }
+    
+    return div;
+  }
+
+  // Create media block for work detail view
+  function createMediaBlock(article) {
+    const ds = article.dataset;
+    const title = ds.title || article.id;
+    const entries = [];
+    
+    // Collect all media entries
+    if (ds.ytList) {
+      ds.ytList.split(',').map(s => s.trim()).filter(Boolean)
+        .forEach(id => entries.push(['yt', id]));
+    }
+    if (ds.vimeoList) {
+      ds.vimeoList.split(',').map(s => s.trim()).filter(Boolean)
+        .forEach(id => entries.push(['vimeo', id]));
+    }
+    if (ds.driveList) {
+      ds.driveList.split(',').map(s => s.trim()).filter(Boolean)
+        .forEach(id => entries.push(['drive', id]));
+    }
+    if (ds.yt) entries.push(['yt', ds.yt]);
+    if (ds.vimeo) entries.push(['vimeo', ds.vimeo]);
+    if (ds.drive) entries.push(['drive', ds.drive]);
+    
+    if (entries.length === 0) return null;
+
+    // Special case: single media with poster but no inline images
+    if (entries.length === 1 && ds.poster && !article.querySelector('img')) {
+      const wrap = document.createElement('div');
+      wrap.className = 'detail-media-grid';
+      wrap.appendChild(createEmbedIframe(entries[0][0], entries[0][1], title));
+      
+      const img = document.createElement('img');
+      img.src = ds.poster;
+      img.alt = title;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      wrap.appendChild(img);
+      
+      return wrap;
+    }
+
+    // Multiple media entries
+    const container = document.createElement('div');
+    if (entries.length > 1) container.className = 'video-grid';
+    
+    entries.forEach(([kind, id]) => {
+      container.appendChild(createEmbedIframe(kind, id, title));
+    });
+    
+    return container;
+  }
+
+  // Set active nav state
+  function setActiveNav(section) {
+    document.querySelectorAll('nav a[href^="#"]').forEach(a => {
+      a.removeAttribute('aria-current');
+      if (a.getAttribute('href') === `#${section}`) a.setAttribute('aria-current', 'page');
+    });
+  }
+
+  // Show top-level section (works, bio, where, contact)
+  function showTop(section) {
+    ['works', 'bio', 'where', 'contact'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.hidden = (id !== section);
+    });
+    
+    document.body.classList.remove('is-detail');
+    const detailEl = document.getElementById('work-detail');
+    
+    if (detailEl) {
+      detailEl.setAttribute('hidden', '');
+      detailEl.innerHTML = '';
+    }
+    
+    if (section === 'works') {
+      window.scrollTo(0, 0);
+    }
+    setActiveNav(section);
+  }
+
+  // Show work detail view
+  function showWork(slug) {
+    const article = document.getElementById(slug);
+    if (!article) {
+      showTop('works');
+      return;
+    }
+    
+    document.body.classList.add('is-detail');
+    const detailEl = document.getElementById('work-detail');
+    detailEl.removeAttribute('hidden');
+    detailEl.innerHTML = `<a href="#works" class="back">← all works</a>`;
+
+    const media = createMediaBlock(article);
+    if (media) detailEl.appendChild(media);
+    
+    const clone = article.cloneNode(true);
+    clone.removeAttribute('id'); // avoid duplicate IDs
+    detailEl.appendChild(clone);
+    
+    window.scrollTo(0, 0);
+  }
+
+  // Handle URL routing
+  function handleRoute() {
+    const h = decodeURIComponent(location.hash || '#works');
+    const m = h.match(/^#work\/(.+)$/);
+    
+    if (m) {
+      showWork(m[1]);
+      return;
+    }
+    
+    const sec = h.replace('#', '');
+    if (['bio', 'where', 'contact', 'works'].includes(sec)) {
+      showTop(sec);
+    } else {
+      showTop('works');
+    }
+  }
+
+  // Initialize instant navigation
+  function initNavInstant() {
+    document.querySelectorAll('nav a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const target = a.getAttribute('href').slice(1);
+        if (['bio', 'where', 'contact', 'works'].includes(target)) {
+          e.preventDefault();
+          history.replaceState(null, '', `#${target}`);
+          showTop(target);
+        }
+      });
+    });
+  }
+
+  // Initialize image fallbacks
+  function initImageFallbacks() {
+    document.querySelectorAll('img[data-fallbacks]').forEach(img => {
+      let list = (img.dataset.fallbacks || '').split(',').map(s => s.trim()).filter(Boolean);
+      if (!list.length) return;
+      
+      img.addEventListener('error', function onErr() {
+        if (!list.length) {
+          img.removeEventListener('error', onErr);
+          return;
+        }
+        img.src = list.shift();
+      });
+    });
+  }
+
+  // Ensure security rel on external links
+  function hardenExternalLinks() {
+    document.querySelectorAll('a[target="_blank"]').forEach(a => {
+      const rel = (a.getAttribute('rel') || '').split(/\s+/).filter(Boolean);
+      if (!rel.includes('noopener')) rel.push('noopener');
+      if (!rel.includes('noreferrer')) rel.push('noreferrer');
+      a.setAttribute('rel', rel.join(' '));
+    });
+  }
+
+  // Initialize everything when DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    buildGallery();
+    handleRoute();
+    initNavInstant();
+    initImageFallbacks();
+    hardenExternalLinks();
+  });
+
+  // Handle hash changes
+  window.addEventListener('hashchange', handleRoute);
+  </script>
+</body>
+</html>
