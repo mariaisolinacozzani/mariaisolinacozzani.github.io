@@ -18,19 +18,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Maria Isolina Cozzani",
-    "jobTitle": "Violinist, Composer-Performer, Multimedia Artist",
-    "description": "Italian-German violinist, composer-performer and multimedia artist based in Cologne",
-    "url": "https://yourdomain.com",
-    "sameAs": []
-  }
-  </script>
-
   <style>
     :root {
       --txt: #0a0a0d;
@@ -239,24 +226,6 @@
       outline-offset: 2px;
     }
 
-    /* Loading state for images */
-    .thumb.loading::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-      animation: loading 1.5s infinite;
-      z-index: 1;
-    }
-
-    @keyframes loading {
-      0% { left: -100%; }
-      100% { left: 100%; }
-    }
-
     /* Detail View */
     body.is-detail main > section:not(#work-detail) {
       display: none;
@@ -301,15 +270,6 @@
       width: 100%;
       height: 100%;
       border: 0;
-    }
-
-    /* Error state for embeds */
-    .embed-error {
-      padding: 40px 20px;
-      text-align: center;
-      background: rgba(0,0,0,0.02);
-      border: 1px solid var(--border);
-      color: var(--muted);
     }
 
     /* Detail media grid */
@@ -367,11 +327,6 @@
       object-fit: cover;
       border-radius: 0;
       border: 1px solid var(--border);
-      transition: transform 0.2s ease;
-    }
-
-    .photo-grid img:hover, .media-grid img:hover {
-      transform: scale(1.02);
     }
 
     .media-grid .span-3 {
@@ -439,15 +394,6 @@
       gap: 10px;
       font-weight: 600;
       color: var(--txt);
-      padding: 8px 16px;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      transition: all 0.2s ease;
-    }
-
-    .contact-line:hover {
-      border-color: var(--brand-pink);
-      background: rgba(255,79,216,0.05);
     }
 
     .icon-mail {
@@ -460,7 +406,6 @@
       margin: 44px 0 12px;
       font-size: 13px;
       color: var(--muted);
-      text-align: center;
     }
 
     /* Performance optimizations */
@@ -491,23 +436,6 @@
       
       .card {
         padding: 12px;
-      }
-      
-      #bio .bio-content p {
-        font-size: 14px;
-        line-height: 1.7;
-      }
-    }
-
-    /* Print styles */
-    @media print {
-      .thumb, nav, footer {
-        display: none;
-      }
-      
-      .card {
-        break-inside: avoid;
-        border: 1px solid #000;
       }
     }
   </style>
@@ -557,12 +485,12 @@
 
       <section id="contact" hidden>
         <h2>contact</h2>
-        <a href="mailto:mariacozzani@gmail.com" class="contact-line">
+        <p class="contact-line">
           <svg class="icon-mail" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M3 6.75A1.75 1.75 0 0 1 4.75 5h14.5A1.75 1.75 0 0 1 21 6.75v10.5A1.75 1.75 0 0 1 19.25 19H4.75A1.75 1.75 0 0 1 3 17.25V6.75Zm1.9.2 7.08 5.31c.13.1.31.1.44 0l7.08-5.31a.25.25 0 0 0-.15-.45H5.05a.25.25 0 0 0-.15.45Zm14.15 1.69-6.43 4.82a2.25 2.25 0 0 1-2.84 0L3.35 8.64v8.61c0 .14.11.25.25.25h16.8c.14 0 .25-.11.25-.25V8.64Z"></path>
           </svg>
           <span>mariacozzani@gmail.com</span>
-        </a>
+        </p>
       </section>
 
       <section id="works-data" hidden>
@@ -696,3 +624,284 @@
   const thumbsWrap = document.getElementById('thumbs');
 
   // Poster image overrides for specific works
+  const POSTER_OVERRIDES = {
+    'violin-algorithm-duet': 'https://img.youtube.com/vi/dUpo4ffqWa8/hqdefault.jpg',
+    artemide: 'assets/artemide_6.jpg',
+    exoplanet: 'assets/SM4830_cover%204000x4000px.jpg',
+    'lavish-trio': 'assets/lavish-cover.jpg',
+    isln: 'assets/isln-cover.jpg'
+  };
+
+  // Get YouTube thumbnail URL
+  function getYouTubeThumb(id) {
+    return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+  }
+
+  // Build thumbnail element for gallery
+  function buildThumb(article) {
+    const id = article.id;
+    const title = article.dataset.title || id;
+    let thumbURL = '';
+
+    // Check for overrides first
+    if (POSTER_OVERRIDES[id]) {
+      thumbURL = POSTER_OVERRIDES[id];
+    }
+
+    // Then check for poster attribute
+    if (article.dataset.poster && !thumbURL) {
+      try {
+        thumbURL = new URL(article.dataset.poster, document.baseURI).href;
+      } catch(e) {
+        thumbURL = article.dataset.poster;
+      }
+    }
+
+    // Fallback to YouTube thumbnail if available
+    if ((article.dataset.yt || article.dataset.ytList) && !thumbURL) {
+      const firstId = (article.dataset.yt || article.dataset.ytList.split(',')[0].trim());
+      thumbURL = getYouTubeThumb(firstId);
+    }
+
+    const a = document.createElement('a');
+    a.href = `#work/${id}`;
+    a.className = 'thumb';
+    a.setAttribute('aria-label', title);
+
+    if (thumbURL) {
+      const img = document.createElement('img');
+      img.className = 'poster';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.alt = title;
+      
+img.onerror = () => {
+        // Try poster alternatives if provided
+        const altList = (article.dataset.posterAlts || '').split(',').map(s => s.trim()).filter(Boolean);
+        if (altList.length) {
+          const next = altList.shift();
+          article.dataset.posterAlts = altList.join(',');
+          img.src = next;
+          return;
+        }
+        
+        // Fallback to YouTube thumbnail
+        if (article.dataset.yt) {
+          img.src = getYouTubeThumb(article.dataset.yt);
+          return;
+        }
+        
+        // Remove image and use placeholder
+        a.removeChild(img);
+        const ph = document.createElement('div');
+        ph.className = 'poster';
+        ph.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02))';
+        a.insertBefore(ph, a.firstChild);
+      };
+      
+      img.src = thumbURL;
+      a.appendChild(img);
+    } else {
+      // Create placeholder if no image available
+      const ph = document.createElement('div');
+      ph.className = 'poster';
+      ph.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02))';
+      a.appendChild(ph);
+    }
+
+    return a;
+  }
+
+  // Build the gallery from works data
+  function buildGallery() {
+    thumbsWrap.innerHTML = '';
+    if (!worksSection) return;
+    
+    const desiredOrder = [
+      'violin-algorithm-duet', 'what-is-left', 'exoplanet', 'lavish-trio', 
+      'isln', 'artemide', 'locked-outputs', 
+      'studio-sul-plasma', 'steps-to-be-taken'
+    ];
+    
+    const orderMap = new Map(desiredOrder.map((id, i) => [id, i]));
+    const articles = Array.from(worksSection.querySelectorAll('article'))
+      .sort((a, b) => (orderMap.get(a.id) ?? 9) - (orderMap.get(b.id) ?? 9));
+    
+    articles.forEach(a => thumbsWrap.appendChild(buildThumb(a)));
+  }
+
+  // Create embed iframe for videos
+  function createEmbedIframe(kind, id, title) {
+    const div = document.createElement('div');
+    div.className = 'embed';
+    let url = '';
+    
+    if (kind === 'yt') {
+      url = `https://www.youtube-nocookie.com/embed/${id}`;
+      div.innerHTML = `<iframe loading="lazy" src="${url}" title="${title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    } else if (kind === 'vimeo') {
+      url = `https://player.vimeo.com/video/${id}?dnt=1&byline=0&portrait=0`;
+      div.innerHTML = `<iframe loading="lazy" src="${url}" title="${title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+    } else if (kind === 'drive') {
+      url = `https://drive.google.com/file/d/${id}/preview`;
+      div.innerHTML = `<iframe loading="lazy" src="${url}" title="${title}"></iframe>`;
+    }
+    
+    return div;
+  }
+
+  // Create media block for work detail view
+  function createMediaBlock(article) {
+    const ds = article.dataset;
+    const title = ds.title || article.id;
+    const entries = [];
+    
+    // Collect all media entries
+    if (ds.ytList) {
+      ds.ytList.split(',').map(s => s.trim()).filter(Boolean)
+        .forEach(id => entries.push(['yt', id]));
+    }
+    if (ds.vimeoList) {
+      ds.vimeoList.split(',').map(s => s.trim()).filter(Boolean)
+        .forEach(id => entries.push(['vimeo', id]));
+    }
+    if (ds.driveList) {
+      ds.driveList.split(',').map(s => s.trim()).filter(Boolean)
+        .forEach(id => entries.push(['drive', id]));
+    }
+    if (ds.yt) entries.push(['yt', ds.yt]);
+    if (ds.vimeo) entries.push(['vimeo', ds.vimeo]);
+    if (ds.drive) entries.push(['drive', ds.drive]);
+    
+    if (entries.length === 0) return null;
+
+    // Special case: single media with poster but no inline images
+    if (entries.length === 1 && ds.poster && !article.querySelector('img')) {
+      const wrap = document.createElement('div');
+      wrap.className = 'detail-media-grid';
+      wrap.appendChild(createEmbedIframe(entries[0][0], entries[0][1], title));
+      
+      const img = document.createElement('img');
+      img.src = ds.poster;
+      img.alt = title;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      wrap.appendChild(img);
+      
+      return wrap;
+    }
+
+    // Multiple media entries
+    const container = document.createElement('div');
+    if (entries.length > 1) container.className = 'video-grid';
+    
+    entries.forEach(([kind, id]) => {
+      container.appendChild(createEmbedIframe(kind, id, title));
+    });
+    
+    return container;
+  }
+
+  // Show top-level section (works, bio, where, contact)
+  function showTop(section) {
+    ['works', 'bio', 'where', 'contact'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.hidden = (id !== section);
+    });
+    
+    document.body.classList.remove('is-detail');
+    const detailEl = document.getElementById('work-detail');
+    
+    if (detailEl) {
+      detailEl.setAttribute('hidden', '');
+      detailEl.innerHTML = '';
+    }
+    
+    if (section === 'works') {
+      window.scrollTo(0, 0);
+    }
+  }
+
+  // Show work detail view
+  function showWork(slug) {
+    const article = document.getElementById(slug);
+    if (!article) {
+      showTop('works');
+      return;
+    }
+    
+    document.body.classList.add('is-detail');
+    const detailEl = document.getElementById('work-detail');
+    detailEl.removeAttribute('hidden');
+    detailEl.innerHTML = `<a href="#works" class="back">← all works</a>`;
+
+    const media = createMediaBlock(article);
+    if (media) detailEl.appendChild(media);
+    
+    const clone = article.cloneNode(true);
+    detailEl.appendChild(clone);
+    
+    window.scrollTo(0, 0);
+  }
+
+  // Handle URL routing
+  function handleRoute() {
+    const h = decodeURIComponent(location.hash || '#works');
+    const m = h.match(/^#work\/(.+)$/);
+    
+    if (m) {
+      showWork(m[1]);
+      return;
+    }
+    
+    const sec = h.replace('#', '');
+    if (['bio', 'where', 'contact', 'works'].includes(sec)) {
+      showTop(sec);
+    } else {
+      showTop('works');
+    }
+  }
+
+  // Initialize instant navigation
+  function initNavInstant() {
+    document.querySelectorAll('nav a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const target = a.getAttribute('href').slice(1);
+        if (['bio', 'where', 'contact', 'works'].includes(target)) {
+          e.preventDefault();
+          history.replaceState(null, '', `#${target}`);
+          showTop(target);
+        }
+      });
+    });
+  }
+
+  // Initialize image fallbacks
+  function initImageFallbacks() {
+    document.querySelectorAll('img[data-fallbacks]').forEach(img => {
+      let list = (img.dataset.fallbacks || '').split(',').map(s => s.trim()).filter(Boolean);
+      if (!list.length) return;
+      
+      img.addEventListener('error', function onErr() {
+        if (!list.length) {
+          img.removeEventListener('error', onErr);
+          return;
+        }
+        img.src = list.shift();
+      });
+    });
+  }
+
+  // Initialize everything when DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    buildGallery();
+    handleRoute();
+    initNavInstant();
+    initImageFallbacks();
+  });
+
+  // Handle hash changes
+  window.addEventListener('hashchange', handleRoute);
+  </script>
+</body>
+</html>
