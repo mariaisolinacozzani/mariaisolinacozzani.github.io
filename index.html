@@ -195,7 +195,8 @@
         <!-- Lavish Trio -->
         <article class="card" id="lavish-trio"
                  data-title="Lavish Trio — Dump and Die"
-                 data-poster="assets/lavish-cover.jpg">
+                 data-poster="assets/lavish-cover.jpg"
+                 data-poster-alts="assets/Lavish Album cover_without Logo copy.jpg, assets/Lavish%20Album%20cover_without%20Logo%20copy.jpg">
           <h3><em>Dump and Die</em> — Lavish Trio</h3>
           <p><strong>Lavish</strong> ist ein improvisierendes Trio, bestehend aus den komponierenden Musikern <em>Sol Jang</em> (Klavier), <em>Maria Isolina Cozzani</em> (Violine) und <em>Kim Kamilla Jäger</em> (Cello). Dieses Projekt entstand aus dem Drang heraus, musikalische Strukturen zu schaffen, die sich um ein zentrales Thema drehen. Klangbasierte Improvisation, Jazz und sich wiederholende Muster werden in einer kammermusikalischen Umgebung miteinander verwoben, die klein und zerbrechlich, aber auch brutal und brüllend klingen kann. Komponieren und Improvisieren sind gleichermaßen Teil ihres Materials, und die Stücke können auf überraschende Weise auseinandergenommen und neu kombiniert werden.</p>
           <p><strong>Auszeichnungen:</strong> Gewinner des Erasmus Jazz Prijs 2023, Mittelyoung – Mittelfest 2023 und CS Carinthischer Sommer Under 30.</p>
@@ -215,6 +216,7 @@
         <article class="card" id="isln"
                  data-title="ISLN — geography of sounds, shapeshifting multiplicities"
                  data-poster="assets/isln-cover.jpg"
+                 data-poster-alts="assets/isln-cover-1200.jpg, assets/isln-cover-800.jpg"
                  data-yt-list="gFk8Gf295Xg, nQ2dfomDPyk, boeDsX6veuY">
           <h3><em>ISLN: geography of sounds, shapeshifting multiplicities</em> (2023)</h3>
           <p>In <em>ISLN — geography of sounds, shapeshifting multiplicities</em>, Maria Isolina Cozzani brings her master's research to the surface. ISLN enables an unexplored space and time for improvisation and takes place in an imaginary setting where the transposed laws of physics make room for renewed perspectives. A constellation of islands inhabited by sounding organisms describes a geography of sounds, a constellation of objects, entities, expressions, qualities, and territories that come together over time to ideally create new ways of functioning.</p>
@@ -322,6 +324,7 @@
           return;
         }
         if(article.dataset.yt){ img.src = getYouTubeThumb(article.dataset.yt); return; }
+        if(article.dataset.ytList){ const first = article.dataset.ytList.split(',')[0].trim(); if(first){ img.src = getYouTubeThumb(first); return; } }
         a.removeChild(img);
         const ph = document.createElement('div'); ph.className = 'poster';
         ph.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02))';
