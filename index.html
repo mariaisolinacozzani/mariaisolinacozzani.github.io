@@ -4,51 +4,39 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>maria isolina cozzani — portfolio</title>
-  <meta name="description" content="Violinist, composer-performer, multimedia artist. Works, bio, where, contact." />
-
-  <!-- perf: preconnect fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- fonts -->
+  <meta name="description" content="violinist, composer-performer, multimedia artist. works, bio, where, contact." />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sniglet:wght@800&family=Source+Sans+3:wght@400;600;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
-
   <style>
     :root{
       --txt:#0a0a0d;
       --bg:#ffffff;
       --muted:#5a5f66;
-      --accent:#7ed321;  /* acid green */
+      --accent:#7ed321;
       --max:980px;
       --font-base:'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       --font-heading: var(--font-base);
-      --radius:8px;
       --border:#e6e7ea;
       --font-frutiger: 'Source Sans 3', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       --brand-pink:#ff4fd8;
-      --pink-glow: rgba(255,79,216,.45);
-      --pink-glow-strong: rgba(255,79,216,.7);
-      --pink-soft:#ffd1f1;
+      --pink-glow: rgba(255, 79, 216, 0.55);
+      --pink-glow-strong: rgba(255, 79, 216, 0.75);
     }
     html{box-sizing:border-box; scroll-behavior:smooth}
     *,*::before,*::after{box-sizing:inherit}
-    body{ margin:0; color:var(--txt); background:var(--bg); font:16px/1.7 var(--font-base); text-rendering:optimizeLegibility; }
+    body{ margin:0; color:var(--txt); background:var(--bg); font:16px/1.7 var(--font-base); text-rendering:optimizeLegibility }
     a{ color:var(--accent); text-decoration:none }
 
     .wrap{position:relative; z-index:1; max-width:var(--max); margin-left:18px; margin-right:auto; padding:28px 18px}
     header{margin:8px 0 18px}
-    h1{font-family:var(--font-heading); font-size:28px; font-weight:700; letter-spacing:0.02em; margin:0 0 6px; color:var(--accent); text-transform:lowercase}
-    nav{margin:14px 0 26px; font-family:var(--font-heading); letter-spacing:0.01em; font-weight:600; text-transform:lowercase; display:flex; gap:10px; align-items:center; flex-wrap:wrap}
-    nav a{margin:0 6px 0 0; white-space:nowrap; position:relative; color:var(--brand-pink); transition:color .25s ease, text-shadow .25s ease}
-    nav a::after{ content:""; position:absolute; left:0; bottom:-2px; height:2px; width:100%; background:var(--brand-pink); transform:scaleX(0); transform-origin:left; transition:transform .25s ease }
-    nav a:hover::after{ transform:scaleX(1) }
-    nav a:hover{ color:var(--brand-pink); text-shadow:0 0 8px var(--pink-glow), 0 0 18px var(--pink-glow-strong) }
+    h1{font-family:var(--font-heading); font-size:28px; font-weight:700; letter-spacing:0.02em; margin:0 0 6px; color:var(--accent)}
+    nav{margin:14px 0 26px; font-family:var(--font-heading); letter-spacing:0.01em; font-weight:600}
+    nav a{margin:0 10px 0 0; white-space:nowrap; position:relative; color:var(--brand-pink); transition:color .25s ease, text-shadow .25s ease}
+    nav a::after{content:""; position:absolute; left:0; bottom:-2px; height:2px; width:100%; background:var(--brand-pink); transform:scaleX(0); transform-origin:left; transition:transform .25s ease}
+    nav a:hover::after{transform:scaleX(1)}
+    nav a:hover{color:var(--brand-pink); text-shadow:0 0 8px var(--pink-glow), 0 0 18px var(--pink-glow-strong)}
 
-    /* fx toggle (perf) */
-    .fx-toggle{ margin-left:auto; font:600 12px/1 var(--font-heading); text-transform:lowercase; padding:8px 12px; border-radius:999px; border:1px solid var(--border); background:#fff; cursor:pointer }
-    .fx-toggle[aria-pressed="false"]{ opacity:.65 }
-
-    main, #work-detail, #works, #bio, #where, #contact{ font-family: var(--font-frutiger); text-transform:lowercase }
-    main h2, main h3, #work-detail h3, .thumb .t{ font-family: var(--font-frutiger); letter-spacing:0.005em; text-transform:lowercase }
+    main, #work-detail, #works, #bio, #where, #contact{ font-family: var(--font-frutiger) }
+    main h2, main h3, #work-detail h3, .thumb .t{ font-family: var(--font-frutiger); letter-spacing:0.005em }
 
     main section{margin:38px 0}
     h2{font-family:var(--font-heading); font-size:18px; margin:0 0 12px; color:var(--accent); letter-spacing:0.02em}
@@ -56,83 +44,67 @@
     .muted{color:var(--muted)}
     .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
 
-    /* Cards */
     .card{ padding:16px; border-radius:8px; background:#fff; border:1px solid var(--border) }
-    .card:hover{ border-color:#c8c9cc }
 
-    /* ===== GALLERY (works thumbnails) ===== */
+    /* Gallery grid for detail pages */
+    .gallery-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:12px }
+    .gallery-grid img{ width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:8px; display:block }
+    @media (max-width:680px){ .gallery-grid{grid-template-columns:repeat(2,1fr)} }
+
+    /* ===== WORKS THUMBS ===== */
     #gallery{margin-top:6px}
-    .thumbs{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; justify-content:start; justify-items:stretch }
+    .thumbs{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px }
     @media (min-width:640px){ .thumbs{grid-template-columns:repeat(3,1fr)} }
     @media (min-width:980px){ .thumbs{grid-template-columns:repeat(4,1fr)} }
 
-    .thumb{ position:relative; display:block; border-radius:8px; overflow:hidden; background:#fff; border:1px solid var(--border); transition: transform .18s ease, border-color .18s ease, filter .18s ease; will-change: transform }
+    .thumb{ position:relative; display:block; border-radius:8px; overflow:hidden; background:#fff; border:1px solid var(--border); transition: transform .18s ease, border-color .18s ease, filter .18s ease }
     .thumb .poster{ aspect-ratio:16/9; width:100%; object-fit:cover; display:block; filter:grayscale(.15) contrast(1.05) }
     .thumb .overlay{position:absolute; inset:auto 0 0 0; display:flex; align-items:center; justify-content:space-between; padding:8px 10px; background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%)}
     .thumb .t{font:600 12px/1.2 var(--font-heading); letter-spacing:0.01em; color:#eef2f3}
     .thumb .badge{ font:600 10px/1 var(--font-base); padding:6px 8px; border-radius:6px; background:rgba(255,79,216,0.18); color:#fff; border:1px solid rgba(255,79,216,0.35) }
-    .thumb .play{ position:absolute; left:8px; top:8px; width:26px; height:26px; border-radius:6px; border:1px solid var(--brand-pink); display:grid; place-items:center; background:rgba(255,79,216,0.10); }
+    .thumb .play{ position:absolute; left:8px; top:8px; width:26px; height:26px; border-radius:6px; border:1px solid var(--brand-pink); display:grid; place-items:center; background:rgba(255,79,216,0.10) }
     .thumb .play:before{content:"▶"; font-size:11px; transform:translateX(1px)}
-    .thumb:hover{ transform: translateY(-2px) scale(1.005); border-color: var(--brand-pink); box-shadow: 0 8px 18px rgba(255,79,216,0.20) }
-    .thumb:hover .poster{ filter:grayscale(0) contrast(1.08) saturate(1.12) }
+    .thumb:hover{ transform: translateY(-2px) scale(1.005); border-color: var(--brand-pink); box-shadow: 0 10px 26px rgba(255, 79, 216, 0.25), 0 0 0 2px rgba(255, 79, 216, 0.20), 0 0 28px rgba(255, 79, 216, 0.35) }
+    .thumb:hover .poster{ filter:grayscale(0) contrast(1.08) saturate(1.15) }
     .thumb:focus-visible{ outline:2px solid var(--brand-pink); outline-offset:2px }
 
-    /* ===== DETAIL VIEW ===== */
+    /* Detail view toggle */
     body.is-detail main > section:not(#work-detail){ display:none }
     #work-detail{ margin-top:10px }
     #work-detail .back{ display:inline-block; margin:6px 0 16px; font-size:13px; color:var(--muted) }
-    #work-detail .back:hover{ color:var(--txt) }
-    .embed{ position:relative; padding-top:56.25%; border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); background:rgba(0,0,0,0.03); margin-bottom:14px }
+    .embed{ position:relative; padding-top:56.25%; border-radius:8px; overflow:hidden; border:1px solid var(--border); background:rgba(0,0,0,0.03); margin-bottom:14px }
     .embed iframe{ position:absolute; inset:0; width:100%; height:100%; border:0 }
 
-    /* lightweight video placeholder */
-    .playable{ cursor:pointer; background:#0b0b0e; }
-    .playable .poster{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(.92) contrast(1.06) }
-    .playable .playbtn{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border:1px solid var(--brand-pink); background:rgba(255,79,216,.12);
-      padding:10px 14px; border-radius:999px; font:700 13px/1 var(--font-heading); color:#fff; backdrop-filter: blur(4px) }
-    .playable:hover .playbtn{ box-shadow:0 0 14px var(--pink-glow) }
-
-    /* Contact: bubble mail */
+    /* Contact chip */
     .mail-link{ display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:999px; border:1px solid var(--border); background:#fff; color:var(--txt); font-weight:600 }
-    .mail-link:hover{ text-decoration:none; transform:translateY(-1px) }
-    .icon-mail{ width:18px; height:18px; fill:var(--accent); transition:transform .2s ease }
 
-    footer{margin:44px 0 12px; font-size:13px; color:var(--muted)}
-
-    /* Floating words (can be disabled via toggle) */
-    #float-words{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-    .float-word{ position:absolute; white-space:nowrap; font:800 clamp(18px, 3.6vw, 52px)/1 'Sniglet','Nunito', var(--font-heading); letter-spacing:0.003em;
-      color:transparent; 
-      background: linear-gradient(180deg, #ffd9f4 0%, #ff9ce8 28%, #ff4fd8 55%, #ff38c9 72%, #ffd1f1 100%);
-      -webkit-background-clip:text; background-clip:text;
-      -webkit-text-stroke: 0.5px rgba(255,79,216,0.25);
-      text-shadow: 0 1px 0 rgba(255,255,255,0.75), 0 6px 12px rgba(255,79,216,0.18);
-      will-change: transform;
-    }
+    /* Floating words glossy */
+    #float-words{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden }
+    .float-word{ position:absolute; white-space:nowrap; font:800 clamp(18px, 3.6vw, 52px)/1 'Sniglet','Nunito', var(--font-heading);
+      color:transparent; background: linear-gradient(180deg, #ffd9f4 0%, #ff9ce8 28%, #ff4fd8 55%, #ff38c9 72%, #ffd1f1 100%);
+      -webkit-background-clip:text; background-clip:text; -webkit-text-stroke: 0.5px rgba(255, 79, 216, 0.25);
+      text-shadow: 0 1px 0 rgba(255,255,255,0.75), 0 8px 16px rgba(255,79,216,0.22), 0 0 28px rgba(255,79,216,0.32) }
+    .float-word::before,.float-word::after{ content:""; position:absolute; left:-120%; top:-80%; width:38%; height:260%;
+      background: linear-gradient(70deg, rgba(255,255,255,0) 45%, rgba(255,255,255,0.95) 50%, rgba(255,255,255,0) 55%);
+      mix-blend-mode:screen; pointer-events:none; animation: glint 8s linear infinite }
+    .float-word::after{ animation-duration:10s }
+    @keyframes glint{ 0%{ transform: translateX(-160%) rotate(20deg) } 100%{ transform: translateX(260%) rotate(20deg) } }
     @media (prefers-reduced-motion: reduce){ #float-words{ display:none } }
 
-    :root{ --font-juicy: 'Fredoka','Source Sans 3', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-    #work-detail .card p, #work-detail .card li, #work-detail .card em, #bio p, #bio li{
-      font-family: var(--font-juicy);
-      font-size: 17px;
-      line-height: 1.8;
-      letter-spacing: 0.005em;
-      text-transform:none;
-    }
-    #work-detail .card p + p{ margin-top: 10px }
-
-    /* === Sparkles overlay (perf-tuned) === */
+    /* Sparkles */
     #sparkles{ position:fixed; inset:0; pointer-events:none; z-index:2; mix-blend-mode:screen }
-    #sparkles .sp{ position:absolute; width:2px; height:2px; border-radius:50%;
+    #sparkles .sp{ position:absolute; width:3px; height:3px; border-radius:50%;
       background: radial-gradient(circle, rgba(255,255,255,.95) 0 40%, rgba(255,255,255,0) 60%);
-      filter: drop-shadow(0 0 9px rgba(255,79,216,.35));
-      opacity:0; }
-    @keyframes sparkleBlink{ 0%,100%{opacity:0} 15%{opacity:1} 50%{opacity:.35} 85%{opacity:1} }
+      filter: drop-shadow(0 0 9px rgba(255,79,216,.55)) drop-shadow(0 0 24px rgba(255,79,216,.35));
+      opacity:0 }
+    @keyframes sparkleBlink{ 0%,100%{opacity:0} 10%{opacity:1} 50%{opacity:.35} 90%{opacity:1} }
     @keyframes sparkleDrift{ 0%{ transform:translate(0,0) } 100%{ transform:translate(var(--dx,0px), var(--dy,0px)) } }
+    @keyframes sparkleShine{ 0%,100%{ filter: drop-shadow(0 0 9px rgba(255,79,216,.45)) drop-shadow(0 0 22px rgba(255,79,216,.30)); } 50%{ filter: drop-shadow(0 0 14px rgba(255,79,216,.75)) drop-shadow(0 0 32px rgba(255,79,216,.50)); } }
   </style>
 </head>
 <body>
   <div id="float-words" aria-hidden="true"></div>
+
   <div class="wrap">
     <header>
       <h1>maria isolina cozzani</h1>
@@ -141,7 +113,6 @@
         <a href="#bio">bio</a>
         <a href="#where">where</a>
         <a href="#contact">contact</a>
-        <button id="fx-toggle" class="fx-toggle" type="button" aria-pressed="true">fx: on</button>
       </nav>
     </header>
 
@@ -156,17 +127,15 @@
       <section id="bio" hidden>
         <h2>bio</h2>
         <p><strong>Maria Isolina Cozzani</strong> (b. 1994, Ludwigsburg) is an Italian-German violinist, composer-performer and multimedia artist based in Cologne. Working at the edges of free improvisation, electro-acoustic performance and installation, she focuses on timbral extremes of the violin, spectral/granular resynthesis and spatial sound (4–8-channel and site-responsive setups). Her practice often integrates audio-reactive objects and upcycled technologies, assembling fragile yet vibrant ecosystems where sound, bodies and space co-shape one another.</p>
-        <p>She trained in classical and jazz violin at the conservatories of La Spezia and Genoa and completed an MMus at ArtEZ University of the Arts (Arnhem, 2023) with research in free improvisation that culminated in <em>ISLN — Geography of sounds, shapeshifting multiplicities</em>. Recent and ongoing projects include the electroacoustic duo <em>O.P.M.L. — Our Past Microtonal Love</em> (with Matteo Traverso); the free-improv quintet <em>Inopia</em> (album <em>Exoplanet</em>, 2025); and the ensembles <em>Trio Lavish</em> (winners of the <em>Erasmus Jazz Prijs 2023</em>) and <em>Edera Trees</em>.</p>
-        <p>Her music draws on microtonality (simple frequency relations beyond tempered systems), memory as layering/return, and a choreographic attention to gesture, instrument and space. She has appeared at Palazzo Ducale (Genoa), Museo Bagatti Valsecchi (Milan), MA/IN Matera Intermedia Festival (Matera), De Thomas (Amsterdam) and The Grey Space (The Hague).</p>
+        <p>She trained in classical and jazz violin at the conservatories of La Spezia and Genoa and completed an MMus at ArtEZ University of the Arts (Arnhem, 2023) with research in free improvisation that culminated in <em>ISLN — Geography of sounds, shapeshifting multiplicities</em>. Recent and ongoing projects include the free-improv quintet <em>Inopia</em> (album <em>Exoplanet</em>, 2025); the electroacoustic duo <em>O.P.M.L. — Our Past Microtonal Love</em> (with Matteo Traverso); and the ensembles <em>Trio Lavish</em> (Erasmus Jazz Prijs 2023) and <em>Edera Trees</em>.</p>
         <p>Alongside artistic work, Maria is active as an educator and as a project manager. In 2025 she coordinated the interdisciplinary project week <em>Connecting the Dots</em> at ArtEZ University of the Arts, leading planning and delivery for ~40 Master students across departments, guest-lecturer scheduling, rooming and documentation.</p>
-        <p class="muted">Extended CV and photos available on request. For duo/ensemble activities see <a href="#opml">o.p.m.l.</a> and the <a href="#works">works</a> section.</p>
       </section>
 
       <section id="where" hidden>
         <h2>where</h2>
         <ul>
-          <li><strong>17 jan 2026</strong> — concert, rathaussaal xanten — tbc.</li>
-          <li><strong>16 jan 2026</strong> — concert, immanuelskirche wuppertal — tbc.</li>
+          <li><strong>17 Jan 2026</strong> — Concert, Rathaussaal Xanten — tbc.</li>
+          <li><strong>16 Jan 2026</strong> — Concert, Immanuelskirche Wuppertal — tbc.</li>
         </ul>
       </section>
 
@@ -174,59 +143,77 @@
         <h2>contact</h2>
         <p>
           <a class="mail-link" href="mailto:mariacozzani@gmail.com" aria-label="email me at mariacozzani@gmail.com">
-            <svg class="icon-mail" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M3 6.75A1.75 1.75 0 0 1 4.75 5h14.5A1.75 1.75 0 0 1 21 6.75v10.5A1.75 1.75 0 0 1 19.25 19H4.75A1.75 1.75 0 0 1 3 17.25V6.75Zm1.9.2 7.08 5.31c.13.1.31.1.44 0l7.08-5.31a.25.25 0 0 0-.15-.45H5.05a.25.25 0 0 0-.15.45Zm14.15 1.69-6.43 4.82a2.25 2.25 0 0 1-2.84 0L3.35 8.64v8.61c0 .14.11.25.25.25h16.8c.14 0 .25-.11.25-.25V8.64Z"></path>
-            </svg>
+            <!-- tiny mail icon -->
+            <svg class="icon-mail" viewBox="0 0 24 24" width="18" height="18" fill="#7ed321" aria-hidden="true"><path d="M3 6.75A1.75 1.75 0 0 1 4.75 5h14.5A1.75 1.75 0 0 1 21 6.75v10.5A1.75 1.75 0 0 1 19.25 19H4.75A1.75 1.75 0 0 1 3 17.25V6.75Zm1.9.2 7.08 5.31c.13.1.31.1.44 0l7.08-5.31a.25.25 0 0 0-.15-.45H5.05a.25.25 0 0 0-.15.45Zm14.15 1.69-6.43 4.82a2.25 2.25 0 0 1-2.84 0L3.35 8.64v8.61c0 .14.11.25.25.25h16.8c.14 0 .25-.11.25-.25V8.64Z"/></svg>
             <span>mariacozzani@gmail.com</span>
           </a>
         </p>
       </section>
 
-      <!-- ===== Hidden data for works (content & metadata) ===== -->
+      <!-- ======== WORKS DATA (thumbnails source + detail content) ======== -->
       <section id="works-data" hidden>
 
-        <article class="card" id="opml" data-title="Our Past Microtonal Love (O.P.M.L.)">
-          <h3><em>our past microtonal love (o.p.m.l.)</em></h3>
-          <p class="muted"><em>find your future self in past lives</em></p>
-          <p>o.p.m.l. is an electroacoustic duo based in arnhem, netherlands. the project is composed of maria isolina cozzani on violin and matteo traverso on modular synthesizer. together, their work spans site-based installations, audiovisual performances, and free or guided improvisation.</p>
-          <p>their artistic proposition has led them to perform in numerous italian and european contexts, including palazzo ducale (genoa), bagatti valsecchi museum (milan), ma/in matera intermedia festival (matera), de thomas (amsterdam), and the grey space (the hague).</p>
-          <p>at the heart of their research is improvisation as a compositional tool that lets the shared space-time with the audience permeate the proposal, so that the core of the artistic moment resides in the process and yields different experiences depending on the context. recurring musical elements include microtonality—understood as combinations of frequencies beyond tonal and tempered systems—and memory as continuous overlay and re-proposal of gestures that avoid linear consequence in favor of fragmented, reassembled time.</p>
-          <p>o.p.m.l. invites listeners into an exploratory journey through unknown sonic territories. improvisation becomes a vehicle for the unknown, continuously challenging language to reach new dimensions and understandings of sound perception.</p>
+        <!-- NEW: EXOPLANET — Inopia (replaces O.P.M.L.) -->
+        <article class="card" id="exoplanet-inopia" data-title="Exoplanet — Inopia" data-poster="assets/exoplanet_1.jpg">
+          <h3><em>Exoplanet</em> — Inopia (2025)</h3>
+          <p class="muted">Album release.</p>
+          <p><em>EXOPLANET</em> is a sonic exploration of human existence in an age of global crises. The collective <strong>Inopia</strong> poses questions of empathy, responsibility, and the relationship between humanity and the environment—expanding the understanding of jazz as a social, emotional, and reflective art form.</p>
+          <p>The album unites composition and improvisation into an organic whole, merging elements of ambient, drone, electroacoustic music, and free improvisation. Sound becomes a medium of thought and emotion—a mirror of a world in transformation. Sounds interweave, lose their distinct origins, and create new, multilayered spaces of resonance filled with emotional and cultural depth.</p>
+          <p><strong>Listen:</strong> <a href="https://listen.music-hub.com/bcFtvP" target="_blank" rel="noopener">Music-hub</a> · <a href="https://pascalburbach.bandcamp.com/album/exoplanet" target="_blank" rel="noopener">Bandcamp</a> · <a href="https://www.instagram.com/inopiasound/" target="_blank" rel="noopener">@inopiasound</a></p>
+          <div class="gallery-grid" aria-label="Exoplanet photos">
+            <img src="assets/exoplanet_1.jpg" alt="Inopia — Exoplanet, photo 1" loading="lazy" decoding="async">
+            <img src="assets/exoplanet_2.jpg" alt="Inopia — Exoplanet, photo 2" loading="lazy" decoding="async">
+            <img src="assets/exoplanet_3.jpg" alt="Inopia — Exoplanet, photo 3" loading="lazy" decoding="async">
+          </div>
         </article>
 
+        <!-- what is left, what there grows -->
         <article class="card" id="what-is-left" data-title="what is left, what there grows" data-drive="1PxZBF0uUqdAcqpShlq9IUOrqWa6HcPv5" data-poster="assets/what-is-left-cover.jpg">
           <h3><em>what is left, what there grows</em> (2025)</h3>
-          <p class="muted">finalist at ma/in matera intermedia festival 2025.</p>
-          <p>“what is left, what there grows” is a self-reactive environment composed of sound, immersive multi-channel audio (4–8 channels), upcycled trash speakers, small robots, and obsolete or broken technological remains—motherboards, wires, machine parts.</p>
-          <p><strong>media:</strong> <a href="https://drive.google.com/file/d/1PxZBF0uUqdAcqpShlq9IUOrqWa6HcPv5/preview" target="_blank" rel="noopener">video (drive)</a></p>
+          <p class="muted">Finalist at MA/IN Matera Intermedia Festival 2025.</p>
+          <p>“what is left, what there grows” is a self-reactive environment composed of immersive multichannel audio, upcycled trash speakers, small robots, and obsolete technological remains. Although over 90% of the installation is built from discarded or recycled materials, the experience is one of vitality, regeneration, and ongoing transformation.</p>
+          <p><strong>Media:</strong> <a href="https://drive.google.com/file/d/1PxZBF0uUqdAcqpShlq9IUOrqWa6HcPv5/preview" target="_blank" rel="noopener">Video (Drive)</a></p>
         </article>
 
+        <!-- Steps to be taken in case of death -->
         <article class="card" id="steps-to-be-taken" data-title="Steps to be taken in case of death:" data-vimeo="372936733" data-yt="PyPbwN7ewlA">
-          <h3><em>steps to be taken in case of death:</em> (2019)</h3>
-          <p>audio-video installation by cozzani and traverso, simulating a surgical operation on a violin in an operating theater.</p>
-          <p><strong>links:</strong> <a href="https://vimeo.com/372936733" target="_blank" rel="noopener">trailer (vimeo)</a> · <a href="https://youtu.be/PyPbwN7ewlA" target="_blank" rel="noopener">full performance</a></p>
+          <h3><em>Steps to be taken in case of death:</em> (2019)</h3>
+          <p>Audio-video installation (Cozzani & Traverso) staged as a surgical operation on a violin—merging visual, gestural and sonic elements.</p>
+          <p><strong>Links:</strong> <a href="https://vimeo.com/372936733" target="_blank" rel="noopener">Trailer (Vimeo)</a> · <a href="https://youtu.be/PyPbwN7ewlA" target="_blank" rel="noopener">Full performance</a></p>
         </article>
 
-        <!-- ART&MIDE (poster + multi-video placeholders + gallery) -->
-        <article class="card" id="artemide"
-          data-title="Art&mide, Studio 1 — The evocation of Ἄρτεμις"
-          data-poster="assets/artemide_6.jpg"
-          data-yt="INTPUDO6-Bg, arRRCQIwIKg"
-          data-gallery="assets/artemide_6.jpg, assets/artemide_3.jpg, assets/artemide_4.jpg, assets/artemide_2.jpg, assets/artemide_1.jpg, assets/artemide_5.jpg">
-          <h3><em>art&mide, studio 1 — the evocation of Ἄρτεμις</em> (2023)</h3>
-          <p><em>art&mide</em> is an installation/performance by maria isolina cozzani and matteo traverso. the work consists of an iterative audiovisual installation and a sound performance with movement/audio-reactive visuals.</p>
+        <!-- Art&mide (with YT + photo grid already on page) -->
+        <article class="card" id="artemide" data-title="Art&mide, Studio 1 — The evocation of Ἄρτεμις">
+          <h3><em>Art&mide, Studio 1 — The evocation of Ἄρτεμις</em> (2023)</h3>
+          <p><em>art&mide</em> is an iterative audiovisual installation and performance by Maria Isolina Cozzani & Matteo Traverso. Generative visuals and audio react to movement and sound; the violin’s gestures shape the core image while the synth corrupts it.</p>
+
+          <!-- two YouTube embeds -->
+          <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/INTPUDO6-Bg" title="art&mide video 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/arRRCQIwIKg" title="art&mide video 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+          <!-- ordered photo grid (6 images) -->
+          <div class="gallery-grid" aria-label="Art&mide photos">
+            <img src="assets/artemide_6.jpg" alt="art&mide photo 6" loading="lazy" decoding="async">
+            <img src="assets/artemide_3.jpg" alt="art&mide photo 3" loading="lazy" decoding="async">
+            <img src="assets/artemide_4.jpg" alt="art&mide photo 4" loading="lazy" decoding="async">
+            <img src="assets/artemide_2.jpg" alt="art&mide photo 2" loading="lazy" decoding="async">
+            <img src="assets/artemide_1.jpg" alt="art&mide photo 1" loading="lazy" decoding="async">
+            <img src="assets/artemide_5.jpg" alt="art&mide photo 5" loading="lazy" decoding="async">
+          </div>
         </article>
 
+        <!-- Studio sul plasma -->
         <article class="card" id="studio-sul-plasma" data-title="Studio sul plasma" data-yt="o3UOTGCL5_Q">
-          <h3><em>studio sul plasma</em> (2019)</h3>
-          <p>3d particles graphic audio-reactive system exploring plasma-like behaviour.</p>
-          <p><strong>media:</strong> <a href="https://www.youtube.com/watch?v=o3UOTGCL5_Q&ab_channel=art%C3%A8r%C3%ACa" target="_blank" rel="noopener">youtube</a></p>
+          <h3><em>Studio sul plasma</em> (2019)</h3>
+          <p>3D particle graphics audio-reactive system exploring plasma-like behaviour; scratched bow sounds re-elaborated with filters and mapped to visuals.</p>
+          <p><strong>Media:</strong> <a href="https://www.youtube.com/watch?v=o3UOTGCL5_Q&ab_channel=art%C3%A8r%C3%ACa" target="_blank" rel="noopener">YouTube</a></p>
         </article>
 
+        <!-- locked:outputs -->
         <article class="card" id="locked-outputs" data-title="locked:outputs" data-yt="LB4l8T4fsDM">
           <h3><em>locked:outputs</em> (2020)</h3>
-          <p>an explorative video game created during the 2020 lockdown.</p>
-          <p><strong>gameplay:</strong> <a href="https://www.youtube.com/watch?v=LB4l8T4fsDM&t=147s" target="_blank" rel="noopener">youtube</a></p>
+          <p>Explorative video-game created during the first Covid-19 lockdown: glitchy 3D models + original audio tracks, navigable as a small world.</p>
+          <p><strong>Gameplay:</strong> <a href="https://www.youtube.com/watch?v=LB4l8T4fsDM&t=147s" target="_blank" rel="noopener">YouTube</a></p>
         </article>
 
       </section>
@@ -240,40 +227,30 @@
   <script>
   'use strict';
 
+  // Poster override for Artemide (inline base64 fallback)
+  const POSTER_OVERRIDES = {
+    artemide: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/...<truncated for brevity>...'
+  };
+
   document.getElementById('y').textContent = new Date().getFullYear();
 
   const worksSection = document.querySelector('#works-data');
-  const detailEl = document.querySelector('#work-detail');
+  const detail = document.querySelector('#work-detail');
   const thumbsWrap = document.getElementById('thumbs');
 
-  /* ===== FX toggle state ===== */
-  let FX_USER_ENABLED = localStorage.getItem('fx') !== '0'; // default ON
-  let FX_VISIBLE = true; // auto-hidden in detail pages
-
-  function updateFXVisibility(){
-    const fw = document.getElementById('float-words');
-    const sp = document.getElementById('sparkles');
-    const show = FX_USER_ENABLED && FX_VISIBLE;
-    if (fw) fw.style.display = show ? 'block' : 'none';
-    if (sp) sp.style.display = show ? 'block' : 'none';
-    const btn = document.getElementById('fx-toggle');
-    if (btn){ btn.setAttribute('aria-pressed', show ? 'true' : 'false'); btn.textContent = show ? 'fx: on' : 'fx: off'; }
-  }
-
-  /* ===== thumbs ===== */
-  function getYouTubeThumb(id){ return `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }
+  const ytThumb = id => `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
 
   function buildThumb(article){
-    const id = article.id; const title = article.dataset.title || id;
-    let thumbURL = ''; let badge = '';
+    const id = article.id;
+    const title = article.dataset.title || id;
+    let thumbURL = '';
 
-    if(article.dataset.poster){
+    if (typeof POSTER_OVERRIDES !== 'undefined' && POSTER_OVERRIDES[id]) thumbURL = POSTER_OVERRIDES[id];
+    if (article.dataset.poster){
       try { thumbURL = new URL(article.dataset.poster, document.baseURI).href; }
       catch(e){ thumbURL = article.dataset.poster; }
     }
-    if(article.dataset.yt){ if(!thumbURL) thumbURL = getYouTubeThumb(article.dataset.yt.split(',')[0].trim()); badge = 'youtube'; }
-    else if(article.dataset.vimeo){ badge = 'vimeo'; }
-    else if(article.dataset.drive){ badge = 'drive'; }
+    if(article.dataset.yt) thumbURL = thumbURL || ytThumb(article.dataset.yt);
 
     const a = document.createElement('a');
     a.href = `#work/${id}`; a.className = 'thumb'; a.setAttribute('aria-label', title);
@@ -281,19 +258,19 @@
     if(thumbURL){
       const img = document.createElement('img');
       img.className = 'poster'; img.loading = 'lazy'; img.decoding = 'async'; img.alt = title;
-      img.onerror = () => { if(article.dataset.yt){ img.src = getYouTubeThumb(article.dataset.yt.split(',')[0].trim()); } };
-      img.src = thumbURL;
-      a.appendChild(img);
+      img.onerror = () => {
+        if(article.dataset.yt){ img.src = ytThumb(article.dataset.yt); }
+        else { a.removeChild(img); const ph=document.createElement('div'); ph.className='poster'; ph.style.background='linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02))'; a.insertBefore(ph,a.firstChild); }
+      };
+      img.src = thumbURL; a.appendChild(img);
     } else {
-      const ph = document.createElement('div'); ph.className = 'poster';
-      ph.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02))';
-      a.appendChild(ph);
+      const ph=document.createElement('div'); ph.className='poster'; ph.style.background='linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02))'; a.appendChild(ph);
     }
 
-    const overlay = document.createElement('div'); overlay.className = 'overlay';
-    const t = document.createElement('div'); t.className = 't'; t.textContent = title;
-    const play = document.createElement('div'); play.className = 'play';
-    const b = document.createElement('div'); b.className = 'badge'; b.textContent = badge || 'media';
+    const overlay=document.createElement('div'); overlay.className='overlay';
+    const t=document.createElement('div'); t.className='t'; t.textContent=title;
+    const b=document.createElement('div'); b.className='badge'; b.textContent='Media';
+    const play=document.createElement('div'); play.className='play';
     overlay.appendChild(t); overlay.appendChild(b);
     a.appendChild(play); a.appendChild(overlay);
     return a;
@@ -301,99 +278,55 @@
 
   function buildGallery(){
     thumbsWrap.innerHTML = '';
-    if(!worksSection){ return; }
-    const articles = worksSection.querySelectorAll('article');
-    articles.forEach(a => thumbsWrap.appendChild(buildThumb(a)));
+    if(!worksSection) return;
+    worksSection.querySelectorAll('article').forEach(a => thumbsWrap.appendChild(buildThumb(a)));
   }
 
-  /* ===== lightweight video placeholders (click to load) ===== */
-  function createEmbedsFromDataset(ds){
-    const out = [];
-    const addPlayable = (posterURL, iframeURL, title) => {
-      const div = document.createElement('div');
-      div.className = 'embed playable';
-      div.dataset.src = iframeURL;
-      div.innerHTML = `
-        <img class="poster" alt="${title}" loading="lazy" decoding="async" src="${posterURL || ''}">
-        <button class="playbtn" type="button" aria-label="play video">▶ play</button>
-      `;
-      out.push(div);
-    };
-    // youtube (has easy posters)
-    if (ds.yt){
-      ds.yt.split(',').map(s=>s.trim()).filter(Boolean).forEach(id => {
-        addPlayable(getYouTubeThumb(id), `https://www.youtube-nocookie.com/embed/${id}`, 'YouTube video');
-      });
+  function createEmbedFromDataset(ds){
+    if(ds.yt){
+      const id = ds.yt;
+      const div = document.createElement('div'); div.className = 'embed';
+      div.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+      return div;
     }
-    // vimeo/drive: no cheap poster → generic dark box until click
-    if (ds.vimeo){
-      ds.vimeo.split(',').map(s=>s.trim()).filter(Boolean).forEach(id => {
-        addPlayable('', `https://player.vimeo.com/video/${id}?dnt=1&byline=0&portrait=0`, 'Vimeo video');
-      });
+    if(ds.vimeo){
+      const id = ds.vimeo;
+      const div = document.createElement('div'); div.className = 'embed';
+      div.innerHTML = `<iframe src="https://player.vimeo.com/video/${id}?dnt=1&byline=0&portrait=0" title="Vimeo video" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+      return div;
     }
-    if (ds.drive){
-      ds.drive.split(',').map(s=>s.trim()).filter(Boolean).forEach(id => {
-        addPlayable('', `https://drive.google.com/file/d/${id}/preview`, 'Drive preview');
-      });
+    if(ds.drive){
+      const id = ds.drive;
+      const div = document.createElement('div'); div.className = 'embed';
+      div.innerHTML = `<iframe src="https://drive.google.com/file/d/${id}/preview" title="Drive preview"></iframe>`;
+      return div;
     }
-    return out;
+    return null;
   }
 
-  // delegate click → swap placeholder with real iframe
-  document.addEventListener('click', (e) => {
-    const box = e.target.closest('.playable');
-    if(!box) return;
-    const url = box.dataset.src;
-    if(!url) return;
-    box.classList.remove('playable');
-    box.innerHTML = `<iframe src="${url}" title="embedded video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
-  });
-
-  /* ===== routing ===== */
   function showTop(section){
-    const ids=['works','bio','where','contact'];
-    ids.forEach(id=>{ const el=document.getElementById(id); if(el) el.hidden = (id!==section); });
+    ['works','bio','where','contact'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el) el.hidden = (id!==section);
+    });
     document.body.classList.remove('is-detail');
-    detailEl.setAttribute('hidden',''); detailEl.innerHTML = '';
-    FX_VISIBLE = true; updateFXVisibility();
-    if(section==='works'){ window.scrollTo(0, 0); }
+    const detailEl=document.getElementById('work-detail');
+    if(detailEl){ detailEl.setAttribute('hidden',''); detailEl.innerHTML=''; }
+    if(section==='works') window.scrollTo(0,0);
   }
 
   function showWork(slug){
-    const article = document.getElementById(slug);
+    const article=document.getElementById(slug);
     if(!article){ showTop('works'); return; }
     document.body.classList.add('is-detail');
+    const detailEl=document.getElementById('work-detail');
     detailEl.removeAttribute('hidden');
+    const clone=article.cloneNode(true);
+    const emb=createEmbedFromDataset(article.dataset);
     detailEl.innerHTML = `<a href="#works" class="back">← all works</a>`;
-
-    // light embeds
-    const embeds = createEmbedsFromDataset(article.dataset);
-    embeds.forEach(n => detailEl.appendChild(n));
-
-    // text
-    const clone = article.cloneNode(true);
+    if(emb) detailEl.appendChild(emb);
     detailEl.appendChild(clone);
-
-    // gallery
-    if (article.dataset.gallery){
-      const files = article.dataset.gallery.split(',').map(s=>s.trim()).filter(Boolean);
-      if (files.length){
-        const grid = document.createElement('div');
-        grid.className = 'gallery-grid';
-        files.forEach(src => {
-          const img = document.createElement('img');
-          img.loading = 'lazy'; img.decoding = 'async';
-          try { img.src = new URL(src, document.baseURI).href; } catch(e){ img.src = src; }
-          grid.appendChild(img);
-        });
-        detailEl.appendChild(grid);
-      }
-    }
-
-    // hide FX while in detail for perf
-    FX_VISIBLE = false; updateFXVisibility();
-
-    window.scrollTo(0, 0);
+    window.scrollTo(0,0);
   }
 
   function handleRoute(){
@@ -401,140 +334,89 @@
     const m = h.match(/^#work\/(.+)$/);
     if(m){ showWork(m[1]); return; }
     const sec = h.replace('#','');
-    if(['bio','where','contact','works'].includes(sec)){
-      showTop(sec);
-    } else {
-      showTop('works');
-    }
+    if(['bio','where','contact','works'].includes(sec)){ showTop(sec); } else { showTop('works'); }
   }
 
   function initNavInstant(){
-    const navLinks = document.querySelectorAll('nav a[href^="#"]');
-    navLinks.forEach(a => {
-      a.addEventListener('click', (e) => {
-        const target = a.getAttribute('href').slice(1);
+    document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const target=a.getAttribute('href').slice(1);
         if(['bio','where','contact','works'].includes(target)){
-          e.preventDefault();
-          history.replaceState(null, '', `#${target}`);
-          showTop(target);
+          e.preventDefault(); history.replaceState(null,'',`#${target}`); showTop(target);
         }
       });
     });
   }
 
-  /* ===== Float words (perf: only if FX enabled) ===== */
+  /* Floating words */
   function initFloatWords(){
-    const container = document.getElementById('float-words');
-    if(!container) return;
-    container.innerHTML = '';
-    if(!FX_USER_ENABLED) return;
-
-    const words = ['violinist','composer\u2009-performer','multimedia artist'];
-    let floats = [];
-    let bounds = {left:0,right:0,top:0,bottom:0};
+    const container=document.getElementById('float-words'); if(!container) return;
+    container.innerHTML='';
+    const words=['violinist','composer\u2009-performer','multimedia artist'];
+    let floats=[]; let bounds={left:0,right:0,top:0,bottom:0};
     function updateBounds(){
-      const header = document.querySelector('header');
-      const hb = header ? header.getBoundingClientRect().bottom : 80;
-      bounds.left = -40;
-      bounds.right = window.innerWidth + 40;
-      bounds.top = hb + 12;
-      bounds.bottom = window.innerHeight + 40;
+      const hb=(document.querySelector('header')?.getBoundingClientRect().bottom)||80;
+      bounds.left=-40; bounds.right=innerWidth+40; bounds.top=hb+12; bounds.bottom=innerHeight+40;
     }
     updateBounds();
-
     for(let i=0;i<words.length;i++){
-      const el = document.createElement('span');
-      el.className = 'float-word';
-      el.textContent = words[i];
-      container.appendChild(el);
-      const w = el.offsetWidth || 120;
-      const h = el.offsetHeight || 28;
-      const x = Math.random() * (bounds.right - bounds.left - w) + bounds.left;
-      const y = Math.random() * (bounds.bottom - bounds.top - h) + bounds.top;
-      const speed = 14 + Math.random()*9; // slightly slower
-      const bases = [45,135,225,315].map(d=>d*Math.PI/180);
-      let angle = bases[Math.floor(Math.random()*bases.length)] + (Math.random()*(Math.PI/18) - (Math.PI/36));
-      const vx = Math.cos(angle) * speed;
-      const vy = Math.sin(angle) * speed;
-      const rot = (Math.random()<0.5?-1:1) * (16 + Math.random()*8);
-      const rotSpeed = (Math.random()<0.5?-1:1) * (1.6 + Math.random()*3);
-      const timeScale = 0.85 + Math.random()*0.35;
-      const noiseA = 2.5 + Math.random()*3.5;
-      const noiseF = 0.35 + Math.random()*0.6;
-      const noiseP = Math.random()*Math.PI*2;
-      el.style.transform = `translate(${x}px, ${y}px) rotate(${rot}deg)`;
+      const el=document.createElement('span'); el.className='float-word'; el.textContent=words[i]; container.appendChild(el);
+      const w=el.offsetWidth||120, h=el.offsetHeight||28;
+      const x=Math.random()*(bounds.right-bounds.left-w)+bounds.left;
+      const y=Math.random()*(bounds.bottom-bounds.top-h)+bounds.top;
+      const speed=16+Math.random()*10;
+      const bases=[45,135,225,315].map(d=>d*Math.PI/180);
+      let angle=bases[Math.floor(Math.random()*bases.length)] + (Math.random()*(Math.PI/18)-(Math.PI/36));
+      const vx=Math.cos(angle)*speed, vy=Math.sin(angle)*speed;
+      const rot=(Math.random()<0.5?-1:1)*(18+Math.random()*10);
+      const rotSpeed=(Math.random()<0.5?-1:1)*(2+Math.random()*4);
+      const timeScale=0.9+Math.random()*0.4;
+      const noiseA=3+Math.random()*4, noiseF=0.4+Math.random()*0.8, noiseP=Math.random()*Math.PI*2;
+      el.style.transform=`translate(${x}px,${y}px) rotate(${rot}deg)`;
       floats.push({el,x,y,w,h,vx,vy,rot,rotSpeed,timeScale,noiseA,noiseF,noiseP});
     }
-
-    let last = performance.now();
+    let last=performance.now();
     function tick(now){
-      if(!FX_USER_ENABLED || !FX_VISIBLE){ return; } // skip work when hidden
-      const dt = Math.min(0.05, (now - last) / 1000);
-      last = now;
-      const tsec = now/1000;
+      const dt=Math.min(0.05,(now-last)/1000); last=now; const tsec=now/1000;
       for(const f of floats){
-        const local = dt * f.timeScale;
-        const vx = f.vx + Math.cos(tsec*f.noiseF + f.noiseP)*f.noiseA;
-        const vy = f.vy + Math.sin(tsec*f.noiseF + f.noiseP)*f.noiseA;
-        f.x += vx * local;
-        f.y += vy * local;
-        if(f.x <= bounds.left || f.x + f.w >= bounds.right){ f.vx *= -1; f.x = Math.min(Math.max(f.x, bounds.left), bounds.right - f.w); }
-        if(f.y <= bounds.top  || f.y + f.h >= bounds.bottom){ f.vy *= -1; f.y = Math.min(Math.max(f.y, bounds.top), bounds.bottom - f.h); }
-        f.rot += f.rotSpeed * local;
-        f.el.style.transform = `translate(${f.x}px, ${f.y}px) rotate(${f.rot}deg)`;
+        const local=dt*f.timeScale;
+        const vx=f.vx + Math.cos(tsec*f.noiseF+f.noiseP)*f.noiseA;
+        const vy=f.vy + Math.sin(tsec*f.noiseF+f.noiseP)*f.noiseA;
+        f.x+=vx*local; f.y+=vy*local;
+        if(f.x<=bounds.left||f.x+f.w>=bounds.right){ f.vx*=-1; f.x=Math.min(Math.max(f.x,bounds.left),bounds.right-f.w); }
+        if(f.y<=bounds.top ||f.y+f.h>=bounds.bottom){ f.vy*=-1; f.y=Math.min(Math.max(f.y,bounds.top),bounds.bottom-f.h); }
+        f.rot+=f.rotSpeed*local; f.el.style.transform=`translate(${f.x}px,${f.y}px) rotate(${f.rot}deg)`;
       }
       requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
-
-    window.addEventListener('resize', updateBounds);
-    window.addEventListener('hashchange', updateBounds);
+    addEventListener('resize',updateBounds); addEventListener('hashchange',updateBounds);
   }
 
-  /* ===== Sparkles (perf-tuned & count scaled by viewport) ===== */
   function initSparkles(){
-    const prev = document.getElementById('sparkles');
-    if(prev) prev.remove();
-    if(!FX_USER_ENABLED) return;
-
-    const c = document.createElement('div'); c.id = 'sparkles'; document.body.appendChild(c);
-    const wide = matchMedia('(min-width: 900px)').matches;
-    const n = wide ? 36 : 18; // was 110 → big cut
-
+    const prev=document.getElementById('sparkles'); if(prev) prev.remove();
+    const c=document.createElement('div'); c.id='sparkles'; document.body.appendChild(c);
+    const n=110;
     for(let i=0;i<n;i++){
-      const s = document.createElement('span'); s.className='sp';
-      const size = 2 + Math.random()*2; s.style.width = size+'px'; s.style.height = size+'px';
-      s.style.left = (Math.random()*100).toFixed(3)+'%'; s.style.top = (Math.random()*100).toFixed(3)+'%';
-      const dur = 6 + Math.random()*7;
-      const drift = 10 + Math.random()*24;
-      const ang = Math.random()*Math.PI*2; const dx = Math.cos(ang)*drift; const dy = Math.sin(ang)*drift;
-      s.style.setProperty('--dx', dx.toFixed(2)+'px'); s.style.setProperty('--dy', dy.toFixed(2)+'px');
-      const d1 = (-Math.random()*dur).toFixed(2)+'s'; const d2 = (-Math.random()*dur).toFixed(2)+'s';
-      s.style.animation = `sparkleBlink ${dur.toFixed(2)}s ease-in-out ${d1} infinite alternate, sparkleDrift ${(dur*1.2).toFixed(2)}s linear ${d2} infinite alternate`;
+      const s=document.createElement('span'); s.className='sp';
+      const size=2+Math.random()*3; s.style.width=size+'px'; s.style.height=size+'px';
+      s.style.left=(Math.random()*100).toFixed(3)+'%'; s.style.top=(Math.random()*100).toFixed(3)+'%';
+      const dur=5+Math.random()*7, drift=12+Math.random()*28, ang=Math.random()*Math.PI*2;
+      const dx=Math.cos(ang)*drift, dy=Math.sin(ang)*drift;
+      s.style.setProperty('--dx',dx.toFixed(2)+'px'); s.style.setProperty('--dy',dy.toFixed(2)+'px');
+      const d1=(-Math.random()*dur).toFixed(2)+'s', d2=(-Math.random()*dur).toFixed(2)+'s';
+      s.style.animation=`sparkleBlink ${dur.toFixed(2)}s ease-in-out ${d1} infinite alternate,
+                         sparkleDrift ${(dur*1.2).toFixed(2)}s linear ${d2} infinite alternate,
+                         sparkleShine ${(dur*0.8).toFixed(2)}s ease-in-out ${d1} infinite alternate`;
       c.appendChild(s);
     }
-    window.addEventListener('resize', () => { initSparkles(); updateFXVisibility(); }, { once:true });
+    addEventListener('resize',()=>{ initSparkles(); },{once:true});
   }
 
-  /* ===== UI: toggle FX ===== */
-  document.addEventListener('click', (e)=>{
-    const btn = e.target.closest('#fx-toggle');
-    if(!btn) return;
-    FX_USER_ENABLED = !(FX_USER_ENABLED);
-    localStorage.setItem('fx', FX_USER_ENABLED ? '1' : '0');
-    updateFXVisibility();
-  });
-
-  /* ===== boot ===== */
   document.addEventListener('DOMContentLoaded', () => {
-    buildGallery();
-    handleRoute();
-    initNavInstant();
-    initFloatWords();
-    initSparkles();
-    updateFXVisibility();
+    buildGallery(); handleRoute(); initNavInstant(); initFloatWords(); initSparkles();
   });
-  window.addEventListener('hashchange', handleRoute);
+  addEventListener('hashchange', handleRoute);
   </script>
 </body>
 </html>
