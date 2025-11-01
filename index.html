@@ -184,11 +184,11 @@
       border-color: var(--brand-pink);
     }
 
-    /* Gallery */
+    /* Gallery - Icone più grandi, 6 per riga */
     .thumbs {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
     }
 
     .thumb {
@@ -270,6 +270,11 @@
       width: 100%;
       height: 100%;
       border: 0;
+    }
+
+    /* SoundCloud embed */
+    .soundcloud-embed {
+      margin-bottom: 14px;
     }
 
     /* Detail media grid */
@@ -559,7 +564,7 @@
 
         <article class="card" id="isln"
                  data-title="ISLN — geography of sounds, shapeshifting multiplicities"
-                 data-poster="assets/isln-cover-1200.jpg"
+                 data-poster="assets/isln-cover-1200-1200.jpg"
                  data-yt-list="gFk8Gf295Xg, nQ2dfomDPyk, boeDsX6veuY">
           <h3><em>ISLN: geography of sounds, shapeshifting multiplicities</em> (2023)</h3>
           <p>In <em>ISLN — geography of sounds, shapeshifting multiplicities</em>, Maria Isolina Cozzani brings her master's research to the surface. ISLN enables an unexplored space and time for improvisation and takes place in an imaginary setting where the transposed laws of physics make room for renewed perspectives. A constellation of islands inhabited by sounding organisms describes a geography of sounds, a constellation of objects, entities, expressions, qualities, and territories that come together over time to ideally create new ways of functioning.</p>
@@ -567,7 +572,7 @@
           <p><strong>Concept:</strong> <a href="https://drive.google.com/file/d/1FS0cm8xwaXjvtb0ECSUtN845Y9qSDmga/view?usp=sharing" target="_blank" rel="noopener">Google Drive</a></p>
           
           <div class="media-grid">
-            <img class="span-3" src="assets/isln-cover-1200.jpg" alt="ISLN — geography of sounds poster" loading="lazy" decoding="async" width="1200" height="1700">
+            <img class="span-3" src="assets/isln-cover-1200-1200.jpg" alt="ISLN — geography of sounds poster" loading="lazy" decoding="async" width="1200" height="1700">
           </div>
         </article>
 
@@ -587,9 +592,25 @@
           </div>
         </article>
 
+        <article class="card" id="solo-livingroom" data-title="Solo, in the living room – a listening session"
+                 data-poster="assets/livingroom.jpg">
+          <h3><em>Solo, in the living room – a listening session</em> (2023)</h3>
+          <p>In a nutshell: This solo performance was conceived based on the poetry book in plein site by Andrea Van der Kuil. I worked on the translation of poetry into music, to create a piece of music and dance based on poems that I could choose from Andrea's poetry book. The poems that I choose were connected to the concept of making and destroying, this constant tension of ephemerality, linked to Andrea's work as an embroiderer. I conceived a solo piece based on the embroidering sounds on a canvas and then simply listen to the layers of music while they disappeared again. After 15 minutes of building up of the sounds, there are 15 minutes of building down while I was joining the audience in a listening session of the materials I just had created.</p>
+          
+          <p><strong>Media:</strong><br>
+          <a href="assets/livingroom_ex1.mp4" target="_blank" rel="noopener">Video Example 1</a><br>
+          <a href="assets/livingroom_ex2.mp4" target="_blank" rel="noopener">Video Example 2</a></p>
+        </article>
+
         <article class="card" id="edera" data-title="E D E R A"
-                 data-poster="assets/edera1.jpg">
+                 data-poster="assets/edera1.jpeg">
           <h3><em>E D E R A</em></h3>
+          
+          <!-- Anteprima di ascolto in cima -->
+          <div class="soundcloud-embed">
+            <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1902001232&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+          </div>
+
           <p>"Like ivy, which comes from the soil, grows on ruins and gives a new face to the past, the human being lives shaped by past experiences and knowledge; he welcomes the past with awareness to face the future."</p>
           
           <p>The suggestions of nostalgia and awareness of the past, originating from the decadence of the forts of Genoa, are the source of the aesthetics of the project Edera.</p>
@@ -616,10 +637,32 @@
           </p>
           
           <div class="photo-grid">
-            <img src="assets/edera1.jpg" alt="Edera photo 1" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/edera1.jpeg" alt="Edera photo 1" loading="lazy" decoding="async" width="800" height="450">
             <img src="assets/edera2.jpg" alt="Edera photo 2" loading="lazy" decoding="async" width="800" height="450">
             <img src="assets/edera3.jpg" alt="Edera photo 3" loading="lazy" decoding="async" width="800" height="450">
           </div>
+        </article>
+
+        <article class="card" id="1142km" data-title="1142 km, the road trip piece: guidelines for a free improvisation session"
+                 data-poster="assets/1492.jpg">
+          <h3><em>1142 km, the road trip piece: guidelines for a free improvisation session</em> (2021)</h3>
+          
+          <!-- Anteprima di ascolto in cima -->
+          <div class="soundcloud-embed">
+            <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1735657194&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+          </div>
+
+          <p>In a nutshell: 1142 km is a 27-minute-long piece based on free improvisation. the piece was conceived as a travel journal, pre-recorded on a car trip from Santa Margherita Ligure (IT) to Arnhem (NL). Consisting of voice mails, the journal, served as audio score on which the ensemble free improvised on. The result is a mixture between a verbal narration and liquid and iridescent sounds, going from a timbric interplay to more cinematic and melodic episodes, drones, grooves, glimpses from multiple musical contexts.</p>
+          
+          <p><strong>Ensemble:</strong><br>
+          Pascal Burbach (drums)<br>
+          Maria Isolina Cozzani (violin + effects)<br>
+          Yunah Han (piano)<br>
+          Matteo Traverso (modular synth + live electronics)<br>
+          Marie Weis (vocals)</p>
+          
+          <p><strong>Description:</strong> <a href="https://drive.google.com/file/d/1sslfB1nHDOpdOdNiuN79NLRtnnG3NLps/view?usp=sharing" target="_blank" rel="noopener">Google Drive</a></p>
+          <p><strong>Listen:</strong> <a href="https://soundcloud.com/3444444/sets/1142km/s-5jipO2XBIr1?si=8310387384014c03ba812ac99f7d0633&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing" target="_blank" rel="noopener">SoundCloud</a></p>
         </article>
 
         <article class="card" id="locked-outputs" data-title="locked:outputs" data-yt="LB4l8T4fsDM">
@@ -664,7 +707,9 @@
     'exoplanet': 'assets/SM4830_cover%204000x4000px.jpg',
     'lavish-trio': 'assets/lavish-cover-1200.jpg',
     'isln': 'assets/isln-cover-1200-1200.jpg',
-    'edera': 'assets/edera1.jpg'
+    'edera': 'assets/edera1.jpeg',
+    '1142km': 'assets/1492.jpg',
+    'solo-livingroom': 'assets/livingroom.jpg'
   };
 
   // Get YouTube thumbnail URL
@@ -758,7 +803,7 @@
     
     const desiredOrder = [
       'violin-algorithm-duet', 'what-is-left', 'exoplanet', 'lavish-trio', 
-      'isln', 'artemide', 'edera', 'locked-outputs',
+      'isln', 'artemide', 'solo-livingroom', 'edera', '1142km', 'locked-outputs',
       'studio-sul-plasma', 'steps-to-be-taken'
     ];
     
@@ -955,7 +1000,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     buildGallery();
     handleRoute();
-    initNavInstant();is
+    initNavInstant();
     initImageFallbacks();
     hardenExternalLinks();
   });
