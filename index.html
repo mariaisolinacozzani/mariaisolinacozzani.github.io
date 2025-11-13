@@ -10,9 +10,7 @@
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#ffffff">
 
-  <!-- SEO & Social Meta (aggiungi il tuo dominio quando pronto) -->
-  <!-- <link rel="canonical" href="https://tuodominio.example/"> -->
-  <!-- <meta property="og:url" content="https://tuodominio.example/"> -->
+  <!-- Open Graph / SEO -->
   <meta property="og:title" content="Maria Isolina Cozzani - Violinist, Composer-Performer, Multimedia Artist">
   <meta property="og:description" content="Portfolio of Maria Isolina Cozzani - works, bio, contact information">
   <meta property="og:type" content="website">
@@ -31,22 +29,28 @@
 
   <style>
     :root {
-      --txt: #0a0a0d;
-      --bg: #fff;
-      --muted: #5a5f66;
+      --txt: #f5f6f9;
+      --bg: #0c0a10;
+      --muted: #b6b8bf;
       --accent: #7ed321;
-      --border: #e6e7ea;
+      --border: #2a2e36;
       --max: 1440px;
       --radius: 0px;
-      --brand-pink: #ff4fd8;
+      --brand-pink: #ff66f7;
       --font-base: 'Source Sans 3', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       --font-heading: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       --font-curvy: 'Pacifico', cursive;
 
-      /* Palettes / strengths */
-      --cloud-opacity: 0.36;  /* più evidente */
-      --cloud-sat: 1.5;
+      /* Aesthetic palette */
+      --cloud-opacity: 0.42;
+      --cloud-sat: 1.6;
       --violin-neon: 0.22;
+
+      --ink:#101015;         /* cartoon stroke */
+      --neon-a:#ff66f7;      /* candy fuchsia */
+      --neon-b:#38f9a5;      /* mint green */
+      --neon-c:#7ad7ff;      /* sky */
+      --neon-d:#ffd36e;      /* honey */
     }
 
     html { box-sizing: border-box; scroll-behavior: smooth; color-scheme: light; }
@@ -55,7 +59,11 @@
     body {
       margin: 0;
       color: var(--txt);
-      background: var(--bg);
+      background:
+        radial-gradient(120% 120% at 15% 10%, rgba(255,102,247,.18), transparent 60%),
+        radial-gradient(120% 120% at 85% 80%, rgba(56,249,165,.16), transparent 60%),
+        radial-gradient(140% 120% at 50% 120%, rgba(122,215,255,.14), transparent 60%),
+        var(--bg);
       font: 16px/1.7 var(--font-base);
       text-rendering: optimizeLegibility;
       font-kerning: normal;
@@ -64,58 +72,91 @@
       position: relative;
       overflow-x: hidden;
     }
+    /* scanlines + drifting tint */
+    body::before{
+      content:"";
+      position:fixed; inset:-20vmax; pointer-events:none; z-index:-5;
+      background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 2px, transparent 2px 4px),
+        radial-gradient(120% 120% at 30% 20%, rgba(255,0,170,.06), transparent 60%),
+        radial-gradient(120% 120% at 70% 60%, rgba(0,255,170,.06), transparent 60%);
+      mix-blend-mode: overlay; opacity:.7; animation: driftBg 42s linear infinite;
+    }
+    @keyframes driftBg{ to{ transform: translate3d(3%,2%,0) rotate(.35deg);} }
 
-    /* === LAYERS (far to near) === */
-    /* 1) Candy clouds behind everything */
+    /* === BACKGROUND LAYERS === */
     .clouds-bg { position: fixed; inset: 0; pointer-events: none; z-index: -4; overflow: hidden; }
     .cloud-row { position: absolute; left: 0; right: 0; display: block; white-space: nowrap; opacity: var(--cloud-opacity); filter: saturate(var(--cloud-sat)) contrast(1.08); }
     .cloud-row.row1 { top: 20%; }
     .cloud-row.row2 { top: 65%; }
     .cloud-track { display: inline-flex; gap: 28px; will-change: transform; }
-
-    /* Cloud candy */
-    .cloud { position: relative; display: inline-flex; align-items: center; justify-content: center; width: calc(80px * var(--s, 1)); height: calc(48px * var(--s, 1)); border-radius: 999px; background:
-      radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,.95), rgba(255,255,255,.8) 35%, rgba(255,255,255,.6) 60%, rgba(255,255,255,.35) 100%), var(--c, #fde2ff);
-      box-shadow: 0 8px 18px rgba(0,0,0,.08), inset 0 3px 12px rgba(255,255,255,.8);
+    .cloud { position: relative; display: inline-flex; align-items: center; justify-content: center; width: calc(88px * var(--s, 1)); height: calc(56px * var(--s, 1)); border-radius: 999px;
+      background: radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,.95), rgba(255,255,255,.8) 35%, rgba(255,255,255,.6) 60%, rgba(255,255,255,.35) 100%), var(--c, #fde2ff);
+      box-shadow: 0 8px 18px rgba(0,0,0,.18), inset 0 3px 12px rgba(255,255,255,.8);
+      filter: url(#wobble);
+      outline: 2px solid rgba(16,16,24,.2);
     }
     .cloud:before, .cloud:after { content: ""; position: absolute; border-radius: 999px; background: inherit; filter: brightness(1.05); }
     .cloud:before { width: 55%; height: 78%; left: -18%; top: -20%; }
     .cloud:after  { width: 42%; height: 68%; right: -14%; top: -12%; }
-    .face { position: relative; font-size: calc(14px * var(--s, 1)); line-height: 1; color: rgba(0,0,0,.58); text-shadow: 0 1px 0 rgba(255,255,255,.85); font-weight: 700; user-select: none; }
+    .face { position: relative; font-size: calc(14px * var(--s, 1)); line-height: 1; color: rgba(0,0,0,.65); text-shadow: 0 1px 0 rgba(255,255,255,.85); font-weight: 700; user-select: none; }
 
-    /* 2) Floating violins */
     .violin-bg { position: fixed; inset: 0; pointer-events: none; z-index: -3; overflow: hidden; }
-    .floating-violin { position: absolute; font-size: 24px; opacity: var(--violin-neon); animation: floatViolin linear infinite; --h: 200;
+    .floating-violin {
+      position: absolute; font-size: 24px; opacity: var(--violin-neon); animation: floatViolin linear infinite; --h: 200;
       text-shadow: 0 0 6px hsla(var(--h),95%,65%,.65), 0 0 14px hsla(var(--h),95%,55%,.5), 0 0 28px hsla(var(--h),95%,55%,.35);
-      background: radial-gradient(circle at 50% 50%, hsla(var(--h),95%,70%,.18), transparent 60%); border-radius: 50%; }
-    @keyframes floatViolin { 0% { transform: translate(0, 0) rotate(0deg); } 25% { transform: translate(100px, 50px) rotate(90deg); } 50% { transform: translate(200px, -30px) rotate(180deg); } 75% { transform: translate(100px, 80px) rotate(270deg); } 100% { transform: translate(0, 0) rotate(360deg); } }
+      background: radial-gradient(circle at 50% 50%, hsla(var(--h),95%,70%,.18), transparent 60%); border-radius: 50%;
+    }
+    @keyframes floatViolin {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(100px, 50px) rotate(90deg); }
+      50% { transform: translate(200px, -30px) rotate(180deg); }
+      75% { transform: translate(100px, 80px) rotate(270deg); }
+      100% { transform: translate(0, 0) rotate(360deg); }
+    }
 
-    /* 3) Mushrooms layer (sprout from ground) */
     .mushroom-layer { position: fixed; inset: 0; pointer-events: none; z-index: -2; overflow: hidden; }
     .m-spot { position: absolute; bottom: -6px; width: 0; height: 0; }
-    .mushroom { position: absolute; bottom: 0; left: 0; transform-origin: 50% 100%; filter: saturate(1.8) drop-shadow(0 8px 18px rgba(0,0,0,.15)); animation: mushPulse var(--dur,10s) ease-in-out var(--delay,0s) infinite alternate, hueCycle 14s linear infinite; }
+    .mushroom { position: absolute; bottom: 0; left: 0; transform-origin: 50% 100%; filter: saturate(1.8) drop-shadow(0 8px 18px rgba(0,0,0,.25));
+      animation: mushPulse var(--dur,10s) ease-in-out var(--delay,0s) infinite alternate, hueCycle 14s linear infinite; }
     .mushroom .stem { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: calc(var(--w,36px) * .24); height: calc(var(--h,72px) * .85); background: linear-gradient(#ffe6cc, #ffd7a1); border-radius: 12px; box-shadow: inset 0 -6px 10px rgba(0,0,0,.08); }
-    .mushroom .cap { position: absolute; bottom: calc(var(--h,72px) * .6); left: 50%; transform: translateX(-50%); width: var(--w,36px); height: calc(var(--h,72px) * .55); border-radius: 50% 50% 36% 36%/60% 60% 40% 40%; background: conic-gradient(from 20deg, #ff00a7, #ffa400, #00d26a, #00c2ff, #b100ff, #ff00a7); box-shadow: inset 0 -8px 20px rgba(0,0,0,.15), 0 8px 20px rgba(0,0,0,.12); overflow: hidden; }
-    .mushroom .cap:after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 30% 40%, rgba(255,255,255,.7), transparent 45%), radial-gradient(circle at 70% 30%, rgba(255,255,255,.7), transparent 46%), radial-gradient(circle at 50% 70%, rgba(255,255,255,.6), transparent 44%); mix-blend-mode: screen; }
+    .mushroom .cap { position: absolute; bottom: calc(var(--h,72px) * .6); left: 50%; transform: translateX(-50%); width: var(--w,36px); height: calc(var(--h,72px) * .55); border-radius: 50% 50% 36% 36%/60% 60% 40% 40%;
+      background: conic-gradient(from 20deg, #ff00a7, #ffa400, #00d26a, #00c2ff, #b100ff, #ff00a7); box-shadow: inset 0 -8px 20px rgba(0,0,0,.15), 0 8px 20px rgba(0,0,0,.22); overflow: hidden; }
+    .mushroom .cap:after { content: ""; position: absolute; inset: 0; background:
+      radial-gradient(circle at 30% 40%, rgba(255,255,255,.7), transparent 45%),
+      radial-gradient(circle at 70% 30%, rgba(255,255,255,.7), transparent 46%),
+      radial-gradient(circle at 50% 70%, rgba(255,255,255,.6), transparent 44%); mix-blend-mode: screen; }
     @keyframes mushPulse { from { transform: scale(.6); } to { transform: scale(var(--scale,1.5)); } }
-    @keyframes hueCycle { from { filter: hue-rotate(0deg) saturate(1.8) drop-shadow(0 8px 18px rgba(0,0,0,.15)); } to { filter: hue-rotate(360deg) saturate(1.8) drop-shadow(0 8px 18px rgba(0,0,0,.15)); } }
+    @keyframes hueCycle { from { filter: hue-rotate(0deg) saturate(1.8) drop-shadow(0 8px 18px rgba(0,0,0,.25)); } to { filter: hue-rotate(360deg) saturate(1.8) drop-shadow(0 8px 18px rgba(0,0,0,.25)); } }
 
-    /* 4) Sprites layer: flowers, diamonds, MARIA text */
     .sprites-layer { position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
     .floating-sprite { position: absolute; animation: floatSprite linear infinite; user-select: none; will-change: transform; }
-    @keyframes floatSprite { 0% { transform: translate(0,0) rotate(0deg); } 25% { transform: translate(var(--x1), var(--y1)) rotate(60deg); } 50% { transform: translate(var(--x2), var(--y2)) rotate(120deg); } 75% { transform: translate(var(--x3), var(--y3)) rotate(180deg); } 100% { transform: translate(0,0) rotate(360deg); } }
-    .sprite-flower { text-shadow: 0 0 10px rgba(255,105,180,.5), 0 0 20px rgba(255,105,180,.35); filter: saturate(1.4); }
-    .sprite-diamond { text-shadow: 0 0 10px rgba(0,220,255,.55), 0 0 24px rgba(0,220,255,.35); }
-    .sprite-maria { font-family: var(--font-curvy); color: #ff00a7; -webkit-text-stroke: 2px #00d26a; text-shadow: 0 0 8px rgba(255,0,167,.5), 0 0 18px rgba(0,210,106,.35); letter-spacing: .04em; }
+    @keyframes floatSprite {
+      0% { transform: translate(0,0) rotate(0deg); }
+      25% { transform: translate(var(--x1), var(--y1)) rotate(60deg); }
+      50% { transform: translate(var(--x2), var(--y2)) rotate(120deg); }
+      75% { transform: translate(var(--x3), var(--y3)) rotate(180deg); }
+      100% { transform: translate(0,0) rotate(360deg); }
+    }
+    .floating-sprite svg, .bunny svg{
+      filter: drop-shadow(0 2px 0 rgba(16,16,24,.35)) drop-shadow(0 8px 18px rgba(0,0,0,.22));
+    }
+    .sprite-maria svg text, .sprite-flower svg *, .sprite-diamond svg *, .bunny svg *{
+      stroke:var(--ink); stroke-width:2.2; stroke-linejoin:round; stroke-linecap:round;
+    }
+    .sprite-maria svg text{ fill: var(--brand-pink); paint-order: stroke; }
 
-    /* 5) Fireball (organic wander) */
     .fire-layer { position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
-    .fireball { position: absolute; border-radius: 50%; box-shadow: 0 0 16px rgba(255,122,0,.8), 0 0 36px rgba(255,80,0,.5); background: radial-gradient(circle at 35% 35%, #ffd86b, #ff8a00 50%, rgba(255,80,0,.9) 72%, rgba(120,0,0,.7) 100%); width: var(--sz,60px); height: var(--sz,60px); }
-    .fireball .tail { position: absolute; right: 100%; top: 50%; transform: translateY(-50%); width: calc(var(--sz,60px) * 1.6); height: calc(var(--sz,60px) * .42); background: linear-gradient(90deg, rgba(214,40,40,0.0) 0%, rgba(255,122,0,0.46) 30%, rgba(255,200,0,0.28) 100%); filter: blur(2.8px); border-radius: 999px; }
+    .fireball { position: absolute; border-radius: 50%; box-shadow: 0 0 16px rgba(255,122,0,.8), 0 0 36px rgba(255,80,0,.5);
+      background: radial-gradient(circle at 35% 35%, #ffd86b, #ff8a00 50%, rgba(255,80,0,.9) 72%, rgba(120,0,0,.7) 100%);
+      width: var(--sz,60px); height: var(--sz,60px);
+    }
+    .fireball .tail { position: absolute; right: 100%; top: 50%; transform: translateY(-50%); width: calc(var(--sz,60px) * 1.6); height: calc(var(--sz,60px) * .42);
+      background: linear-gradient(90deg, rgba(214,40,40,0.0) 0%, rgba(255,122,0,0.46) 30%, rgba(255,200,0,0.28) 100%); filter: blur(2.8px); border-radius: 999px; }
     .fireball .fire-face { position: absolute; inset: 0; display: grid; place-items: center; font-size: calc(var(--sz,60px) * .28); color: #260b00; text-shadow: 0 1px 0 rgba(255,255,255,.6); mix-blend-mode: multiply; }
 
-    /* 6) Bunny */
-    .bunny { position: absolute; font-size: var(--sz,34px); will-change: transform; filter: drop-shadow(0 6px 12px rgba(0,0,0,.15)); }
+    /* Bunny (SVG) */
+    .bunny { position: absolute; font-size: var(--sz,34px); will-change: transform; filter: drop-shadow(0 6px 12px rgba(0,0,0,.25)); }
     @keyframes bunnyLTR { 0% { transform: translate(-12vw, var(--y0)) scale(1) rotate(0deg); } 20% { transform: translate(10vw, calc(var(--y0) - 16px)) scale(1.05); } 40% { transform: translate(30vw, calc(var(--y0) + 14px)) scale(1); } 60% { transform: translate(55vw, calc(var(--y0) - 18px)) scale(1.05); } 80% { transform: translate(78vw, calc(var(--y0) + 16px)) scale(1); } 100% { transform: translate(112vw, var(--y0)) scale(1.05); } }
     @keyframes bunnyRTL { 0% { transform: translate(112vw, var(--y0)) scale(1) rotateY(180deg); } 20% { transform: translate(78vw, calc(var(--y0) - 16px)) rotateY(180deg); } 40% { transform: translate(55vw, calc(var(--y0) + 14px)) rotateY(180deg); } 60% { transform: translate(30vw, calc(var(--y0) - 18px)) rotateY(180deg); } 80% { transform: translate(10vw, calc(var(--y0) + 16px)) rotateY(180deg); } 100% { transform: translate(-12vw, var(--y0)) rotateY(180deg); } }
 
@@ -123,60 +164,71 @@
     @keyframes marquee-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     @keyframes marquee-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      .floating-violin, .cloud-track, .floating-sprite, .mushroom, .bunny { animation: none !important; }
-      html { scroll-behavior: auto; }
-    }
-
+    /* Links / layout */
     a { color: var(--accent); text-decoration: none; transition: all 0.2s ease; }
     a:focus-visible, button:focus-visible { outline: 2px solid var(--brand-pink); outline-offset: 3px; border-radius: 2px; }
 
     .wrap { max-width: var(--max); margin: 0 auto; padding: 28px 18px; position: relative; z-index: 0; background: transparent; }
     header { margin: 8px 0 18px; }
-    h1 { font-family: var(--font-heading); font-size: 28px; font-weight: 700; letter-spacing: .02em; margin: 0 0 6px; color: var(--accent); transition: all 0.2s ease; }
+    h1 { font-family: var(--font-heading); font-size: 28px; font-weight: 700; letter-spacing: .02em; margin: 0 0 6px; color: var(--neon-b); text-shadow: 0 0 12px rgba(56,249,165,.25); }
+    /* tiny glitch overlay on title */
+    h1:hover::after{
+      content: attr(data-glitch); position:absolute; inset:0; left:0; top:0; color:var(--neon-a);
+      mix-blend-mode:screen; transform:translate(1px,-1px);
+      text-shadow: -1px 0 var(--neon-b), 1px 0 var(--neon-c);
+      animation: tinyGlitch .8s steps(2,end) infinite;
+    }
+    @keyframes tinyGlitch{ 50%{ transform:translate(-1px,1px);} }
+
     nav { margin: 14px 0 26px; font-family: var(--font-heading); letter-spacing: .01em; font-weight: 600; }
     nav a { margin: 0 10px 0 0; white-space: nowrap; color: var(--brand-pink); position: relative; padding: 4px 0; text-decoration: underline; text-underline-offset: 3px; }
     nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--brand-pink); transition: width 0.3s ease; }
     nav a:hover::after, nav a:focus-visible::after { width: 100%; }
-    nav a:hover { text-shadow: 0 0 8px rgba(255,79,216,.55), 0 0 18px rgba(255,79,216,.75); }
+    nav a:hover { text-shadow: 0 0 8px rgba(255,102,247,.55), 0 0 18px rgba(255,102,247,.75); }
 
     main section { margin: 38px 0; }
     h2 { font-family: var(--font-heading); font-size: 18px; margin: 0 0 12px; color: var(--accent); }
-    h3 { font-family: var(--font-heading); font-size: 16px; margin: 0 0 8px; transition: all 0.2s ease; }
-    .card h3:hover, h1:hover { text-shadow: 0 0 8px rgba(255,79,216,.35), 0 0 18px rgba(255,79,216,.45); }
+    h3 { font-family: var(--font-heading); font-size: 16px; margin: 0 0 8px; }
+
     .muted { color: var(--muted); opacity: 0.9; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
     /* Cards */
-    .card { padding: 16px; border-radius: 0; background: var(--bg); border: 1px solid var(--border); transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; position: relative; z-index: 1; backdrop-filter: saturate(110%) blur(0px); }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-color: var(--brand-pink); }
+    .card { padding: 16px; border-radius: 12px; background: rgba(18,16,26,.72); border: 1px solid var(--border);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background .2s ease;
+      position: relative; z-index: 1; backdrop-filter: saturate(115%) blur(3px);
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(255,102,247,.2), 0 0 0 2px rgba(255,102,247,.18); border-color: var(--brand-pink); background: rgba(22,18,30,.78); }
 
     /* Gallery */
     .thumbs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-    .thumb { position: relative; display: block; border-radius: 0; overflow: hidden; background: var(--bg); border: 1px solid var(--border); transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, filter .18s ease; }
+    .thumb { position: relative; display: block; border-radius: 10px; overflow: hidden; background: rgba(18,16,26,.72); border: 1px solid var(--border);
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, filter .18s ease; }
     .thumb .poster { aspect-ratio: 16/9; width: 100%; object-fit: cover; display: block; filter: grayscale(.08) contrast(1.04); transition: filter .18s ease; will-change: filter, transform; }
-    .thumb:hover { transform: translateY(-2px) scale(1.005); border-color: var(--brand-pink); box-shadow: 0 10px 26px rgba(255,79,216,.25), 0 0 0 2px rgba(255,79,216,.20), 0 0 28px rgba(255,79,216,.35); }
-    .thumb:hover .poster { filter: grayscale(0) contrast(1.08) saturate(1.12); }
+    .thumb:hover { transform: translateY(-2px) scale(1.005); border-color: var(--brand-pink); box-shadow: 0 10px 26px rgba(255,102,247,.25), 0 0 28px rgba(255,102,247,.25); }
+    .thumb:hover .poster { filter: grayscale(0) contrast(1.08) saturate(1.16); }
+    .thumb::after{ content:""; position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .2s;
+      background: repeating-linear-gradient(180deg, rgba(0,0,0,.06) 0 1px, transparent 1px 2px); mix-blend-mode:soft-light; }
+    .thumb:hover::after{ opacity:1; }
     .thumb:focus-visible { outline: 2px solid var(--brand-pink); outline-offset: 2px; }
 
     /* Detail view */
     body.is-detail main > section:not(#work-detail) { display: none; }
     #work-detail { margin-top: 10px; }
-    #work-detail .back { display: inline-flex; align-items: center; gap: 6px; margin: 6px 0 16px; font-size: 13px; color: var(--muted); padding: 6px 12px; border: 1px solid var(--border); border-radius: 2px; transition: all 0.2s ease; }
-    #work-detail .back:hover { color: var(--txt); border-color: var(--brand-pink); background: rgba(255,79,216,0.05); }
-    .embed { position: relative; padding-top: 56.25%; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); background: rgba(0,0,0,0.03); margin-bottom: 14px; }
+    #work-detail .back { display: inline-flex; align-items: center; gap: 6px; margin: 6px 0 16px; font-size: 13px; color: var(--muted); padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px; transition: all 0.2s ease; background: rgba(18,16,26,.72); }
+    #work-detail .back:hover { color: var(--txt); border-color: var(--brand-pink); background: rgba(22,18,30,.78); }
+    .embed { position: relative; padding-top: 56.25%; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); background: rgba(0,0,0,0.12); margin-bottom: 14px; }
     .embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
     /* Media grids */
     .detail-media-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 14px; }
     @media (min-width: 900px) { .detail-media-grid { grid-template-columns: 1fr 1fr; } }
-    .detail-media-grid img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 0; border: 1px solid var(--border); }
+    .detail-media-grid img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); }
     .video-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 12px 0; }
     @media (min-width: 820px) { .video-grid { grid-template-columns: 1fr 1fr; } }
     .photo-grid, .media-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
     @media (min-width: 720px) { .photo-grid, .media-grid { grid-template-columns: repeat(3, 1fr); } }
-    .photo-grid img, .media-grid img { width: 100%; height: 100%; object-fit: cover; border-radius: 0; border: 1px solid var(--border); }
+    .photo-grid img, .media-grid img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); }
     .media-grid .span-3 { grid-column: 1/-1; }
 
     /* Bio */
@@ -215,6 +267,23 @@
   </style>
 </head>
 <body>
+  <!-- SVG filter defs for cartoon/glitch styling -->
+  <svg width="0" height="0" style="position:fixed;left:-9999px;top:-9999px" aria-hidden="true" focusable="false">
+    <defs>
+      <!-- Organic wobble -->
+      <filter id="wobble">
+        <feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="1" seed="2" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <!-- Optional grain (not applied globally) -->
+      <filter id="grain">
+        <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch" result="n"/>
+        <feColorMatrix type="saturate" values="0"/>
+        <feBlend in="SourceGraphic" in2="n" mode="overlay"/>
+      </filter>
+    </defs>
+  </svg>
+
   <!-- Candy clouds background -->
   <div class="clouds-bg" id="cloudsBackground" aria-hidden="true">
     <div class="cloud-row row1"><div class="cloud-track" id="cloudTrack1"></div></div>
@@ -244,7 +313,7 @@
 
   <div class="wrap">
     <header>
-      <h1>maria isolina cozzani</h1>
+      <h1 data-glitch="maria isolina cozzani">maria isolina cozzani</h1>
       <nav aria-label="primary">
         <a href="#works">works</a>
         <a href="#bio">bio</a>
@@ -286,7 +355,6 @@
       </section>
 
       <section id="works-data" hidden>
-        <!-- Nuova opera -->
         <article class="card" id="violin-algorithm-duet" data-title="Violin and Algorithm Duet"
                  data-yt="dUpo4ffqWa8"
                  data-poster="https://img.youtube.com/vi/dUpo4ffqWa8/hqdefault.jpg">
@@ -456,7 +524,7 @@
     </footer>
   </div>
 
-  <!-- JSON-LD base (puoi espandere con il tuo dominio) -->
+  <!-- JSON-LD base -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -474,13 +542,12 @@
   <script>
   'use strict';
 
-  // Set current year in footer
+  // Footer year
   document.getElementById('y').textContent = new Date().getFullYear();
 
   const worksSection = document.querySelector('#works-data');
   const thumbsWrap = document.getElementById('thumbs');
 
-  // Poster image overrides for specific works
   const POSTER_OVERRIDES = {
     'violin-algorithm-duet': 'https://img.youtube.com/vi/dUpo4ffqWa8/hqdefault.jpg',
     'artemide': 'assets/artemide/artemide_6.jpg',
@@ -492,29 +559,20 @@
     'solo-livingroom': 'assets/livingroom/livingroom.jpg'
   };
 
-  // === UTIL ===
   function rand(min, max) { return Math.random() * (max - min) + min; }
   function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-
-  // Get YouTube thumbnail URL
   function getYouTubeThumb(id) { return `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }
 
-  // Build thumbnail element for gallery (prefer data-poster, then override, then YouTube)
   function buildThumb(article) {
     const id = article.id;
     const title = article.dataset.title || id;
     let thumbURL = '';
 
-    // 1) Prefer the article's own poster
     if (article.dataset.poster) {
       try { thumbURL = new URL(article.dataset.poster, document.baseURI).href; }
       catch (e) { thumbURL = article.dataset.poster; }
     }
-
-    // 2) If still empty, use an override
     if (!thumbURL && POSTER_OVERRIDES[id]) thumbURL = POSTER_OVERRIDES[id];
-
-    // 3) Fallback to YouTube thumbnail if available
     if (!thumbURL && (article.dataset.yt || article.dataset.ytList)) {
       const firstId = (article.dataset.yt || article.dataset.ytList.split(',')[0].trim());
       thumbURL = getYouTubeThumb(firstId);
@@ -540,7 +598,7 @@
         a.removeChild(img);
         const ph = document.createElement('div');
         ph.className = 'poster';
-        ph.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02))';
+        ph.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))';
         a.insertBefore(ph, a.firstChild);
       };
 
@@ -549,14 +607,13 @@
     } else {
       const ph = document.createElement('div');
       ph.className = 'poster';
-      ph.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02))';
+      ph.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))';
       a.appendChild(ph);
     }
 
     return a;
   }
 
-  // Build the gallery from works data
   function buildGallery() {
     thumbsWrap.innerHTML = '';
     if (!worksSection) return;
@@ -574,12 +631,11 @@
     articles.forEach((a, idx) => {
       const el = buildThumb(a);
       const img = el.querySelector('img');
-      if (idx < 2 && img) img.setAttribute('fetchpriority', 'high'); // boost LCP prime due
+      if (idx < 2 && img) img.setAttribute('fetchpriority', 'high');
       thumbsWrap.appendChild(el);
     });
   }
 
-  // Create embed iframe for videos
   function createEmbedIframe(kind, id, title) {
     const div = document.createElement('div');
     div.className = 'embed';
@@ -599,7 +655,6 @@
     return div;
   }
 
-  // Create media block for work detail view
   function createMediaBlock(article) {
     const ds = article.dataset;
     const title = ds.title || article.id;
@@ -630,7 +685,6 @@
     return container;
   }
 
-  // Set active nav state
   function setActiveNav(section) {
     document.querySelectorAll('nav a[href^="#"]').forEach(a => {
       a.removeAttribute('aria-current');
@@ -638,7 +692,6 @@
     });
   }
 
-  // Show top-level section (works, bio, contact)
   function showTop(section) {
     ['works', 'bio', 'contact'].forEach(id => {
       const el = document.getElementById(id);
@@ -656,7 +709,6 @@
     setActiveNav(section);
   }
 
-  // Show work detail view
   function showWork(slug) {
     const article = document.getElementById(slug);
     if (!article) { showTop('works'); return; }
@@ -676,7 +728,6 @@
     window.scrollTo(0, 0);
   }
 
-  // Handle URL routing
   function handleRoute() {
     const h = decodeURIComponent(location.hash || '#works');
     const m = h.match(/^#work\/(.+)$/);
@@ -688,7 +739,6 @@
     else { showTop('works'); }
   }
 
-  // Initialize instant navigation
   function initNavInstant() {
     document.querySelectorAll('nav a[href^="#"]').forEach(a => {
       a.addEventListener('click', (e) => {
@@ -702,7 +752,6 @@
     });
   }
 
-  // Ensure security rel on external links
   function hardenExternalLinks() {
     document.querySelectorAll('a[target="_blank"]').forEach(a => {
       const rel = (a.getAttribute('rel') || '').split(/\s+/).filter(Boolean);
@@ -712,16 +761,14 @@
     });
   }
 
-  // Email obfuscation (semplice)
   function injectMail() {
     const m = 'mariacozzani' + '@' + 'gmail.com';
     const el = document.getElementById('mail');
     if (el) el.innerHTML = `<a href="mailto:${m}">${m}</a>`;
   }
 
-  // === BACKGROUNDS & EASTER EGGS ===
+  /* ===== BG & EASTER EGGS ===== */
 
-  // Violin background animation (mobile = 6, desktop = 31)
   function createViolinBackground() {
     const violinBg = document.getElementById('violinBackground');
     if (!violinBg) return;
@@ -772,8 +819,7 @@
     }
   }
 
-  // Clouds marquee
-  function createCloudMarquee(trackId, direction = 'left', duration = 120) {
+  function createCloudMarquee(trackId, direction = 'left', duration = 110) {
     const track = document.getElementById(trackId);
     if (!track) return;
 
@@ -796,50 +842,78 @@
         set.appendChild(c);
       }
     }
-
-    addSet();
-    addSet(); // duplicate for seamless loop
-
+    addSet(); addSet();
     track.appendChild(set);
     track.style.animation = `marquee-${direction} ${duration}s linear infinite`;
   }
 
-  // Sprites: flowers, diamonds, "MARIA"
-  function createSprites() {
+  /* SVG Sprites (flower, diamond, MARIA) */
+  function createSprites(){
     const layer = document.getElementById('spritesLayer');
     if (!layer) return;
 
-    function spawnSprite(kind, content, count, sizeRange, durRange) {
-      for (let i = 0; i < count; i++) {
-        const el = document.createElement('div');
-        el.className = `floating-sprite ${kind}`;
-        el.style.left = `${Math.random() * 100}%`;
-        el.style.top = `${Math.random() * 100}%`;
-        el.style.fontSize = `${rand(sizeRange[0], sizeRange[1])}px`;
-        el.style.animationDuration = `${rand(durRange[0], durRange[1])}s`;
-        el.style.animationDelay = `${rand(0, 15)}s`;
-        el.style.setProperty('--x1', `${rand(-120, 120)}px`);
-        el.style.setProperty('--y1', `${rand(-80, 80)}px`);
-        el.style.setProperty('--x2', `${rand(-120, 120)}px`);
-        el.style.setProperty('--y2', `${rand(-80, 80)}px`);
-        el.style.setProperty('--x3', `${rand(-120, 120)}px`);
-        el.style.setProperty('--y3', `${rand(-80, 80)}px`);
+    function svgNode(str){ const d=document.createElement('div'); d.innerHTML=str.trim(); return d.firstElementChild; }
 
-        if (kind === 'sprite-maria') {
-          el.textContent = 'MARIA';
-        } else {
-          el.textContent = content;
-        }
+    const makeFlower = (size)=>svgNode(`
+      <svg width="${size}" height="${size}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g>
+          <circle cx="50" cy="50" r="14" fill="#ffd36e"/>
+          <ellipse cx="50" cy="25" rx="16" ry="12" fill="#ff66f7"/>
+          <ellipse cx="75" cy="45" rx="16" ry="12" fill="#38f9a5"/>
+          <ellipse cx="25" cy="45" rx="16" ry="12" fill="#7ad7ff"/>
+          <ellipse cx="35" cy="75" rx="16" ry="12" fill="#ff66f7"/>
+          <ellipse cx="65" cy="75" rx="16" ry="12" fill="#38f9a5"/>
+        </g>
+      </svg>`);
+
+    const makeDiamond = (size)=>svgNode(`
+      <svg width="${size}" height="${size}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="50,5 95,40 50,95 5,40" fill="#7ad7ff"/>
+        <polygon points="50,5 95,40 73,40 50,20" fill="#bfeaff" opacity=".8"/>
+        <polygon points="5,40 27,40 50,20 50,5" fill="#8fd7ff" opacity=".9"/>
+      </svg>`);
+
+    const makeMaria = (size)=>svgNode(`
+      <svg width="${size*3}" height="${size*1.2}" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gradMaria" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ff66f7"/>
+            <stop offset="100%" stop-color="#38f9a5"/>
+          </linearGradient>
+        </defs>
+        <text x="6" y="82" font-family="Pacifico, cursive" font-size="76" fill="url(#gradMaria)">MARIA</text>
+      </svg>`);
+
+    function spawn(kind, count, sizeRange, durRange){
+      for(let i=0;i<count;i++){
+        const el=document.createElement('div');
+        el.className=`floating-sprite sprite-${kind}`;
+        const size = rand(sizeRange[0], sizeRange[1]);
+        el.style.left = `${Math.random()*100}%`;
+        el.style.top  = `${Math.random()*100}%`;
+        el.style.animationDuration = `${rand(durRange[0], durRange[1])}s`;
+        el.style.animationDelay = `${rand(0,15)}s`;
+        el.style.setProperty('--x1', `${rand(-120,120)}px`);
+        el.style.setProperty('--y1', `${rand(-80,80)}px`);
+        el.style.setProperty('--x2', `${rand(-120,120)}px`);
+        el.style.setProperty('--y2', `${rand(-80,80)}px`);
+        el.style.setProperty('--x3', `${rand(-120,120)}px`);
+        el.style.setProperty('--y3', `${rand(-80,80)}px`);
+
+        let node;
+        if(kind==='flower') node = makeFlower(size);
+        if(kind==='diamond') node = makeDiamond(size);
+        if(kind==='maria') node = makeMaria(size);
+        el.appendChild(node);
         layer.appendChild(el);
       }
     }
 
-    spawnSprite('sprite-flower', '🌸', 12, [16, 30], [22, 44]);
-    spawnSprite('sprite-diamond', '💎', 10, [14, 26], [26, 52]);
-    spawnSprite('sprite-maria', '', 6, [22, 36], [28, 56]);
+    spawn('flower', 12, [18,34], [22,44]);
+    spawn('diamond', 10, [18,30], [26,52]);
+    spawn('maria', 6, [18,24], [28,56]);
   }
 
-  // Mushrooms
   function createMushrooms() {
     const layer = document.getElementById('mushroomLayer');
     if (!layer) return;
@@ -868,7 +942,7 @@
     }
   }
 
-  // Fireball with organic wandering path (random walk with damping)
+  // Fireball with organic wandering path
   function initFireball() {
     const layer = document.getElementById('fireLayer');
     if (!layer) return;
@@ -889,20 +963,17 @@
       let x = fb.offsetLeft, y = fb.offsetTop;
       let vx = rand(-0.6, 0.6), vy = rand(-0.6, 0.6);
       let ax = 0, ay = 0;
-      let life = rand(7, 11) * 60; // frames @ ~60fps
+      let life = rand(7, 11) * 60;
 
       function step() {
-        // random acceleration
         ax += rand(-0.05, 0.05);
         ay += rand(-0.05, 0.05);
-        // dampen
         vx = (vx + ax) * 0.96;
         vy = (vy + ay) * 0.96;
         ax *= 0.8; ay *= 0.8;
         x += vx * 2.0;
         y += vy * 2.0;
 
-        // bounce within viewport
         const W = window.innerWidth - size, H = window.innerHeight - size;
         if (x < 0) { x = 0; vx *= -0.9; }
         if (y < 0) { y = 0; vy *= -0.9; }
@@ -916,58 +987,64 @@
         else { layer.removeChild(fb); }
       }
       requestAnimationFrame(step);
-      // schedule next spawn
-      const nextIn = rand(10, 20) * 1000;
-      setTimeout(spawn, nextIn);
+      setTimeout(spawn, rand(10, 20) * 1000);
     }
-
-    // first spawn a bit later to avoid layout thrash on load
     setTimeout(spawn, rand(2000, 5000));
   }
 
-  // Bunny every ~30s
-  function initBunny() {
+  // Bunny every ~30s (SVG, zig-zag)
+  function initBunny(){
     const layer = document.getElementById('spritesLayer');
     if (!layer) return;
 
-    function run() {
-      const b = document.createElement('div');
-      b.className = 'bunny';
-      b.textContent = '🐰';
+    function bunnySVG(size){
+      const s = Math.max(24, size|0);
+      const w = s*1.2, h = s;
+      const html = `
+        <svg width="${w}" height="${h}" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
+          <g>
+            <ellipse cx="70" cy="64" rx="26" ry="22" fill="#fff3f8"/>
+            <circle cx="54" cy="48" r="18" fill="#fff3f8"/>
+            <ellipse cx="56" cy="40" rx="5" ry="3.5" fill="#ffbcd9"/>
+            <ellipse cx="44" cy="18" rx="8" ry="22" fill="#fff3f8"/>
+            <ellipse cx="66" cy="18" rx="8" ry="22" fill="#fff3f8"/>
+            <circle cx="62" cy="50" r="3" fill="#101015"/>
+          </g>
+        </svg>`;
+      const d=document.createElement('div'); d.innerHTML=html.trim(); return d.firstElementChild;
+    }
+
+    function run(){
+      const b=document.createElement('div');
+      b.className='bunny';
       const dir = Math.random() < 0.5 ? 'LTR' : 'RTL';
       const y0 = `${Math.floor(rand(18, 72))}vh`;
       const dur = rand(8, 12);
-
       b.style.setProperty('--y0', y0);
       b.style.setProperty('--sz', `${rand(28, 42)}px`);
       b.style.animation = `bunny${dir} ${dur}s linear 1`;
-
+      b.appendChild(bunnySVG(36));
       layer.appendChild(b);
-      b.addEventListener('animationend', () => { b.remove(); });
-      setTimeout(run, 30000); // next in 30s
+      b.addEventListener('animationend', () => b.remove());
+      setTimeout(run, 30000);
     }
     setTimeout(run, 30000);
   }
 
-  // === INIT CLOUDS / SPRITES / MUSHROOMS ===
   function initClouds() {
     createCloudMarquee('cloudTrack1', 'left', 110);
     createCloudMarquee('cloudTrack2', 'right', 140);
   }
 
-  // Handle hash changes
   window.addEventListener('hashchange', handleRoute);
 
-  // Initialize everything when DOM is ready
   document.addEventListener('DOMContentLoaded', () => {
-    // content
     buildGallery();
     handleRoute();
     initNavInstant();
     hardenExternalLinks();
     injectMail();
 
-    // backgrounds
     createViolinBackground();
     initClouds();
     createSprites();
