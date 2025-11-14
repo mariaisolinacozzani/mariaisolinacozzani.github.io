@@ -6,11 +6,9 @@
   <title>maria isolina cozzani — portfolio</title>
   <meta name="description" content="violinist, composer-performer, multimedia artist. works, bio, contact." />
 
-  <!-- Theme & color scheme -->
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#ffffff">
 
-  <!-- Open Graph / SEO -->
   <meta property="og:title" content="Maria Isolina Cozzani - Violinist, Composer-Performer, Multimedia Artist">
   <meta property="og:description" content="Portfolio of Maria Isolina Cozzani - works, bio, contact information">
   <meta property="og:type" content="website">
@@ -18,39 +16,26 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="robots" content="index,follow">
 
-  <!-- Favicon -->
   <link rel="icon" href="/assets/favicon.ico">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Space+Grotesk:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --txt: #f5f6f9;
-      --bg: #0c0a10;
-      --muted: #b6b8bf;
+      --txt: #0a0a0d;
+      --bg: #ffffff;
+      --muted: #5a5f66;
       --accent: #7ed321;
-      --border: #2a2e36;
+      --border: #e6e7ea;
       --max: 1440px;
       --radius: 0px;
-      --brand-pink: #ff66f7;
+      --brand-pink: #ff4fd8;
       --font-base: 'Source Sans 3', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       --font-heading: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       --font-curvy: 'Pacifico', cursive;
-
-      /* Aesthetic palette */
-      --cloud-opacity: 0.42;
-      --cloud-sat: 1.6;
-      --violin-neon: 0.22;
-
-      --ink:#101015;         /* cartoon stroke */
-      --neon-a:#ff66f7;      /* candy fuchsia */
-      --neon-b:#38f9a5;      /* mint green */
-      --neon-c:#7ad7ff;      /* sky */
-      --neon-d:#ffd36e;      /* honey */
     }
 
     html { box-sizing: border-box; scroll-behavior: smooth; color-scheme: light; }
@@ -59,176 +44,63 @@
     body {
       margin: 0;
       color: var(--txt);
-      background:
-        radial-gradient(120% 120% at 15% 10%, rgba(255,102,247,.18), transparent 60%),
-        radial-gradient(120% 120% at 85% 80%, rgba(56,249,165,.16), transparent 60%),
-        radial-gradient(140% 120% at 50% 120%, rgba(122,215,255,.14), transparent 60%),
-        var(--bg);
+      background: var(--bg);
+      background-image:
+        radial-gradient(120% 120% at 12% 8%, rgba(255,79,216,.06), transparent 60%),
+        radial-gradient(120% 120% at 88% 82%, rgba(126,211,33,.06), transparent 60%);
       font: 16px/1.7 var(--font-base);
       text-rendering: optimizeLegibility;
-      font-kerning: normal;
-      font-variant-ligatures: common-ligatures;
-      transition: background-color 0.3s ease, color 0.3s ease;
       position: relative;
       overflow-x: hidden;
-    }
-    /* scanlines + drifting tint */
-    body::before{
-      content:"";
-      position:fixed; inset:-20vmax; pointer-events:none; z-index:-5;
-      background:
-        repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 2px, transparent 2px 4px),
-        radial-gradient(120% 120% at 30% 20%, rgba(255,0,170,.06), transparent 60%),
-        radial-gradient(120% 120% at 70% 60%, rgba(0,255,170,.06), transparent 60%);
-      mix-blend-mode: overlay; opacity:.7; animation: driftBg 42s linear infinite;
-    }
-    @keyframes driftBg{ to{ transform: translate3d(3%,2%,0) rotate(.35deg);} }
-
-    /* === BACKGROUND LAYERS === */
-    .clouds-bg { position: fixed; inset: 0; pointer-events: none; z-index: -4; overflow: hidden; }
-    .cloud-row { position: absolute; left: 0; right: 0; display: block; white-space: nowrap; opacity: var(--cloud-opacity); filter: saturate(var(--cloud-sat)) contrast(1.08); }
-    .cloud-row.row1 { top: 20%; }
-    .cloud-row.row2 { top: 65%; }
-    .cloud-track { display: inline-flex; gap: 28px; will-change: transform; }
-    .cloud { position: relative; display: inline-flex; align-items: center; justify-content: center; width: calc(88px * var(--s, 1)); height: calc(56px * var(--s, 1)); border-radius: 999px;
-      background: radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,.95), rgba(255,255,255,.8) 35%, rgba(255,255,255,.6) 60%, rgba(255,255,255,.35) 100%), var(--c, #fde2ff);
-      box-shadow: 0 8px 18px rgba(0,0,0,.18), inset 0 3px 12px rgba(255,255,255,.8);
-      filter: url(#wobble);
-      outline: 2px solid rgba(16,16,24,.2);
-    }
-    .cloud:before, .cloud:after { content: ""; position: absolute; border-radius: 999px; background: inherit; filter: brightness(1.05); }
-    .cloud:before { width: 55%; height: 78%; left: -18%; top: -20%; }
-    .cloud:after  { width: 42%; height: 68%; right: -14%; top: -12%; }
-    .face { position: relative; font-size: calc(14px * var(--s, 1)); line-height: 1; color: rgba(0,0,0,.65); text-shadow: 0 1px 0 rgba(255,255,255,.85); font-weight: 700; user-select: none; }
-
-    .violin-bg { position: fixed; inset: 0; pointer-events: none; z-index: -3; overflow: hidden; }
-    .floating-violin {
-      position: absolute; font-size: 24px; opacity: var(--violin-neon); animation: floatViolin linear infinite; --h: 200;
-      text-shadow: 0 0 6px hsla(var(--h),95%,65%,.65), 0 0 14px hsla(var(--h),95%,55%,.5), 0 0 28px hsla(var(--h),95%,55%,.35);
-      background: radial-gradient(circle at 50% 50%, hsla(var(--h),95%,70%,.18), transparent 60%); border-radius: 50%;
-    }
-    @keyframes floatViolin {
-      0% { transform: translate(0, 0) rotate(0deg); }
-      25% { transform: translate(100px, 50px) rotate(90deg); }
-      50% { transform: translate(200px, -30px) rotate(180deg); }
-      75% { transform: translate(100px, 80px) rotate(270deg); }
-      100% { transform: translate(0, 0) rotate(360deg); }
+      cursor: none; /* custom cow cursor */
     }
 
-    .mushroom-layer { position: fixed; inset: 0; pointer-events: none; z-index: -2; overflow: hidden; }
-    .m-spot { position: absolute; bottom: -6px; width: 0; height: 0; }
-    .mushroom { position: absolute; bottom: 0; left: 0; transform-origin: 50% 100%; filter: saturate(1.8) drop-shadow(0 8px 18px rgba(0,0,0,.25));
-      animation: mushPulse var(--dur,10s) ease-in-out var(--delay,0s) infinite alternate, hueCycle 14s linear infinite; }
-    .mushroom .stem { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: calc(var(--w,36px) * .24); height: calc(var(--h,72px) * .85); background: linear-gradient(#ffe6cc, #ffd7a1); border-radius: 12px; box-shadow: inset 0 -6px 10px rgba(0,0,0,.08); }
-    .mushroom .cap { position: absolute; bottom: calc(var(--h,72px) * .6); left: 50%; transform: translateX(-50%); width: var(--w,36px); height: calc(var(--h,72px) * .55); border-radius: 50% 50% 36% 36%/60% 60% 40% 40%;
-      background: conic-gradient(from 20deg, #ff00a7, #ffa400, #00d26a, #00c2ff, #b100ff, #ff00a7); box-shadow: inset 0 -8px 20px rgba(0,0,0,.15), 0 8px 20px rgba(0,0,0,.22); overflow: hidden; }
-    .mushroom .cap:after { content: ""; position: absolute; inset: 0; background:
-      radial-gradient(circle at 30% 40%, rgba(255,255,255,.7), transparent 45%),
-      radial-gradient(circle at 70% 30%, rgba(255,255,255,.7), transparent 46%),
-      radial-gradient(circle at 50% 70%, rgba(255,255,255,.6), transparent 44%); mix-blend-mode: screen; }
-    @keyframes mushPulse { from { transform: scale(.6); } to { transform: scale(var(--scale,1.5)); } }
-    @keyframes hueCycle { from { filter: hue-rotate(0deg) saturate(1.8) drop-shadow(0 8px 18px rgba(0,0,0,.25)); } to { filter: hue-rotate(360deg) saturate(1.8) drop-shadow(0 8px 18px rgba(0,0,0,.25)); } }
-
-    .sprites-layer { position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
-    .floating-sprite { position: absolute; animation: floatSprite linear infinite; user-select: none; will-change: transform; }
-    @keyframes floatSprite {
-      0% { transform: translate(0,0) rotate(0deg); }
-      25% { transform: translate(var(--x1), var(--y1)) rotate(60deg); }
-      50% { transform: translate(var(--x2), var(--y2)) rotate(120deg); }
-      75% { transform: translate(var(--x3), var(--y3)) rotate(180deg); }
-      100% { transform: translate(0,0) rotate(360deg); }
-    }
-    .floating-sprite svg, .bunny svg{
-      filter: drop-shadow(0 2px 0 rgba(16,16,24,.35)) drop-shadow(0 8px 18px rgba(0,0,0,.22));
-    }
-    .sprite-maria svg text, .sprite-flower svg *, .sprite-diamond svg *, .bunny svg *{
-      stroke:var(--ink); stroke-width:2.2; stroke-linejoin:round; stroke-linecap:round;
-    }
-    .sprite-maria svg text{ fill: var(--brand-pink); paint-order: stroke; }
-
-    .fire-layer { position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
-    .fireball { position: absolute; border-radius: 50%; box-shadow: 0 0 16px rgba(255,122,0,.8), 0 0 36px rgba(255,80,0,.5);
-      background: radial-gradient(circle at 35% 35%, #ffd86b, #ff8a00 50%, rgba(255,80,0,.9) 72%, rgba(120,0,0,.7) 100%);
-      width: var(--sz,60px); height: var(--sz,60px);
-    }
-    .fireball .tail { position: absolute; right: 100%; top: 50%; transform: translateY(-50%); width: calc(var(--sz,60px) * 1.6); height: calc(var(--sz,60px) * .42);
-      background: linear-gradient(90deg, rgba(214,40,40,0.0) 0%, rgba(255,122,0,0.46) 30%, rgba(255,200,0,0.28) 100%); filter: blur(2.8px); border-radius: 999px; }
-    .fireball .fire-face { position: absolute; inset: 0; display: grid; place-items: center; font-size: calc(var(--sz,60px) * .28); color: #260b00; text-shadow: 0 1px 0 rgba(255,255,255,.6); mix-blend-mode: multiply; }
-
-    /* Bunny (SVG) */
-    .bunny { position: absolute; font-size: var(--sz,34px); will-change: transform; filter: drop-shadow(0 6px 12px rgba(0,0,0,.25)); }
-    @keyframes bunnyLTR { 0% { transform: translate(-12vw, var(--y0)) scale(1) rotate(0deg); } 20% { transform: translate(10vw, calc(var(--y0) - 16px)) scale(1.05); } 40% { transform: translate(30vw, calc(var(--y0) + 14px)) scale(1); } 60% { transform: translate(55vw, calc(var(--y0) - 18px)) scale(1.05); } 80% { transform: translate(78vw, calc(var(--y0) + 16px)) scale(1); } 100% { transform: translate(112vw, var(--y0)) scale(1.05); } }
-    @keyframes bunnyRTL { 0% { transform: translate(112vw, var(--y0)) scale(1) rotateY(180deg); } 20% { transform: translate(78vw, calc(var(--y0) - 16px)) rotateY(180deg); } 40% { transform: translate(55vw, calc(var(--y0) + 14px)) rotateY(180deg); } 60% { transform: translate(30vw, calc(var(--y0) - 18px)) rotateY(180deg); } 80% { transform: translate(10vw, calc(var(--y0) + 16px)) rotateY(180deg); } 100% { transform: translate(-12vw, var(--y0)) rotateY(180deg); } }
-
-    /* Marquee clouds */
-    @keyframes marquee-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-    @keyframes marquee-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-
-    /* Links / layout */
     a { color: var(--accent); text-decoration: none; transition: all 0.2s ease; }
     a:focus-visible, button:focus-visible { outline: 2px solid var(--brand-pink); outline-offset: 3px; border-radius: 2px; }
 
-    .wrap { max-width: var(--max); margin: 0 auto; padding: 28px 18px; position: relative; z-index: 0; background: transparent; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 28px 18px; position: relative; z-index: 0; }
     header { margin: 8px 0 18px; }
-    h1 { font-family: var(--font-heading); font-size: 28px; font-weight: 700; letter-spacing: .02em; margin: 0 0 6px; color: var(--neon-b); text-shadow: 0 0 12px rgba(56,249,165,.25); }
-    /* tiny glitch overlay on title */
-    h1:hover::after{
-      content: attr(data-glitch); position:absolute; inset:0; left:0; top:0; color:var(--neon-a);
-      mix-blend-mode:screen; transform:translate(1px,-1px);
-      text-shadow: -1px 0 var(--neon-b), 1px 0 var(--neon-c);
-      animation: tinyGlitch .8s steps(2,end) infinite;
-    }
-    @keyframes tinyGlitch{ 50%{ transform:translate(-1px,1px);} }
-
+    h1 { font-family: var(--font-heading); font-size: 32px; font-weight: 700; letter-spacing: .02em; margin: 0 0 6px; color: var(--accent); position: relative; }
     nav { margin: 14px 0 26px; font-family: var(--font-heading); letter-spacing: .01em; font-weight: 600; }
     nav a { margin: 0 10px 0 0; white-space: nowrap; color: var(--brand-pink); position: relative; padding: 4px 0; text-decoration: underline; text-underline-offset: 3px; }
     nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--brand-pink); transition: width 0.3s ease; }
     nav a:hover::after, nav a:focus-visible::after { width: 100%; }
-    nav a:hover { text-shadow: 0 0 8px rgba(255,102,247,.55), 0 0 18px rgba(255,102,247,.75); }
 
     main section { margin: 38px 0; }
     h2 { font-family: var(--font-heading); font-size: 18px; margin: 0 0 12px; color: var(--accent); }
     h3 { font-family: var(--font-heading); font-size: 16px; margin: 0 0 8px; }
-
     .muted { color: var(--muted); opacity: 0.9; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
     /* Cards */
-    .card { padding: 16px; border-radius: 12px; background: rgba(18,16,26,.72); border: 1px solid var(--border);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background .2s ease;
-      position: relative; z-index: 1; backdrop-filter: saturate(115%) blur(3px);
-    }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(255,102,247,.2), 0 0 0 2px rgba(255,102,247,.18); border-color: var(--brand-pink); background: rgba(22,18,30,.78); }
+    .card { padding: 16px; border-radius: 0; background: rgba(255,255,255,.9); border: 1px solid var(--border); transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; position: relative; z-index: 1; backdrop-filter: saturate(110%) blur(0px); }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(0,0,0,0.08); border-color: var(--brand-pink); }
 
     /* Gallery */
     .thumbs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-    .thumb { position: relative; display: block; border-radius: 10px; overflow: hidden; background: rgba(18,16,26,.72); border: 1px solid var(--border);
-      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, filter .18s ease; }
+    .thumb { position: relative; display: block; border-radius: 0; overflow: hidden; background: var(--bg); border: 1px solid var(--border); transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, filter .18s ease; }
     .thumb .poster { aspect-ratio: 16/9; width: 100%; object-fit: cover; display: block; filter: grayscale(.08) contrast(1.04); transition: filter .18s ease; will-change: filter, transform; }
-    .thumb:hover { transform: translateY(-2px) scale(1.005); border-color: var(--brand-pink); box-shadow: 0 10px 26px rgba(255,102,247,.25), 0 0 28px rgba(255,102,247,.25); }
-    .thumb:hover .poster { filter: grayscale(0) contrast(1.08) saturate(1.16); }
-    .thumb::after{ content:""; position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .2s;
-      background: repeating-linear-gradient(180deg, rgba(0,0,0,.06) 0 1px, transparent 1px 2px); mix-blend-mode:soft-light; }
-    .thumb:hover::after{ opacity:1; }
+    .thumb:hover { transform: translateY(-2px) scale(1.005); border-color: var(--brand-pink); box-shadow: 0 10px 26px rgba(255,79,216,.15); }
+    .thumb:hover .poster { filter: grayscale(0) contrast(1.08) saturate(1.08); }
     .thumb:focus-visible { outline: 2px solid var(--brand-pink); outline-offset: 2px; }
 
     /* Detail view */
     body.is-detail main > section:not(#work-detail) { display: none; }
     #work-detail { margin-top: 10px; }
-    #work-detail .back { display: inline-flex; align-items: center; gap: 6px; margin: 6px 0 16px; font-size: 13px; color: var(--muted); padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px; transition: all 0.2s ease; background: rgba(18,16,26,.72); }
-    #work-detail .back:hover { color: var(--txt); border-color: var(--brand-pink); background: rgba(22,18,30,.78); }
-    .embed { position: relative; padding-top: 56.25%; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); background: rgba(0,0,0,0.12); margin-bottom: 14px; }
+    #work-detail .back { display: inline-flex; align-items: center; gap: 6px; margin: 6px 0 16px; font-size: 13px; color: var(--muted); padding: 6px 12px; border: 1px solid var(--border); border-radius: 2px; transition: all 0.2s ease; cursor: none; }
+    #work-detail .back:hover { color: var(--txt); border-color: var(--brand-pink); background: rgba(255,79,216,0.05); }
+    .embed { position: relative; padding-top: 56.25%; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); background: rgba(0,0,0,0.03); margin-bottom: 14px; }
     .embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
     /* Media grids */
     .detail-media-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 14px; }
     @media (min-width: 900px) { .detail-media-grid { grid-template-columns: 1fr 1fr; } }
-    .detail-media-grid img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); }
+    .detail-media-grid img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border: 1px solid var(--border); }
     .video-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 12px 0; }
     @media (min-width: 820px) { .video-grid { grid-template-columns: 1fr 1fr; } }
     .photo-grid, .media-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
     @media (min-width: 720px) { .photo-grid, .media-grid { grid-template-columns: repeat(3, 1fr); } }
-    .photo-grid img, .media-grid img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); }
+    .photo-grid img, .media-grid img { width: 100%; height: 100%; object-fit: cover; border-radius: 0; border: 1px solid var(--border); }
     .media-grid .span-3 { grid-column: 1/-1; }
 
     /* Bio */
@@ -257,63 +129,63 @@
     /* Mobile */
     @media (max-width: 480px) {
       .wrap { padding: 20px 12px; }
-      h1 { font-size: 24px; }
+      h1 { font-size: 26px; }
       nav a { margin: 0 8px 0 0; font-size: 14px; }
       .thumbs { grid-template-columns: 1fr; gap: 12px; }
       .card { padding: 12px; }
-      .floating-violin { font-size: 16px; }
-      .cloud-row { opacity: calc(var(--cloud-opacity) - .08); }
+    }
+
+    /* === Custom cow cursor & fireworks === */
+    #fxLayer { position: fixed; inset: 0; pointer-events: none; z-index: 9998; overflow: visible; }
+    .cursor-cow { position: fixed; left: 0; top: 0; width: 40px; height: 40px; transform: translate(-50%,-50%); pointer-events: none; z-index: 9999; filter: drop-shadow(0 4px 10px rgba(0,0,0,.15)); }
+    .cursor-cow svg { width: 100%; height: 100%; }
+
+    /* più lenta di prima (default 2200ms) */
+    .cow-particle {
+      position: fixed; width: 28px; height: 28px; left: 0; top: 0;
+      transform: translate(0,0) scale(.95);
+      animation: cowBurst var(--dur, 2200ms) cubic-bezier(.22,.72,.12,1) forwards,
+                 cowSpin  var(--dur, 2200ms) linear forwards;
+    }
+    @keyframes cowBurst { from { opacity: 1; transform: translate(0,0) scale(1); } to { transform: translate(var(--dx),var(--dy)) scale(.95); opacity: 0; } }
+    @keyframes cowSpin  { from { rotate: 0deg; } to { rotate: var(--rot,360deg); } }
+
+    @media (pointer: coarse) {
+      body { cursor: auto; }
+      .cursor-cow { display: none; }
     }
   </style>
 </head>
 <body>
-  <!-- SVG filter defs for cartoon/glitch styling -->
-  <svg width="0" height="0" style="position:fixed;left:-9999px;top:-9999px" aria-hidden="true" focusable="false">
-    <defs>
-      <!-- Organic wobble -->
-      <filter id="wobble">
-        <feTurbulence type="fractalNoise" baseFrequency="0.006" numOctaves="1" seed="2" result="noise"/>
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G"/>
-      </filter>
-      <!-- Optional grain (not applied globally) -->
-      <filter id="grain">
-        <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch" result="n"/>
-        <feColorMatrix type="saturate" values="0"/>
-        <feBlend in="SourceGraphic" in2="n" mode="overlay"/>
-      </filter>
-    </defs>
-  </svg>
+  <div id="fxLayer" aria-hidden="true"></div>
+  <div id="cursorCow" class="cursor-cow" aria-hidden="true"></div>
 
-  <!-- Candy clouds background -->
-  <div class="clouds-bg" id="cloudsBackground" aria-hidden="true">
-    <div class="cloud-row row1"><div class="cloud-track" id="cloudTrack1"></div></div>
-    <div class="cloud-row row2"><div class="cloud-track" id="cloudTrack2"></div></div>
-  </div>
-
-  <!-- Violin background animation (decorativo) -->
-  <div class="violin-bg" id="violinBackground" aria-hidden="true"></div>
-
-  <!-- Mushrooms layer -->
-  <div class="mushroom-layer" id="mushroomLayer" aria-hidden="true"></div>
-
-  <!-- Fireball layer (sfera infuocata) -->
-  <div class="fire-layer" id="fireLayer" aria-hidden="true"></div>
-
-  <!-- Sprites (flowers, diamonds, MARIA) -->
-  <div class="sprites-layer" id="spritesLayer" aria-hidden="true"></div>
-
-  <!-- Fallback se JS è disabilitato -->
-  <noscript>
-    <style>
-      #works-data, [hidden] { display: block !important; }
-      #work-detail, #thumbs, .violin-bg, .clouds-bg, .fire-layer, .sprites-layer, .mushroom-layer { display: none !important; }
-    </style>
-    <p class="muted" style="padding:12px">JavaScript is disabled: showing the full works list below.</p>
-  </noscript>
+  <!-- Cow SVG template -->
+  <template id="cowSVG">
+    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs><clipPath id="cowClip"><circle cx="32" cy="34" r="20" /></clipPath></defs>
+      <circle cx="32" cy="34" r="20" fill="#ffffff" stroke="#222" stroke-width="2.5"/>
+      <ellipse cx="16" cy="26" rx="6" ry="8" fill="#fff" stroke="#222" stroke-width="2.5"/>
+      <ellipse cx="48" cy="26" rx="6" ry="8" fill="#fff" stroke="#222" stroke-width="2.5"/>
+      <ellipse cx="16" cy="26" rx="4" ry="5" fill="#ffc0d6" opacity=".8"/>
+      <ellipse cx="48" cy="26" rx="4" ry="5" fill="#ffc0d6" opacity=".8"/>
+      <path d="M24 16c2-4 6-4 8 0" fill="none" stroke="#9c8c63" stroke-width="3" stroke-linecap="round"/>
+      <path d="M40 16c-2-4-6-4-8 0" fill="none" stroke="#9c8c63" stroke-width="3" stroke-linecap="round"/>
+      <g clip-path="url(#cowClip)">
+        <ellipse cx="24" cy="34" rx="8" ry="6" fill="#1a1a1a" opacity=".9"/>
+        <ellipse cx="42" cy="44" rx="6" ry="4" fill="#1a1a1a" opacity=".9"/>
+      </g>
+      <circle cx="26" cy="34" r="2.3" fill="#111"/>
+      <circle cx="38" cy="34" r="2.3" fill="#111"/>
+      <ellipse cx="32" cy="46" rx="11" ry="8" fill="#ffb3c7" stroke="#222" stroke-width="2"/>
+      <circle cx="28" cy="46" r="1.6" fill="#7a2a2a"/>
+      <circle cx="36" cy="46" r="1.6" fill="#7a2a2a"/>
+    </svg>
+  </template>
 
   <div class="wrap">
     <header>
-      <h1 data-glitch="maria isolina cozzani">maria isolina cozzani</h1>
+      <h1 id="siteTitle">maria isolina cozzani</h1>
       <nav aria-label="primary">
         <a href="#works">works</a>
         <a href="#bio">bio</a>
@@ -403,7 +275,6 @@
           <h3><em>Dump and Die</em> — Lavish Trio</h3>
           <p><strong>Lavish</strong> ist ein improvisierendes Trio, bestehend aus den komponierenden Musikern <em>Sol Jang</em> (Klavier), <em>Maria Isolina Cozzani</em> (Violine) und <em>Kim Kamilla Jäger</em> (Cello). Dieses Projekt entstand aus dem Drang heraus, musikalische Strukturen zu schaffen, die sich um ein zentrales Thema drehen. Klangbasierte Improvisation, Jazz und sich wiederholende Muster werden in einer kammermusikalischen Umgebung miteinander verwoben, die klein und zerbrechlich, aber auch brutal und brüllend klingen kann. Komponieren und Improvisieren sind gleichermaßen Teil ihres Materials, und die Stücke können auf überraschende Weise auseinandergenommen und neu kombiniert werden.</p>
           <p><strong>Auszeichnungen:</strong> Gewinner des Erasmus Jazz Prijs 2023, Mittelyoung – Mittelfest 2023 und CS Carinthischer Sommer Under 30.</p>
-          <p><strong>Album – Dump and Die:</strong> Das erste Album des Lavish Trios ist una rappresentazione dei Millennials, nati alla fine dell'era analogica e cresciuti nella rivoluzione digitale…</p>
           <p><strong>Links:</strong>
             <a href="https://unitrecords.com/artists/lavish-trio/" target="_blank" rel="noopener">Unit Records — Artist</a> ·
             <a href="https://www.instagram.com/lavish_trio/" target="_blank" rel="noopener">Instagram</a> ·
@@ -447,7 +318,7 @@
         <article class="card" id="solo-livingroom" data-title="Solo, in the living room – a listening session"
                  data-poster="assets/livingroom/livingroom.jpg">
           <h3><em>Solo, in the living room – a listening session</em> (2023)</h3>
-          <p>In a nutshell: This solo performance was conceived based on the poetry book in plein site by Andrea Van der Kuil. I worked on the translation of poetry into music, to create a piece of music and dance based on poems that I could choose from Andrea's poetry book. The poems that I choose were connected to the concept of making and destroying, this constant tension of ephemerality, linked to Andrea's work as an embroiderer. I conceived a solo piece based on the embroidering sounds on a canvas and then simply listen to the layers of music while they disappeared again. After 15 minutes of building up of the sounds, there are 15 minutes of building down while I was joining the audience in a listening session of the materials I just had created.</p>
+          <p>In a nutshell: This solo performance was conceived based on the poetry book <em>in plein site</em> by Andrea Van der Kuil. I worked on the translation of poetry into music, to create a piece of music and dance based on poems that I could choose from Andrea's poetry book. The poems that I choose were connected to the concept of making and destroying, this constant tension of ephemerality, linked to Andrea's work as an embroiderer. I conceived a solo piece based on the embroidering sounds on a canvas and then simply listen to the layers of music while they disappeared again. After 15 minutes of building up of the sounds, there are 15 minutes of building down while I was joining the audience in a listening session of the materials I just had created.</p>
           <p><strong>Media:</strong><br>
           <a href="assets/livingroom/livingroom_ex1.mp4" target="_blank" rel="noopener">Video Example 1</a><br>
           <a href="assets/livingroom/livingroom_ex2.mp4" target="_blank" rel="noopener">Video Example 2</a></p>
@@ -488,7 +359,6 @@
           <div class="soundcloud-embed">
             <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1735657194&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
           </div>
-          <p>In a nutshell: 1142 km is a 27-minute-long piece based on free improvisation. the piece was conceived as a travel journal, pre-recorded on a car trip from Santa Margherita Ligure (IT) to Arnhem (NL). Consisting of voice mails, the journal, served as audio score on which the ensemble free improvised on. The result is a mixture between a verbal narration and liquid and iridescent sounds, going from a timbric interplay to more cinematic and melodic episodes, drones, grooves, glimpses from multiple musical contexts.</p>
           <p><strong>Ensemble:</strong><br>
           Pascal Burbach (drums)<br>
           Maria Isolina Cozzani (violin + effects)<br>
@@ -524,7 +394,6 @@
     </footer>
   </div>
 
-  <!-- JSON-LD base -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -542,11 +411,11 @@
   <script>
   'use strict';
 
-  // Footer year
   document.getElementById('y').textContent = new Date().getFullYear();
 
   const worksSection = document.querySelector('#works-data');
   const thumbsWrap = document.getElementById('thumbs');
+  const siteTitle = document.getElementById('siteTitle');
 
   const POSTER_OVERRIDES = {
     'violin-algorithm-duet': 'https://img.youtube.com/vi/dUpo4ffqWa8/hqdefault.jpg',
@@ -560,9 +429,9 @@
   };
 
   function rand(min, max) { return Math.random() * (max - min) + min; }
-  function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-  function getYouTubeThumb(id) { return `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }
+  function getYouTubeThumb(id) { return 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg'; }
 
+  /* gallery */
   function buildThumb(article) {
     const id = article.id;
     const title = article.dataset.title || id;
@@ -579,7 +448,7 @@
     }
 
     const a = document.createElement('a');
-    a.href = `#work/${id}`;
+    a.href = '#work/' + id;
     a.className = 'thumb';
     a.setAttribute('aria-label', title);
 
@@ -589,28 +458,14 @@
       img.loading = 'lazy';
       img.decoding = 'async';
       img.alt = title;
-
-      img.onerror = () => {
-        const altList = (article.dataset.posterAlts || '').split(',').map(s => s.trim()).filter(Boolean);
-        if (altList.length) { const next = altList.shift(); article.dataset.posterAlts = altList.join(','); img.src = next; return; }
-        if (article.dataset.yt) { img.src = getYouTubeThumb(article.dataset.yt); return; }
-        if (article.dataset.ytList) { img.src = getYouTubeThumb(article.dataset.ytList.split(',')[0].trim()); return; }
-        a.removeChild(img);
-        const ph = document.createElement('div');
-        ph.className = 'poster';
-        ph.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))';
-        a.insertBefore(ph, a.firstChild);
-      };
-
       img.src = thumbURL;
       a.appendChild(img);
     } else {
       const ph = document.createElement('div');
       ph.className = 'poster';
-      ph.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))';
+      ph.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02))';
       a.appendChild(ph);
     }
-
     return a;
   }
 
@@ -623,7 +478,6 @@
       'isln', 'artemide', 'solo-livingroom', 'edera', '1142km', 'locked-outputs',
       'studio-sul-plasma', 'steps-to-be-taken'
     ];
-
     const orderMap = new Map(desiredOrder.map((id, i) => [id, i]));
     const articles = Array.from(worksSection.querySelectorAll('article'))
       .sort((a, b) => (orderMap.get(a.id) ?? 999) - (orderMap.get(b.id) ?? 999));
@@ -642,16 +496,15 @@
     let url = '';
 
     if (kind === 'yt') {
-      url = `https://www.youtube-nocookie.com/embed/${id}`;
-      div.innerHTML = `<iframe loading="lazy" src="${url}" title="${title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+      url = 'https://www.youtube-nocookie.com/embed/' + id;
+      div.innerHTML = '<iframe loading="lazy" src="' + url + '" title="' + title + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
     } else if (kind === 'vimeo') {
-      url = `https://player.vimeo.com/video/${id}?dnt=1&byline=0&portrait=0`;
-      div.innerHTML = `<iframe loading="lazy" src="${url}" title="${title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+      url = 'https://player.vimeo.com/video/' + id + '?dnt=1&byline=0&portrait=0';
+      div.innerHTML = '<iframe loading="lazy" src="' + url + '" title="' + title + '" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
     } else if (kind === 'drive') {
-      url = `https://drive.google.com/file/d/${id}/preview`;
-      div.innerHTML = `<iframe loading="lazy" src="${url}" title="${title}"></iframe>`;
+      url = 'https://drive.google.com/file/d/' + id + '/preview';
+      div.innerHTML = '<iframe loading="lazy" src="' + url + '" title="' + title + '"></iframe>';
     }
-
     return div;
   }
 
@@ -688,7 +541,7 @@
   function setActiveNav(section) {
     document.querySelectorAll('nav a[href^="#"]').forEach(a => {
       a.removeAttribute('aria-current');
-      if (a.getAttribute('href') === `#${section}`) a.setAttribute('aria-current', 'page');
+      if (a.getAttribute('href') === '#' + section) a.setAttribute('aria-current', 'page');
     });
   }
 
@@ -716,7 +569,7 @@
     document.body.classList.add('is-detail');
     const detailEl = document.getElementById('work-detail');
     detailEl.removeAttribute('hidden');
-    detailEl.innerHTML = `<a href="#works" class="back">← all works</a>`;
+    detailEl.innerHTML = '<a href="#works" class="back">← all works</a>';
 
     const media = createMediaBlock(article);
     if (media) detailEl.appendChild(media);
@@ -730,12 +583,9 @@
 
   function handleRoute() {
     const h = decodeURIComponent(location.hash || '#works');
-    const m = h.match(/^#work\/(.+)$/);
-
-    if (m) { showWork(m[1]); return; }
-
-    const sec = h.replace('#', '');
-    if (['bio', 'contact', 'works'].includes(sec)) { showTop(sec); }
+    if (h.indexOf('#work/') === 0) { showWork(h.slice(6)); return; }
+    const sec = h.replace('#','');
+    if (['bio','contact','works'].includes(sec)) { showTop(sec); }
     else { showTop('works'); }
   }
 
@@ -743,9 +593,9 @@
     document.querySelectorAll('nav a[href^="#"]').forEach(a => {
       a.addEventListener('click', (e) => {
         const target = a.getAttribute('href').slice(1);
-        if (['bio', 'contact', 'works'].includes(target)) {
+        if (['bio','contact','works'].includes(target)) {
           e.preventDefault();
-          history.replaceState(null, '', `#${target}`);
+          history.replaceState(null, '', '#' + target);
           showTop(target);
         }
       });
@@ -754,7 +604,7 @@
 
   function hardenExternalLinks() {
     document.querySelectorAll('a[target="_blank"]').forEach(a => {
-      const rel = (a.getAttribute('rel') || '').split(/\s+/).filter(Boolean);
+      const rel = (a.getAttribute('rel') || '').split(' ').filter(Boolean);
       if (!rel.includes('noopener')) rel.push('noopener');
       if (!rel.includes('noreferrer')) rel.push('noreferrer');
       a.setAttribute('rel', rel.join(' '));
@@ -764,293 +614,78 @@
   function injectMail() {
     const m = 'mariacozzani' + '@' + 'gmail.com';
     const el = document.getElementById('mail');
-    if (el) el.innerHTML = `<a href="mailto:${m}">${m}</a>`;
+    if (el) el.innerHTML = '<a href="mailto:'+m+'">'+m+'</a>';
   }
 
-  /* ===== BG & EASTER EGGS ===== */
+  /* === COW CURSOR & SLOW FIREWORKS AROUND TITLE === */
+  (function initCows(){
+    const fxLayer = document.getElementById('fxLayer');
+    const cursorCow = document.getElementById('cursorCow');
+    const tpl = document.getElementById('cowSVG');
 
-  function createViolinBackground() {
-    const violinBg = document.getElementById('violinBackground');
-    if (!violinBg) return;
+    if (!cursorCow.firstChild) cursorCow.appendChild(tpl.content.cloneNode(true));
 
-    const isMobile = window.matchMedia('(max-width: 640px)').matches;
-    const violinCount = isMobile ? 6 : 31;
+    window.addEventListener('pointermove', (e) => {
+      cursorCow.style.left = e.clientX + 'px';
+      cursorCow.style.top  = e.clientY + 'px';
+    });
 
-    for (let i = 0; i < violinCount; i++) {
-      const violin = document.createElement('div');
-      violin.className = 'floating-violin';
-      violin.innerHTML = '🎻';
+    function spawn(x,y,opts){
+      const el = document.createElement('div');
+      el.className = 'cow-particle';
+      el.style.left = x + 'px';
+      el.style.top  = y + 'px';
 
-      const startX = Math.random() * 100;
-      const startY = Math.random() * 100;
-      const duration = 20 + Math.random() * 40;
-      const delay = Math.random() * 20;
-      const hue = Math.floor(Math.random() * 360);
+      const speed = (opts && opts.speed != null) ? opts.speed : (140 + Math.random()*220);
+      const ang = (opts && opts.angle != null) ? opts.angle : Math.random()*Math.PI*2;
+      const dx = Math.cos(ang) * speed;
+      const dy = Math.sin(ang) * speed;
+      const rot = ((opts && opts.rot != null) ? opts.rot : (180 + Math.random()*540)) + 'deg';
+      const dur = ((opts && opts.dur != null) ? opts.dur : (1900 + Math.random()*900)) + 'ms';
 
-      const moveX1 = (Math.random() - 0.5) * 220;
-      const moveY1 = (Math.random() - 0.5) * 220;
-      const moveX2 = (Math.random() - 0.5) * 220;
-      const moveY2 = (Math.random() - 0.5) * 220;
-      const moveX3 = (Math.random() - 0.5) * 220;
-      const moveY3 = (Math.random() - 0.5) * 220;
+      el.style.setProperty('--dx', dx + 'px');
+      el.style.setProperty('--dy', dy + 'px');
+      el.style.setProperty('--rot', rot);
+      el.style.setProperty('--dur', dur);
 
-      violin.style.left = `${startX}%`;
-      violin.style.top = `${startY}%`;
-      violin.style.animationDuration = `${duration}s`;
-      violin.style.animationDelay = `${delay}s`;
-      violin.style.fontSize = `${16 + Math.random() * 24}px`;
-      violin.style.opacity = `${(0.06 + Math.random() * 0.12).toFixed(2)}`;
-      violin.style.setProperty('--h', hue);
-
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes floatViolin${i} {
-          0% { transform: translate(0, 0) rotate(0deg); }
-          25% { transform: translate(${moveX1}px, ${moveY1}px) rotate(90deg); }
-          50% { transform: translate(${moveX2}px, ${moveY2}px) rotate(180deg); }
-          75% { transform: translate(${moveX3}px, ${moveY3}px) rotate(270deg); }
-          100% { transform: translate(0, 0) rotate(360deg); }
-        }
-        .floating-violin:nth-child(${i + 1}) { animation-name: floatViolin${i}; }
-      `;
-      document.head.appendChild(style);
-
-      violinBg.appendChild(violin);
+      el.appendChild(tpl.content.cloneNode(true));
+      fxLayer.appendChild(el);
+      el.addEventListener('animationend', () => el.remove());
     }
-  }
 
-  function createCloudMarquee(trackId, direction = 'left', duration = 110) {
-    const track = document.getElementById(trackId);
-    if (!track) return;
-
-    const palette = ['#fde2ff','#e2f7ff','#e9ffdb','#fff2cc','#ffe2e2','#e7e0ff','#dcffe6'];
-    const faces = ['^_^','(˘‿˘)','(•‿•)','( ͡° ͜ʖ ͡°)','UwU','ʕ•ᴥ•ʔ','(｡◕‿◕｡)'];
-    const set = document.createDocumentFragment();
-    const count = 24;
-
-    function addSet() {
-      for (let i = 0; i < count; i++) {
-        const c = document.createElement('div');
-        c.className = 'cloud';
-        const s = rand(0.8, 1.6);
-        c.style.setProperty('--s', s.toFixed(2));
-        c.style.setProperty('--c', pick(palette));
-        const face = document.createElement('span');
-        face.className = 'face';
-        face.textContent = pick(faces);
-        c.appendChild(face);
-        set.appendChild(c);
-      }
+    function burst(x,y,count){
+      for (let i=0;i<count;i++) spawn(x,y,{speed:160+Math.random()*200,rot:240+Math.random()*720,dur:1900+Math.random()*900});
     }
-    addSet(); addSet();
-    track.appendChild(set);
-    track.style.animation = `marquee-${direction} ${duration}s linear infinite`;
-  }
 
-  /* SVG Sprites (flower, diamond, MARIA) */
-  function createSprites(){
-    const layer = document.getElementById('spritesLayer');
-    if (!layer) return;
+    let lastBurst = 0;
+    function titleBurst(intense){
+      const now = performance.now();
+      if (!intense && now - lastBurst < 1200) return; // throttle hover bursts
+      lastBurst = now;
 
-    function svgNode(str){ const d=document.createElement('div'); d.innerHTML=str.trim(); return d.firstElementChild; }
+      const r = siteTitle.getBoundingClientRect();
+      const cx = r.left + r.width/2;
+      const cy = r.top  + r.height/2;
 
-    const makeFlower = (size)=>svgNode(`
-      <svg width="${size}" height="${size}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <g>
-          <circle cx="50" cy="50" r="14" fill="#ffd36e"/>
-          <ellipse cx="50" cy="25" rx="16" ry="12" fill="#ff66f7"/>
-          <ellipse cx="75" cy="45" rx="16" ry="12" fill="#38f9a5"/>
-          <ellipse cx="25" cy="45" rx="16" ry="12" fill="#7ad7ff"/>
-          <ellipse cx="35" cy="75" rx="16" ry="12" fill="#ff66f7"/>
-          <ellipse cx="65" cy="75" rx="16" ry="12" fill="#38f9a5"/>
-        </g>
-      </svg>`);
-
-    const makeDiamond = (size)=>svgNode(`
-      <svg width="${size}" height="${size}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="50,5 95,40 50,95 5,40" fill="#7ad7ff"/>
-        <polygon points="50,5 95,40 73,40 50,20" fill="#bfeaff" opacity=".8"/>
-        <polygon points="5,40 27,40 50,20 50,5" fill="#8fd7ff" opacity=".9"/>
-      </svg>`);
-
-    const makeMaria = (size)=>svgNode(`
-      <svg width="${size*3}" height="${size*1.2}" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="gradMaria" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#ff66f7"/>
-            <stop offset="100%" stop-color="#38f9a5"/>
-          </linearGradient>
-        </defs>
-        <text x="6" y="82" font-family="Pacifico, cursive" font-size="76" fill="url(#gradMaria)">MARIA</text>
-      </svg>`);
-
-    function spawn(kind, count, sizeRange, durRange){
-      for(let i=0;i<count;i++){
-        const el=document.createElement('div');
-        el.className=`floating-sprite sprite-${kind}`;
-        const size = rand(sizeRange[0], sizeRange[1]);
-        el.style.left = `${Math.random()*100}%`;
-        el.style.top  = `${Math.random()*100}%`;
-        el.style.animationDuration = `${rand(durRange[0], durRange[1])}s`;
-        el.style.animationDelay = `${rand(0,15)}s`;
-        el.style.setProperty('--x1', `${rand(-120,120)}px`);
-        el.style.setProperty('--y1', `${rand(-80,80)}px`);
-        el.style.setProperty('--x2', `${rand(-120,120)}px`);
-        el.style.setProperty('--y2', `${rand(-80,80)}px`);
-        el.style.setProperty('--x3', `${rand(-120,120)}px`);
-        el.style.setProperty('--y3', `${rand(-80,80)}px`);
-
-        let node;
-        if(kind==='flower') node = makeFlower(size);
-        if(kind==='diamond') node = makeDiamond(size);
-        if(kind==='maria') node = makeMaria(size);
-        el.appendChild(node);
-        layer.appendChild(el);
+      const bursts = intense ? 3 : 2;
+      for (let b=0;b<bursts;b++){
+        const ox = cx + (Math.random()*2-1) * r.width*0.25;
+        const oy = cy + (Math.random()*2-1) * r.height*0.6;
+        burst(ox, oy, intense ? 28 : 18);
       }
     }
 
-    spawn('flower', 12, [18,34], [22,44]);
-    spawn('diamond', 10, [18,30], [26,52]);
-    spawn('maria', 6, [18,24], [28,56]);
-  }
-
-  function createMushrooms() {
-    const layer = document.getElementById('mushroomLayer');
-    if (!layer) return;
-
-    const spots = 5;
-    for (let i = 0; i < spots; i++) {
-      const spot = document.createElement('div');
-      spot.className = 'm-spot';
-      spot.style.left = `${rand(5, 90)}%`;
-      spot.style.bottom = '-6px';
-
-      const mush = document.createElement('div');
-      mush.className = 'mushroom';
-      mush.style.setProperty('--w', `${rand(40, 90)}px`);
-      mush.style.setProperty('--h', `${rand(70, 160)}px`);
-      mush.style.setProperty('--scale', (rand(1.2, 1.8)).toFixed(2));
-      mush.style.setProperty('--dur', `${rand(8, 16)}s`);
-      mush.style.setProperty('--delay', `${rand(0, 8)}s`);
-
-      const stem = document.createElement('div'); stem.className = 'stem';
-      const cap = document.createElement('div'); cap.className = 'cap';
-
-      mush.appendChild(stem); mush.appendChild(cap);
-      spot.appendChild(mush);
-      layer.appendChild(spot);
-    }
-  }
-
-  // Fireball with organic wandering path
-  function initFireball() {
-    const layer = document.getElementById('fireLayer');
-    if (!layer) return;
-
-    function spawn() {
-      const fb = document.createElement('div');
-      fb.className = 'fireball';
-      const size = rand(44, 84);
-      fb.style.setProperty('--sz', `${size}px`);
-      fb.style.left = `${rand(10, 90)}vw`;
-      fb.style.top = `${rand(10, 80)}vh`;
-
-      const tail = document.createElement('div'); tail.className = 'tail';
-      const face = document.createElement('div'); face.className = 'fire-face'; face.textContent = '😆';
-      fb.appendChild(tail); fb.appendChild(face);
-      layer.appendChild(fb);
-
-      let x = fb.offsetLeft, y = fb.offsetTop;
-      let vx = rand(-0.6, 0.6), vy = rand(-0.6, 0.6);
-      let ax = 0, ay = 0;
-      let life = rand(7, 11) * 60;
-
-      function step() {
-        ax += rand(-0.05, 0.05);
-        ay += rand(-0.05, 0.05);
-        vx = (vx + ax) * 0.96;
-        vy = (vy + ay) * 0.96;
-        ax *= 0.8; ay *= 0.8;
-        x += vx * 2.0;
-        y += vy * 2.0;
-
-        const W = window.innerWidth - size, H = window.innerHeight - size;
-        if (x < 0) { x = 0; vx *= -0.9; }
-        if (y < 0) { y = 0; vy *= -0.9; }
-        if (x > W) { x = W; vx *= -0.9; }
-        if (y > H) { y = H; vy *= -0.9; }
-
-        fb.style.transform = `translate(${x}px, ${y}px)`;
-
-        life--;
-        if (life > 0) { requestAnimationFrame(step); }
-        else { layer.removeChild(fb); }
-      }
-      requestAnimationFrame(step);
-      setTimeout(spawn, rand(10, 20) * 1000);
-    }
-    setTimeout(spawn, rand(2000, 5000));
-  }
-
-  // Bunny every ~30s (SVG, zig-zag)
-  function initBunny(){
-    const layer = document.getElementById('spritesLayer');
-    if (!layer) return;
-
-    function bunnySVG(size){
-      const s = Math.max(24, size|0);
-      const w = s*1.2, h = s;
-      const html = `
-        <svg width="${w}" height="${h}" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
-          <g>
-            <ellipse cx="70" cy="64" rx="26" ry="22" fill="#fff3f8"/>
-            <circle cx="54" cy="48" r="18" fill="#fff3f8"/>
-            <ellipse cx="56" cy="40" rx="5" ry="3.5" fill="#ffbcd9"/>
-            <ellipse cx="44" cy="18" rx="8" ry="22" fill="#fff3f8"/>
-            <ellipse cx="66" cy="18" rx="8" ry="22" fill="#fff3f8"/>
-            <circle cx="62" cy="50" r="3" fill="#101015"/>
-          </g>
-        </svg>`;
-      const d=document.createElement('div'); d.innerHTML=html.trim(); return d.firstElementChild;
-    }
-
-    function run(){
-      const b=document.createElement('div');
-      b.className='bunny';
-      const dir = Math.random() < 0.5 ? 'LTR' : 'RTL';
-      const y0 = `${Math.floor(rand(18, 72))}vh`;
-      const dur = rand(8, 12);
-      b.style.setProperty('--y0', y0);
-      b.style.setProperty('--sz', `${rand(28, 42)}px`);
-      b.style.animation = `bunny${dir} ${dur}s linear 1`;
-      b.appendChild(bunnySVG(36));
-      layer.appendChild(b);
-      b.addEventListener('animationend', () => b.remove());
-      setTimeout(run, 30000);
-    }
-    setTimeout(run, 30000);
-  }
-
-  function initClouds() {
-    createCloudMarquee('cloudTrack1', 'left', 110);
-    createCloudMarquee('cloudTrack2', 'right', 140);
-  }
+    siteTitle.addEventListener('mouseenter', () => titleBurst(false));
+    siteTitle.addEventListener('click', () => titleBurst(true));
+  })();
 
   window.addEventListener('hashchange', handleRoute);
-
   document.addEventListener('DOMContentLoaded', () => {
     buildGallery();
     handleRoute();
     initNavInstant();
     hardenExternalLinks();
     injectMail();
-
-    createViolinBackground();
-    initClouds();
-    createSprites();
-    createMushrooms();
-    initFireball();
-    initBunny();
   });
   </script>
 </body>
