@@ -1,162 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>maria isolina cozzani — portfolio</title>
-  <meta name="description" content="violinist, composer-performer, multimedia artist. works, bio, contact." />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>maria isolina cozzani — portfolio</title>
+<meta name="description" content="violinist, composer-performer, multimedia artist. works, bio, contact." />
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:title" content="Maria Isolina Cozzani - Violinist, Composer-Performer, Multimedia Artist">
+<meta property="og:description" content="Portfolio of Maria Isolina Cozzani - works, bio, contact information">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Space+Grotesk:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 
-  <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#ffffff">
+<style>
+  :root{
+    --txt:#0a0a0d; --bg:#fff; --muted:#5a5f66; --accent:#7ed321; --border:#e6e7ea;
+    --brand-pink:#ff4fd8; --max:1440px; --radius:0px;
+    --font-base:'Source Sans 3',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --font-heading:'Space Grotesk',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --font-curvy:'Pacifico',cursive;
 
-  <meta property="og:title" content="Maria Isolina Cozzani - Violinist, Composer-Performer, Multimedia Artist">
-  <meta property="og:description" content="Portfolio of Maria Isolina Cozzani - works, bio, contact information">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="assets/og-image.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="robots" content="index,follow">
+    /* Resolution Lab vars */
+    --scan-alpha:.05;
+    --grid-size:8px;
+    --grid-alpha:.08;
+    --posterize-on:0;
+    --res-intensity:1; /* 0.5..2 */
+    --fisheye-amp:.55; /* intensità fish-eye */
+  }
 
-  <link rel="icon" href="/assets/favicon.ico">
-  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  html{box-sizing:border-box;scroll-behavior:smooth}
+  *,*::before,*::after{box-sizing:inherit}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Space+Grotesk:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  body{
+    margin:0;color:var(--txt);background:var(--bg);
+    background-image:
+      radial-gradient(120% 120% at 12% 8%, rgba(255,79,216,.06), transparent 60%),
+      radial-gradient(120% 120% at 88% 82%, rgba(126,211,33,.06), transparent 60%);
+    font:16px/1.7 var(--font-base); text-rendering:optimizeLegibility; overflow-x:hidden;
+    cursor:none; /* user sees only our cow */
+    /* posterize toggle via SVG filter */
+    filter: url(#posterize-filter);
+  }
+  /* toggle off unless class applied (see JS) */
+  body:not(.posterize){ filter:none; }
 
-  <style>
-    :root {
-      --txt:#0a0a0d; --bg:#ffffff; --muted:#5a5f66; --accent:#7ed321; --border:#e6e7ea; --max:1440px; --radius:0;
-      --brand-pink:#ff4fd8;
-      --font-base:'Source Sans 3', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      --font-heading:'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      --font-curvy:'Pacifico', cursive;
-    }
-    html{box-sizing:border-box;scroll-behavior:smooth;color-scheme:light}
-    *,*::before,*::after{box-sizing:inherit}
-    body{
-      margin:0;color:var(--txt);background:var(--bg);
-      background-image:
-        radial-gradient(120% 120% at 12% 8%, rgba(255,79,216,.06), transparent 60%),
-        radial-gradient(120% 120% at 88% 82%, rgba(126,211,33,.06), transparent 60%);
-      font:16px/1.7 var(--font-base); text-rendering:optimizeLegibility;
-      position:relative; overflow-x:hidden; cursor:none;
-    }
-    a{color:var(--accent);text-decoration:none;transition:all .2s ease}
-    a:focus-visible,button:focus-visible{outline:2px solid var(--brand-pink);outline-offset:3px;border-radius:2px}
+  /* Global: mai mostrare la “manina” */
+  a,button,label,input,textarea,select,summary,*{ cursor:none !important; }
 
-    .wrap{max-width:var(--max);margin:0 auto;padding:28px 18px;position:relative;z-index:0}
-    header{margin:8px 0 18px}
-    h1{font-family:var(--font-heading);font-size:32px;font-weight:700;letter-spacing:.02em;margin:0 0 6px;color:var(--accent);position:relative}
-    nav{margin:14px 0 26px;font-family:var(--font-heading);letter-spacing:.01em;font-weight:600}
-    nav a{margin:0 10px 0 0;white-space:nowrap;color:var(--brand-pink);position:relative;padding:4px 0;text-decoration:underline;text-underline-offset:3px}
-    nav a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--brand-pink);transition:width .3s ease}
-    nav a:hover::after, nav a:focus-visible::after{width:100%}
+  a{color:var(--accent);text-decoration:none;transition:all .2s ease}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--brand-pink);outline-offset:3px;border-radius:2px}
 
-    main section{margin:38px 0}
-    h2{font-family:var(--font-heading);font-size:18px;margin:0 0 12px;color:var(--accent)}
-    h3{font-family:var(--font-heading);font-size:16px;margin:0 0 8px}
-    .muted{color:var(--muted);opacity:.9}
-    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .wrap{max-width:var(--max);margin:0 auto;padding:28px 18px;position:relative;z-index:0}
+  header{margin:8px 0 18px}
+  h1{font-family:var(--font-heading);font-size:32px;font-weight:700;letter-spacing:.02em;margin:0 0 6px;color:var(--accent);position:relative}
+  nav{margin:14px 0 26px;font-family:var(--font-heading);letter-spacing:.01em;font-weight:600}
+  nav a{margin:0 10px 0 0;white-space:nowrap;color:var(--brand-pink);position:relative;padding:4px 0;text-decoration:underline;text-underline-offset:3px}
+  nav a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--brand-pink);transition:width .3s ease}
+  nav a:hover::after,nav a:focus-visible::after{width:100%}
 
-    /* Cards */
-    .card{padding:16px;border-radius:0;background:rgba(255,255,255,.9);border:1px solid var(--border);
-      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease; position:relative; z-index:1; backdrop-filter:saturate(110%) blur(0px)}
-    .card:hover{transform:translateY(-2px); box-shadow:0 6px 22px rgba(0,0,0,0.08); border-color:var(--brand-pink)}
+  main section{margin:38px 0}
+  h2{font-family:var(--font-heading);font-size:18px;margin:0 0 12px;color:var(--accent)}
+  h3{font-family:var(--font-heading);font-size:16px;margin:0 0 8px}
+  .muted{color:var(--muted);opacity:.9}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-    /* Gallery */
-    .thumbs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-    .thumb{position:relative;display:block;border-radius:0;overflow:hidden;background:var(--bg);border:1px solid var(--border);
-      transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease, filter .18s ease;
-      transform-origin:center center; transform: translateY(var(--ty,0)) scale(var(--s,1));}
-    .thumb .poster{aspect-ratio:16/9;width:100%;object-fit:cover;display:block;filter:grayscale(.08) contrast(1.04);transition:filter .18s ease;will-change:filter,transform}
-    .thumb:hover{border-color:var(--brand-pink); box-shadow:0 10px 26px rgba(255,79,216,.15); --ty:-2px}
-    .thumb:hover .poster{filter:grayscale(0) contrast(1.08) saturate(1.08)}
-    .thumb:focus-visible{outline:2px solid var(--brand-pink);outline-offset:2px}
+  .card{padding:16px;border-radius:0;background:rgba(255,255,255,.92);border:1px solid var(--border);
+        transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease; position:relative; z-index:1}
+  .card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,0,0,.08);border-color:var(--brand-pink)}
 
-    /* Detail view */
-    body.is-detail main>section:not(#work-detail){display:none}
-    #work-detail{margin-top:10px}
-    #work-detail .back{display:inline-flex;align-items:center;gap:6px;margin:6px 0 16px;font-size:13px;color:var(--muted);padding:6px 12px;border:1px solid var(--border);border-radius:2px;transition:all .2s ease;cursor:none}
-    #work-detail .back:hover{color:var(--txt);border-color:var(--brand-pink);background:rgba(255,79,216,0.05)}
-    .embed{position:relative;padding-top:56.25%;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);background:rgba(0,0,0,0.03);margin-bottom:14px}
-    .embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .thumbs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+  .thumb{position:relative;display:block;border:1px solid var(--border);overflow:hidden;background:var(--bg);
+         transform: translateY(var(--ty,0)) scale(var(--s,1));
+         transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, filter .18s ease;
+         will-change: transform; }
+  .thumb:hover{border-color:var(--brand-pink);box-shadow:0 10px 26px rgba(255,79,216,.15);--ty:-2px}
+  .poster{aspect-ratio:16/9;width:100%;object-fit:cover;display:block;filter:grayscale(.06) contrast(calc(1.02*var(--res-intensity)))}
+  .thumb:hover .poster{filter:grayscale(0) contrast(calc(1.08*var(--res-intensity))) saturate(1.06)}
 
-    /* Media grids */
-    .detail-media-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:14px}
-    @media (min-width:900px){.detail-media-grid{grid-template-columns:1fr 1fr}}
-    .detail-media-grid img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:0;border:1px solid var(--border)}
-    .video-grid{display:grid;grid-template-columns:1fr;gap:12px;margin:12px 0}
-    @media (min-width:820px){.video-grid{grid-template-columns:1fr 1fr}}
-    .photo-grid,.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
-    @media (min-width:720px){.photo-grid,.media-grid{grid-template-columns:repeat(3,1fr)}}
-    .photo-grid img,.media-grid img{width:100%;height:100%;object-fit:cover;border-radius:0;border:1px solid var(--border)}
-    .media-grid .span-3{grid-column:1/-1}
+  body.is-detail main>section:not(#work-detail){display:none}
+  #work-detail{margin-top:10px}
+  #work-detail .back{display:inline-flex;align-items:center;gap:6px;margin:6px 0 16px;font-size:13px;color:var(--muted);
+                     padding:6px 12px;border:1px solid var(--border);border-radius:2px;transition:all .2s ease}
+  #work-detail .back:hover{color:var(--txt);border-color:var(--brand-pink);background:rgba(255,79,216,.05)}
+  .embed{position:relative;padding-top:56.25%;overflow:hidden;border:1px solid var(--border);background:rgba(0,0,0,.03);margin-bottom:14px}
+  .embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
-    /* Bio */
-    #bio{--aside:260px}
-    #bio .bio-grid{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
-    #bio .bio-aside h2{margin:0 0 8px}
-    #bio .bio-aside .small{font-size:12px}
-    #bio .bio-content{text-wrap:pretty}
-    #bio .bio-content p{margin:0 0 12px;text-align:justify;hyphens:auto;orphans:2;widows:2;font-size:15px;line-height:1.75}
-    @media (min-width:980px){
-      #bio .bio-grid{grid-template-columns:var(--aside) 1fr;gap:28px}
-      #bio .bio-aside{position:sticky;top:18px;align-self:start}
-      #bio .bio-content{column-count:2;column-gap:28px;column-fill:balance}
-      #bio .bio-content p{break-inside:avoid}
-    }
+  .detail-media-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:14px}
+  @media(min-width:900px){.detail-media-grid{grid-template-columns:1fr 1fr}}
+  .detail-media-grid img{width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--border)}
+  .video-grid{display:grid;grid-template-columns:1fr;gap:12px;margin:12px 0}
+  @media(min-width:820px){.video-grid{grid-template-columns:1fr 1fr}}
+  .photo-grid,.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+  @media(min-width:720px){.photo-grid,.media-grid{grid-template-columns:repeat(3,1fr)}}
+  .photo-grid img,.media-grid img{width:100%;height:100%;object-fit:cover;border:1px solid var(--border)}
+  .media-grid .span-3{grid-column:1/-1}
 
-    /* Contact */
-    .contact-line{display:inline-flex;align-items:center;gap:10px;font-weight:600;color:var(--txt)}
-    .icon-mail{width:18px;height:18px;fill:var(--accent)}
+  #bio{--aside:260px}
+  #bio .bio-grid{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
+  #bio .bio-aside h2{margin:0 0 8px}
+  #bio .bio-aside .small{font-size:12px}
+  #bio .bio-content{text-wrap:pretty}
+  #bio .bio-content p{margin:0 0 12px;text-align:justify;hyphens:auto;orphans:2;widows:2;font-size:15px;line-height:1.75}
+  @media(min-width:980px){
+    #bio .bio-grid{grid-template-columns:var(--aside) 1fr;gap:28px}
+    #bio .bio-aside{position:sticky;top:18px;align-self:start}
+    #bio .bio-content{column-count:2;column-gap:28px;column-fill:balance}
+    #bio .bio-content p{break-inside:avoid}
+  }
 
-    footer{margin:44px 0 12px;font-size:13px;color:var(--muted)}
+  .contact-line{display:inline-flex;align-items:center;gap:10px;font-weight:600;color:var(--txt)}
+  .icon-mail{width:18px;height:18px;fill:var(--accent)}
+  footer{margin:44px 0 12px;font-size:13px;color:var(--muted)}
 
-    /* Performance */
-    #works-data,#bio,#contact{content-visibility:auto;contain-intrinsic-size:1px 1000px}
+  #works-data,#bio,#contact{content-visibility:auto;contain-intrinsic-size:1px 1000px}
 
-    /* Mobile */
-    @media (max-width:480px){
-      .wrap{padding:20px 12px}
-      h1{font-size:26px}
-      nav a{margin:0 8px 0 0;font-size:14px}
-      .thumbs{grid-template-columns:1fr;gap:12px}
-      .card{padding:12px}
-    }
+  @media(max-width:480px){
+    .wrap{padding:20px 12px} h1{font-size:26px} nav a{margin:0 8px 0 0;font-size:14px}
+    .thumbs{grid-template-columns:1fr;gap:12px} .card{padding:12px}
+  }
 
-    /* Nascondi la “manina”: usiamo solo il cursore mucca */
-    a, button, [role="button"], .thumb, nav a, .back { cursor: none !important; }
+  /* ==== FX Layer, Custom Cursor & Fireworks ==== */
+  #fxLayer{position:fixed;inset:0;pointer-events:none;z-index:9998}
+  #cursorCow{position:fixed;left:0;top:0;width:46px;height:46px;transform:translate(-50%,-50%);
+             pointer-events:none;z-index:9999;filter:drop-shadow(0 4px 10px rgba(0,0,0,.15));
+             background-size:cover;background-position:center center;background-repeat:no-repeat}
+  .cow-particle{position:fixed;width:32px;height:32px;left:0;top:0;transform:translate(0,0) scale(.95);
+    animation:cowBurst var(--dur,2400ms) cubic-bezier(.22,.72,.12,1) forwards, cowSpin var(--dur,2400ms) linear forwards}
+  @keyframes cowBurst{from{opacity:1;transform:translate(0,0) scale(1)} to{transform:translate(var(--dx),var(--dy)) scale(.95);opacity:0}}
+  @keyframes cowSpin{from{rotate:0deg} to{rotate:var(--rot,360deg)}}
 
-    /* === Livello effetti e particelle === */
-    #fxLayer{position:fixed;inset:0;pointer-events:none;z-index:9998;overflow:visible}
-    .cursor-cow{position:fixed;left:0;top:0;width:40px;height:40px;transform:translate(-50%,-50%);pointer-events:none;z-index:9999;filter:drop-shadow(0 4px 10px rgba(0,0,0,.15))}
-    .cursor-cow svg{width:100%;height:100%}
+  /* SVG fallback icon inside the cursor */
+  .cursor-svg{width:100%;height:100%}
 
-    .cow-particle{position:fixed;width:28px;height:28px;left:0;top:0;transform:translate(0,0) scale(.95);
-      animation:cowBurst var(--dur,2800ms) cubic-bezier(.22,.72,.12,1) forwards, cowSpin var(--dur,2800ms) linear forwards}
-    @keyframes cowBurst{from{opacity:1;transform:translate(0,0) scale(1)}to{transform:translate(var(--dx),var(--dy)) scale(.95);opacity:0}}
-    @keyframes cowSpin{from{rotate:0deg}to{rotate:var(--rot,360deg)}}
+  /* ==== Resolution Lab overlays (BeyondResolution-ish) ==== */
+  /* scanlines */
+  body.scanlines::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:5;
+    background:
+      repeating-linear-gradient(to bottom,
+        rgba(0,0,0,calc(var(--scan-alpha))) 0px,
+        rgba(0,0,0,calc(var(--scan-alpha))) 1px,
+        rgba(0,0,0,0) 2px);
+    mix-blend-mode:multiply;
+  }
+  /* calibration grid */
+  body.calibration::after{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:5;
+    background:
+      linear-gradient(to right, rgba(0,0,0,var(--grid-alpha)) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0,0,0,var(--grid-alpha)) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size), var(--grid-size) var(--grid-size);
+  }
 
-    /* Mucca testuale in basso a destra */
-    #asciiCow{position:fixed;right:8px;bottom:8px;width:min(32vmin,420px);height:min(32vmin,420px);border:1px solid var(--border);background:#fff;z-index:60;pointer-events:none;box-shadow:0 6px 18px rgba(0,0,0,.08)}
-    #asciiCow .frame{position:relative;width:100%;height:100%;overflow:hidden}
-    #asciiCow pre{margin:0;position:absolute;bottom:8px;right:8px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;line-height:1;letter-spacing:.5px;white-space:pre;transform-origin:bottom right}
-    @media (max-width:680px){#asciiCow{display:none}}
+  /* ==== Resolution Lab panel ==== */
+  #resPanel{
+    position:fixed; top:14px; right:14px; z-index:50;
+    background:rgba(255,255,255,.9); border:1px solid var(--border);
+    backdrop-filter:saturate(120%) blur(2px);
+    padding:10px 12px; border-radius:6px; font:12px/1.4 var(--font-base); color:#222;
+    user-select:none
+  }
+  #resPanel label{display:flex;align-items:center;gap:8px;margin:4px 0}
+  #resPanel .row{display:flex;align-items:center;gap:8px;margin-top:6px}
+  #resPanel input[type="range"]{width:140px}
 
-    /* su dispositivi touch torna il cursore di sistema */
-    @media (pointer:coarse){ body{cursor:auto}.cursor-cow{display:none} }
-  </style>
+  /* ==== ASCII cow (bottom-right) ==== */
+  #asciiCow{
+    position:fixed; right:10px; bottom:10px; width:min(28vw,420px); height:min(28vw,420px);
+    background:rgba(255,255,255,.92); border:1px solid var(--border); border-radius:6px;
+    padding:8px; overflow:hidden; z-index:4; pointer-events:none;
+    box-shadow:0 4px 16px rgba(0,0,0,.08)
+  }
+  #asciiCow pre{
+    margin:0; font:10px/10px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    white-space:pre; color:#111; opacity:.85; transform:scale(1.02); transform-origin:bottom right;
+  }
+
+  /* ==== Hidden SVG filters ==== */
+  svg#filters{position:absolute; width:0; height:0; left:-9999px; top:-9999px}
+</style>
 </head>
 <body>
-  <!-- layer effetti e cursore mucca -->
+  <!-- FX + cursor -->
   <div id="fxLayer" aria-hidden="true"></div>
-  <div id="cursorCow" class="cursor-cow" aria-hidden="true"></div>
+  <div id="cursorCow" aria-hidden="true"></div>
 
-  <!-- SVG mucca (fallback/particelle) -->
+  <!-- Fallback cow SVG to use for particles or cursor if image missing -->
   <template id="cowSVG">
-    <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg class="cursor-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs><clipPath id="cowClip"><circle cx="32" cy="34" r="20"/></clipPath></defs>
-      <circle cx="32" cy="34" r="20" fill="#ffffff" stroke="#222" stroke-width="2.5"/>
+      <circle cx="32" cy="34" r="20" fill="#fff" stroke="#222" stroke-width="2.5"/>
       <ellipse cx="16" cy="26" rx="6" ry="8" fill="#fff" stroke="#222" stroke-width="2.5"/>
       <ellipse cx="48" cy="26" rx="6" ry="8" fill="#fff" stroke="#222" stroke-width="2.5"/>
       <ellipse cx="16" cy="26" rx="4" ry="5" fill="#ffc0d6" opacity=".8"/>
@@ -172,6 +213,40 @@
       <circle cx="36" cy="46" r="1.6" fill="#7a2a2a"/>
     </svg>
   </template>
+
+  <!-- Resolution Lab panel -->
+  <div id="resPanel" aria-label="Resolution Lab">
+    <strong style="display:block;margin-bottom:4px">Resolution Lab</strong>
+    <label><input type="checkbox" id="chkScan"> Scanlines</label>
+    <label><input type="checkbox" id="chkGrid"> 8×8 Grid</label>
+    <label><input type="checkbox" id="chkPoster"> Posterize</label>
+    <div class="row">
+      <span>resolution</span>
+      <input type="range" id="resRange" min="50" max="200" value="100">
+    </div>
+  </div>
+
+  <!-- ASCII cow -->
+  <div id="asciiCow" aria-hidden="true">
+<pre>
+           ____________________________________________________
+          /  MOO! hi from the bottom-right, I am text only :)  \
+         /_______________________________________________________\
+        /                                                         \
+       /   (__ )   (__ )                                          \
+      /   (____)  (____)     ______    __      __   ______         \
+     |      ||      ||      / ____/   / /_____/ /  / ____/          |
+     |   ___||______||____ / / __    / __/ __  /  / __/             |
+     |  / _ \\/ __/ _ \\/ _ \\/ /_/ /  / /_/ /_/ /  / /___             |
+     | / .__/_/ /_//_/_//_/\\____/   \\__/\\__,_/  /_____/            |
+     |/_/                udders-of-code (.,.) (.,.)                 |
+     |   ^  ^   ^   ^     ^     ^    ^  ^   ^   ^   ^   ^          |
+     |  (0)(0) (0) (0) (0)(0) (0)  (0)(0) (0) (0) (0) (0)         |
+     |    ||     ||   ___||___  ||     ||    ||    ||    ||        |
+     |   _||_   _||_ /___||___\\_||_   _||_  _||_  _||_  _||_       |
+     |_____________________________________________________________|
+</pre>
+  </div>
 
   <div class="wrap">
     <header>
@@ -200,8 +275,8 @@
           <div class="bio-content">
             <p><strong>Maria Isolina Cozzani</strong> (b. 1994, Ludwigsburg) is an Italian-German violinist, composer-performer and multimedia artist based in Cologne. Working at the edges of free improvisation, electroacoustic performance and installation, she focuses on timbral extremes of the violin, spectral/granular resynthesis and spatial sound (4–8-channel and site-responsive setups). Her practice often integrates audio-reactive objects and upcycled technologies, assembling fragile yet vibrant ecosystems where sound, bodies and space co-shape one another.</p>
             <p>She trained in classical and jazz violin at the conservatories of La Spezia and Genoa and completed an MMus at ArtEZ University of the Arts (Arnhem, 2023) with research in free improvisation that culminated in <em>ISLN — Geography of sounds, shapeshifting multiplicities</em>. Recent and ongoing projects include the free-improv quintet <em>Inopia</em> (album <em>Exoplanet</em>, 2025); the electroacoustic duo <em>O.P.M.L. — Our Past Microtonal Love</em>; and the ensembles <em>Trio Lavish</em> (winners of the <em>Erasmus Jazz Prijs 2023</em>) and <em>Edera Trees</em>.</p>
-            <p>Her music draws on microtonality, memory as layering/return, and a choreographic attention to gesture, instrument and space. She has appeared at Palazzo Ducale (Genoa), Museo Bagatti Valsecchi (Milan), MA/IN Matera Intermedia Festival (Matera), De Thomas (Amsterdam) and The Grey Space (The Hague).</p>
-            <p>Alongside artistic work, Maria is active as an educator and as a project manager. In 2025 she coordinated the interdisciplinary project week <em>Connecting the Dots</em> at ArtEZ University of the Arts.</p>
+            <p>Her music draws on microtonality (simple frequency relations beyond tempered systems), memory as layering/return, and a choreographic attention to gesture, instrument and space. She has appeared at Palazzo Ducale (Genoa), Museo Bagatti Valsecchi (Milan), MA/IN Matera Intermedia Festival (Matera), De Thomas (Amsterdam) and The Grey Space (The Hague).</p>
+            <p>Alongside artistic work, Maria is active as an educator and as a project manager. In 2025 she coordinated the interdisciplinary project week <em>Connecting the Dots</em> at ArtEZ University of the Arts, leading planning and delivery for ~40 Master students across departments, guest-lecturer scheduling, rooming and documentation.</p>
           </div>
         </div>
       </section>
@@ -216,365 +291,458 @@
         </p>
       </section>
 
-      <!-- Works data (hidden) -->
+      <!-- WORKS DATA (cards) -->
       <section id="works-data" hidden>
-        <!-- (…mantieni qui i tuoi <article> come nel file precedente …) -->
+        <article class="card" id="violin-algorithm-duet" data-title="Violin and Algorithm Duet"
+                 data-yt="dUpo4ffqWa8"
+                 data-poster="https://img.youtube.com/vi/dUpo4ffqWa8/hqdefault.jpg">
+          <h3><em>Violin and Algorithm Duet</em> (2025)</h3>
+          <p><strong>Violin</strong> - Maria Isolina Cozzani<br>
+          <strong>Machine listening, concatenative synthesis algorithm</strong> - Matteo Traverso<br>
+          <strong>Concept</strong> - Maria Isolina Cozzani, Matteo Traverso</p>
+          <p>This piece is an improvised duo between violin and algorithm. During the first two minutes the violin improvises alone, providing the sound material. The algorithm's playback is determined by the violin's musical decisions. In the duet section, the two players influence each other—texturally and structurally.</p>
+          <p><strong>Video:</strong> <a href="https://youtu.be/dUpo4ffqWa8" target="_blank" rel="noopener">YouTube</a></p>
+        </article>
+
+        <article class="card" id="what-is-left" data-title="what is left, what there grows"
+                 data-poster="assets/what_is_left/what-is-left-cover.jpg"
+                 data-drive="1PxZBF0uUqdAcqpShlq9IUOrqWa6HcPv5">
+          <h3><em>what is left, what there grows</em> (2025)</h3>
+          <p class="muted">Finalist at MA/IN Matera Intermedia Festival 2025.</p>
+          <p>"what is left, what there grows" is a self-reactive environment composed of sound, immersive multi-channel audio (4–8 channels), upcycled trash speakers, small robots, and obsolete or broken technological remains—motherboards, wires, machine parts…</p>
+          <p><strong>Media:</strong> <a href="https://drive.google.com/file/d/1PxZBF0uUqdAcqpShlq9IUOrqWa6HcPv5/preview" target="_blank" rel="noopener">Video (Drive)</a></p>
+        </article>
+
+        <article class="card" id="exoplanet" data-title="Exoplanet — Inopia"
+                 data-poster="assets/exoplanet/SM4830.jpg">
+          <h3><em>Exoplanet</em> — Inopia (2025)</h3>
+          <p><strong>Listen / info:</strong>
+            <a href="https://listen.music-hub.com/bcFtvP" target="_blank" rel="noopener">Music-Hub</a> ·
+            <a href="https://pascalburbach.bandcamp.com/album/exoplanet" target="_blank" rel="noopener">Bandcamp</a> ·
+            <a href="https://www.instagram.com/inopiasound/" target="_blank" rel="noopener">@inopiasound</a>
+          </p>
+          <div class="media-grid">
+            <img class="span-3" src="assets/exoplanet/SM4830.jpg" alt="Exoplanet cover" loading="lazy" decoding="async" width="1600" height="900">
+            <img src="assets/exoplanet/DSC_4362.jpg" alt="Inopia live 1" loading="lazy" decoding="async" width="800" height="533">
+            <img src="assets/exoplanet/DSC_4403.jpg" alt="Inopia live 2" loading="lazy" decoding="async" width="800" height="533">
+            <img src="assets/exoplanet/DSC_4930.jpg" alt="Inopia live 3" loading="lazy" decoding="async" width="800" height="533">
+            <img src="assets/exoplanet/unbenannt-8811.jpg" alt="Inopia portrait blurred" loading="lazy" decoding="async" width="800" height="533">
+          </div>
+        </article>
+
+        <article class="card" id="lavish-trio"
+                 data-title="Lavish Trio — Dump and Die"
+                 data-poster="assets/dump_and_die/lavish-cover-1200.jpg">
+          <h3><em>Dump and Die</em> — Lavish Trio</h3>
+          <p><strong>Links:</strong>
+            <a href="https://unitrecords.com/artists/lavish-trio/" target="_blank" rel="noopener">Unit Records — Artist</a> ·
+            <a href="https://www.instagram.com/lavish_trio/" target="_blank" rel="noopener">Instagram</a> ·
+            <a href="https://open.spotify.com/intl-it/album/6tC4jCG4yMGOEeOhIDj9Gu" target="_blank" rel="noopener">Spotify (Album)</a>
+          </p>
+          <div class="media-grid">
+            <img class="span-3" src="assets/dump_and_die/lavish-cover-1200.jpg" alt="Lavish Trio — Dump and Die cover" loading="lazy" decoding="async" width="1200" height="1200">
+            <img src="assets/dump_and_die/lavish-portrait.jpg" alt="Lavish Trio portrait" loading="lazy" decoding="async" width="950" height="950">
+          </div>
+        </article>
+
+        <article class="card" id="isln"
+                 data-title="ISLN — geography of sounds, shapeshifting multiplicities"
+                 data-poster="assets/ISLN/isln-cover-1200.jpg"
+                 data-yt-list="gFk8Gf295Xg, nQ2dfomDPyk, boeDsX6veuY">
+          <h3><em>ISLN: geography of sounds, shapeshifting multiplicities</em> (2023)</h3>
+          <p><strong>Concept:</strong> <a href="https://drive.google.com/file/d/1FS0cm8xwaXjvtb0ECSUtN845Y9qSDmga/view?usp=sharing" target="_blank" rel="noopener">Google Drive</a></p>
+          <div class="media-grid">
+            <img class="span-3" src="assets/ISLN/isln-cover-1200.jpg" alt="ISLN — geography of sounds poster" loading="lazy" decoding="async" width="1200" height="1700">
+          </div>
+        </article>
+
+        <article class="card" id="artemide"
+                 data-title="Art&mide, Studio 1 — The evocation of Ἄρτεμις"
+                 data-poster="assets/artemide/artemide_6.jpg"
+                 data-yt-list="INTPUDO6-Bg, arRRCQIwIKg">
+          <h3><em>Art&mide, Studio 1 — The evocation of Ἄρτεμις</em> (2023)</h3>
+          <div class="photo-grid">
+            <img src="assets/artemide/artemide_6.jpg" alt="artemide photo 6" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide/artemide_3.jpg" alt="artemide photo 3" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide/artemide_4.jpg" alt="artemide photo 4" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide/artemide_2.jpg" alt="artemide photo 2" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide/artemide_1.jpg" alt="artemide photo 1" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/artemide/artemide_5.jpg" alt="artemide photo 5" loading="lazy" decoding="async" width="800" height="450">
+          </div>
+        </article>
+
+        <article class="card" id="solo-livingroom" data-title="Solo, in the living room – a listening session"
+                 data-poster="assets/livingroom/livingroom.jpg">
+          <h3><em>Solo, in the living room – a listening session</em> (2023)</h3>
+          <p><strong>Media:</strong> <a href="assets/livingroom/livingroom_ex1.mp4" target="_blank" rel="noopener">Video Example 1</a> ·
+          <a href="assets/livingroom/livingroom_ex2.mp4" target="_blank" rel="noopener">Video Example 2</a></p>
+        </article>
+
+        <article class="card" id="edera" data-title="E D E R A" data-poster="assets/edera/edera1.jpeg">
+          <h3><em>E D E R A</em></h3>
+          <div class="photo-grid">
+            <img src="assets/edera/edera1.jpeg" alt="Edera photo 1" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/edera/edera2.jpg" alt="Edera photo 2" loading="lazy" decoding="async" width="800" height="450">
+            <img src="assets/edera/edera3.jpg" alt="Edera photo 3" loading="lazy" decoding="async" width="800" height="450">
+          </div>
+        </article>
+
+        <article class="card" id="1142km" data-title="1142 km, the road trip piece: guidelines for a free improvisation session"
+                 data-poster="assets/1142_km/1492.png">
+          <h3><em>1142 km, the road trip piece: guidelines for a free improvisation session</em> (2021)</h3>
+          <p><strong>Listen:</strong> <a href="https://soundcloud.com/3444444/sets/1142km/s-5jipO2XBIr1" target="_blank" rel="noopener">SoundCloud (playlist)</a></p>
+        </article>
+
+        <article class="card" id="steps-to-be-taken" data-title="Steps to be taken in case of death:"
+                 data-vimeo="372936733" data-yt="PyPbwN7ewlA" data-poster="assets/steps_to_be_taken/steps1.jpg">
+          <h3><em>Steps to be taken in case of death:</em> (2019)</h3>
+          <p><strong>Links:</strong> <a href="https://vimeo.com/372936733" target="_blank" rel="noopener">Trailer (Vimeo)</a> ·
+             <a href="https://youtu.be/PyPbwN7ewlA" target="_blank" rel="noopener">Full performance</a></p>
+        </article>
+
+        <article class="card" id="locked-outputs" data-title="locked:outputs" data-yt="LB4l8T4fsDM">
+          <h3><em>locked:outputs</em> (2020)</h3>
+          <p><strong>Gameplay:</strong> <a href="https://www.youtube.com/watch?v=LB4l8T4fsDM&t=147s" target="_blank" rel="noopener">YouTube</a></p>
+        </article>
+
+        <article class="card" id="studio-sul-plasma" data-title="Studio sul plasma" data-yt="o3UOTGCL5_Q">
+          <h3><em>Studio sul plasma</em> (2019)</h3>
+          <p><strong>Media:</strong> <a href="https://www.youtube.com/watch?v=o3UOTGCL5_Q" target="_blank" rel="noopener">YouTube</a></p>
+        </article>
       </section>
     </main>
 
-    <footer>
-      <p>© <span id="y"></span> Maria Isolina Cozzani</p>
-    </footer>
+    <footer><p>© <span id="y"></span> Maria Isolina Cozzani</p></footer>
   </div>
 
-  <!-- Mucca di testo (riempie il riquadro) -->
-  <div id="asciiCow" aria-hidden="true"><div class="frame"><pre>
-         (\\\\)
-          ( \\ )
-           (_  )      (__)                 __
-           /  \\     (oo)              .-"  `-.
-   /------/----\\-----\\/-------------.-'        `-.
-  / |    |     ||    ||            /    .-""-.    \\
- *  /\\___/\\____/\\____/\\           ;    /  ..  \\    ;
-    ~~    ~~   ~~   ~~            |   |  (__)  |   |
-                                  |   |  /__\\  |   |
-                                  ;    \\      /    ;
-                                   \\    `----'    /
-                                    `-.________.-'
-  </pre></div></div>
-
-  <!-- JSON-LD (rimane uguale al tuo) -->
+  <!-- JSON-LD -->
   <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Person",
-    "name":"Maria Isolina Cozzani",
-    "jobTitle":"Violinist, Composer-Performer, Multimedia Artist",
-    "url":"https://tuodominio.example/",
-    "worksFeatured":[
-      {"@type":"CreativeWork","name":"Violin and Algorithm Duet","url":"https://tuodominio.example/#work/violin-algorithm-duet"},
-      {"@type":"CreativeWork","name":"what is left, what there grows","url":"https://tuodominio.example/#work/what-is-left"}
-    ]
-  }
+  {"@context":"https://schema.org","@type":"Person","name":"Maria Isolina Cozzani",
+   "jobTitle":"Violinist, Composer-Performer, Multimedia Artist","url":"https://tuodominio.example/",
+   "worksFeatured":[
+     {"@type":"CreativeWork","name":"Violin and Algorithm Duet","url":"https://tuodominio.example/#work/violin-algorithm-duet"},
+     {"@type":"CreativeWork","name":"what is left, what there grows","url":"https://tuodominio.example/#work/what-is-left"}]}
   </script>
 
-  <script>
-  'use strict';
+  <!-- SVG filters (posterize) -->
+  <svg id="filters" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <filter id="posterize-filter">
+      <!-- quantizzazione canali -> posterize -->
+      <feComponentTransfer>
+        <!-- 5 livelli -->
+        <feFuncR type="discrete" tableValues="0 0.25 0.5 0.75 1"/>
+        <feFuncG type="discrete" tableValues="0 0.25 0.5 0.75 1"/>
+        <feFuncB type="discrete" tableValues="0 0.25 0.5 0.75 1"/>
+      </feComponentTransfer>
+    </filter>
+  </svg>
 
-  // Footer year
-  document.getElementById('y').textContent = new Date().getFullYear();
+<script>
+'use strict';
 
-  const worksSection = document.querySelector('#works-data');
-  const thumbsWrap   = document.getElementById('thumbs');
-  const siteTitle    = document.getElementById('siteTitle');
+/* ===== UTIL ===== */
+const $ = (sel, root=document) => root.querySelector(sel);
+const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const lerp = (a,b,t) => a + (b-a)*t;
 
-  const POSTER_OVERRIDES = {
-    'violin-algorithm-duet': 'https://img.youtube.com/vi/dUpo4ffqWa8/hqdefault.jpg',
-    'artemide': 'assets/artemide/artemide_6.jpg',
-    'exoplanet': 'assets/exoplanet/SM4830.jpg',
-    'lavish-trio': 'assets/dump_and_die/lavish-cover-1200.jpg',
-    'isln': 'assets/ISLN/isln-cover-1200.jpg',
-    'edera': 'assets/edera/edera1.jpeg',
-    '1142km': 'assets/1142_km/1492.png',
-    'solo-livingroom': 'assets/livingroom/livingroom.jpg'
-  };
+document.getElementById('y').textContent = new Date().getFullYear();
 
-  function getYouTubeThumb(id){ return `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }
+/* ===== Email obfuscation ===== */
+(function injectMail(){
+  const m = 'mariacozzani' + '@' + 'gmail.com';
+  const el = document.getElementById('mail');
+  if (el) el.innerHTML = `<a href="mailto:${m}">${m}</a>`;
+})();
 
-  // Build gallery from hidden articles
-  function buildThumb(article){
-    const id = article.id;
-    const title = article.dataset.title || id;
-    let thumbURL = '';
+/* ===== Build gallery from #works-data ===== */
+const worksSection = document.getElementById('works-data');
+const thumbsWrap = document.getElementById('thumbs');
 
-    if (article.dataset.poster) {
-      try { thumbURL = new URL(article.dataset.poster, document.baseURI).href; }
-      catch(e){ thumbURL = article.dataset.poster; }
-    }
-    if (!thumbURL && POSTER_OVERRIDES[id]) thumbURL = POSTER_OVERRIDES[id];
-    if (!thumbURL && (article.dataset.yt || article.dataset.ytList)) {
-      const firstId = (article.dataset.yt || article.dataset.ytList.split(',')[0].trim());
-      thumbURL = getYouTubeThumb(firstId);
-    }
+const POSTER_OVERRIDES = {
+  'violin-algorithm-duet':'https://img.youtube.com/vi/dUpo4ffqWa8/hqdefault.jpg',
+  'artemide':'assets/artemide/artemide_6.jpg',
+  'exoplanet':'assets/exoplanet/SM4830.jpg',
+  'lavish-trio':'assets/dump_and_die/lavish-cover-1200.jpg',
+  'isln':'assets/ISLN/isln-cover-1200.jpg',
+  'edera':'assets/edera/edera1.jpeg',
+  '1142km':'assets/1142_km/1492.png',
+  'solo-livingroom':'assets/livingroom/livingroom.jpg'
+};
+const getYouTubeThumb = (id)=>`https://img.youtube.com/vi/${id}/hqdefault.jpg`;
 
-    const a = document.createElement('a');
-    a.href = `#work/${id}`;
-    a.className = 'thumb';
-    a.setAttribute('aria-label', title);
-
-    if (thumbURL){
-      const img = document.createElement('img');
-      img.className = 'poster'; img.loading='lazy'; img.decoding='async'; img.alt=title; img.src=thumbURL;
-      a.appendChild(img);
-    } else {
-      const ph = document.createElement('div');
-      ph.className = 'poster';
-      ph.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02))';
-      a.appendChild(ph);
-    }
-    return a;
+function buildThumb(article){
+  const id = article.id;
+  const title = article.dataset.title || id;
+  let thumbURL = '';
+  if (article.dataset.poster) {
+    try{ thumbURL = new URL(article.dataset.poster, document.baseURI).href; }
+    catch(e){ thumbURL = article.dataset.poster; }
+  }
+  if(!thumbURL && POSTER_OVERRIDES[id]) thumbURL = POSTER_OVERRIDES[id];
+  if(!thumbURL && (article.dataset.yt || article.dataset.ytList)){
+    const firstId = (article.dataset.yt || article.dataset.ytList.split(',')[0].trim());
+    thumbURL = getYouTubeThumb(firstId);
   }
 
-  function buildGallery(){
-    thumbsWrap.innerHTML = '';
-    if (!worksSection) return;
+  const a = document.createElement('a');
+  a.href = `#work/${id}`;
+  a.className = 'thumb';
+  a.setAttribute('aria-label', title);
 
-    const desiredOrder = [
-      'violin-algorithm-duet', 'what-is-left', 'exoplanet', 'lavish-trio',
-      'isln', 'artemide', 'solo-livingroom', 'edera', '1142km', 'locked-outputs',
-      'studio-sul-plasma', 'steps-to-be-taken'
-    ];
-    const orderMap = new Map(desiredOrder.map((id,i)=>[id,i]));
-    const articles = Array.from(worksSection.querySelectorAll('article'))
-      .sort((a,b)=>(orderMap.get(a.id) ?? 999) - (orderMap.get(b.id) ?? 999));
+  const img = document.createElement('img');
+  img.className='poster'; img.loading='lazy'; img.decoding='async'; img.alt=title;
+  if(thumbURL) img.src = thumbURL;
+  a.appendChild(img);
+  return a;
+}
 
-    articles.forEach((a,idx)=>{
-      const el = buildThumb(a);
-      const img = el.querySelector('img');
-      if (idx<2 && img) img.setAttribute('fetchpriority','high');
-      thumbsWrap.appendChild(el);
-    });
-  }
+function buildGallery(){
+  thumbsWrap.innerHTML = '';
+  if(!worksSection) return;
+  const order = ['violin-algorithm-duet','what-is-left','exoplanet','lavish-trio','isln','artemide','solo-livingroom','edera','1142km','locked-outputs','studio-sul-plasma','steps-to-be-taken'];
+  const orderMap = new Map(order.map((id,i)=>[id,i]));
+  const articles = Array.from(worksSection.querySelectorAll('article'))
+    .sort((a,b)=>(orderMap.get(a.id)??999) - (orderMap.get(b.id)??999));
 
-  function createEmbedIframe(kind,id,title){
-    const div = document.createElement('div'); div.className='embed';
-    let url='';
-    if (kind==='yt'){ url=`https://www.youtube-nocookie.com/embed/${id}`;
-      div.innerHTML=`<iframe loading="lazy" src="${url}" title="${title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-    } else if (kind==='vimeo'){ url=`https://player.vimeo.com/video/${id}?dnt=1&byline=0&portrait=0`;
-      div.innerHTML=`<iframe loading="lazy" src="${url}" title="${title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
-    } else if (kind==='drive'){ url=`https://drive.google.com/file/d/${id}/preview`;
-      div.innerHTML=`<iframe loading="lazy" src="${url}" title="${title}"></iframe>`;
-    }
-    return div;
-  }
-
-  function createMediaBlock(article){
-    const ds = article.dataset;
-    const title = ds.title || article.id;
-    const entries = [];
-    if (ds.ytList){ ds.ytList.split(',').map(s=>s.trim()).filter(Boolean).forEach(id=>entries.push(['yt',id])); }
-    if (ds.vimeoList){ ds.vimeoList.split(',').map(s=>s.trim()).filter(Boolean).forEach(id=>entries.push(['vimeo',id])); }
-    if (ds.driveList){ ds.driveList.split(',').map(s=>s.trim()).filter(Boolean).forEach(id=>entries.push(['drive',id])); }
-    if (ds.yt) entries.push(['yt',ds.yt]);
-    if (ds.vimeo) entries.push(['vimeo',ds.vimeo]);
-    if (ds.drive) entries.push(['drive',ds.drive]);
-
-    if (!entries.length) return null;
-
-    if (entries.length===1 && ds.poster && !article.querySelector('img')){
-      const wrap = document.createElement('div'); wrap.className='detail-media-grid';
-      wrap.appendChild(createEmbedIframe(entries[0][0], entries[0][1], title));
-      const img = document.createElement('img'); img.src = ds.poster; img.alt=title; img.loading='lazy'; img.decoding='async';
-      wrap.appendChild(img);
-      return wrap;
-    }
-    const container = document.createElement('div');
-    if (entries.length>1) container.className='video-grid';
-    entries.forEach(([kind,id])=>container.appendChild(createEmbedIframe(kind,id,title)));
-    return container;
-  }
-
-  function setActiveNav(section){
-    document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
-      a.removeAttribute('aria-current');
-      if (a.getAttribute('href')===`#${section}`) a.setAttribute('aria-current','page');
-    });
-  }
-
-  function showTop(section){
-    ['works','bio','contact'].forEach(id=>{
-      const el = document.getElementById(id);
-      if (el) el.hidden = (id!==section);
-    });
-    document.body.classList.remove('is-detail');
-    const detailEl = document.getElementById('work-detail');
-    if (detailEl){ detailEl.setAttribute('hidden',''); detailEl.innerHTML=''; }
-    if (section==='works'){ window.scrollTo(0,0); }
-    setActiveNav(section);
-  }
-
-  function showWork(slug){
-    const article = document.getElementById(slug);
-    if (!article){ showTop('works'); return; }
-
-    document.body.classList.add('is-detail');
-    const detailEl = document.getElementById('work-detail');
-    detailEl.removeAttribute('hidden');
-    detailEl.innerHTML = `<a href="#works" class="back">← all works</a>`;
-
-    const media = createMediaBlock(article);
-    if (media) detailEl.appendChild(media);
-
-    const clone = article.cloneNode(true); clone.removeAttribute('id'); detailEl.appendChild(clone);
-    window.scrollTo(0,0);
-  }
-
-  function handleRoute(){
-    const h = decodeURIComponent(location.hash || '#works');
-    if (h.indexOf('#work/')===0){ showWork(h.slice(6)); return; }
-    const sec = h.replace('#','');
-    if (['bio','contact','works'].includes(sec)) showTop(sec);
-    else showTop('works');
-  }
-
-  function initNavInstant(){
-    document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', e=>{
-        const target = a.getAttribute('href').slice(1);
-        if (['bio','contact','works'].includes(target)){
-          e.preventDefault();
-          history.replaceState(null,'',`#${target}`);
-          showTop(target);
-        }
-      });
-    });
-  }
-
-  function hardenExternalLinks(){
-    document.querySelectorAll('a[target="_blank"]').forEach(a=>{
-      const rel = (a.getAttribute('rel')||'').split(' ').filter(Boolean);
-      if (!rel.includes('noopener')) rel.push('noopener');
-      if (!rel.includes('noreferrer')) rel.push('noreferrer');
-      a.setAttribute('rel', rel.join(' '));
-    });
-  }
-
-  function injectMail(){
-    const m='mariacozzani'+'@'+'gmail.com';
-    const el=document.getElementById('mail');
-    if (el) el.innerHTML = `<a href="mailto:${m}">${m}</a>`;
-  }
-
-  // === Cursore mucca (foto) + fuochi d’artificio sul titolo ===
-  (function initCows(){
-    const fxLayer   = document.getElementById('fxLayer');
-    const cursorCow = document.getElementById('cursorCow');
-    const tpl       = document.getElementById('cowSVG');
-
-    function setCursorPhoto(){
-      const img = new Image();
-      img.src = 'assets/cow-cursor.jpg'; // ⬅️ metti qui la tua foto della mucca in Svizzera
-      img.alt = ''; img.decoding='async'; img.loading='eager';
-      img.onerror = ()=>{ if(!cursorCow.firstChild) cursorCow.appendChild(tpl.content.cloneNode(true)); };
-      cursorCow.replaceChildren(img);
-    }
-    setCursorPhoto();
-
-    window.addEventListener('pointermove', e=>{
-      cursorCow.style.left = e.clientX+'px';
-      cursorCow.style.top  = e.clientY+'px';
-    });
-
-    function spawn(x,y,opts){
-      const el = document.createElement('div'); el.className='cow-particle';
-      el.style.left=x+'px'; el.style.top=y+'px';
-      const speed = (opts&&opts.speed!=null)?opts.speed:(140+Math.random()*220);
-      const ang   = (opts&&opts.angle!=null)?opts.angle:(Math.random()*Math.PI*2);
-      const dx    = Math.cos(ang)*speed, dy=Math.sin(ang)*speed;
-      const rot   = ((opts&&opts.rot!=null)?opts.rot:(240+Math.random()*600))+'deg';
-      const dur   = ((opts&&opts.dur!=null)?opts.dur:(2600+Math.random()*1200))+'ms';
-      el.style.setProperty('--dx', dx+'px'); el.style.setProperty('--dy', dy+'px');
-      el.style.setProperty('--rot', rot);    el.style.setProperty('--dur', dur);
-      el.appendChild(tpl.content.cloneNode(true));
-      fxLayer.appendChild(el);
-      el.addEventListener('animationend', ()=>el.remove());
-    }
-    function burst(x,y,count){ for(let i=0;i<count;i++) spawn(x,y,{speed:160+Math.random()*200,rot:240+Math.random()*720,dur:2600+Math.random()*1200}); }
-
-    let lastBurst = 0;
-    function titleBurst(intense){
-      const now = performance.now();
-      if (!intense && now-lastBurst<1200) return;
-      lastBurst = now;
-      const r = siteTitle.getBoundingClientRect();
-      const cx = r.left + r.width/2;
-      const cy = r.top  + r.height/2;
-      const bursts = intense?3:2;
-      for (let b=0;b<bursts;b++){
-        const ox = cx + (Math.random()*2-1)*r.width*0.25;
-        const oy = cy + (Math.random()*2-1)*r.height*0.6;
-        burst(ox, oy, intense?28:18);
-      }
-    }
-    siteTitle.addEventListener('mouseenter', ()=>titleBurst(false));
-    siteTitle.addEventListener('click',      ()=>titleBurst(true));
-  })();
-
-  // === Fish-eye continuo + influenza del mouse ===
-  function enableFisheye(){
-    if (!thumbsWrap) return;
-
-    const items = [];
-    function measure(){
-      items.length = 0;
-      thumbsWrap.querySelectorAll('.thumb').forEach(el=>{
-        const r = el.getBoundingClientRect();
-        items.push({el, cx:r.left + r.width/2, cy:r.top + r.height/2});
-      });
-    }
-
-    let hasMouse=false, mx=0, my=0;
-    const MAX_SCALE = 1.18, MIN_SCALE = 0.86;
-    const SIGMA_MOUSE = 160, SIGMA_DRIFT = 220;
-
-    const gauss = (x1,y1,x2,y2,s)=>{ const d=Math.hypot(x1-x2,y1-y2); return Math.exp(-(d*d)/(2*s*s)); };
-
-    function tick(t){
-      const r = thumbsWrap.getBoundingClientRect();
-      const time = t*0.001;
-
-      // punto “vagante” che attraversa la griglia
-      const dx = r.left + r.width  * (0.5 + 0.35*Math.sin(time*0.33));
-      const dy = r.top  + r.height * (0.5 + 0.35*Math.sin(time*0.47 + 1.2));
-
-      for (let i=0;i<items.length;i++){
-        const it = items[i];
-        const wMouse = hasMouse ? gauss(it.cx,it.cy,mx,my,SIGMA_MOUSE) : 0;
-        const wDrift = gauss(it.cx,it.cy,dx,dy,SIGMA_DRIFT);
-        const wPhase = (Math.sin(time*0.9 + i*0.8)+1)*0.22; // 0..0.44
-        const influence = Math.min(1, wMouse*0.9 + wDrift*0.7 + wPhase*0.6);
-        const s = MIN_SCALE + (MAX_SCALE - MIN_SCALE) * influence;
-        it.el.style.setProperty('--s', s.toFixed(3));
-        it.el.style.zIndex = (100 + Math.round(s*100)) + '';
-      }
-      requestAnimationFrame(tick);
-    }
-
-    thumbsWrap.addEventListener('mousemove', e=>{hasMouse=true; mx=e.clientX; my=e.clientY;},{passive:true});
-    thumbsWrap.addEventListener('mouseleave', ()=>{hasMouse=false;},{passive:true});
-    window.addEventListener('resize', measure,{passive:true});
-
-    measure();
-    setTimeout(measure, 250);
-    requestAnimationFrame(tick);
-  }
-
-  // Fit della mucca ASCII nel riquadro
-  function fitAsciiCow(){
-    const box = document.getElementById('asciiCow'); if (!box) return;
-    const pre = box.querySelector('pre'); if (!pre) return;
-    pre.style.transform = 'scale(1)';
-    requestAnimationFrame(()=>{
-      const bw = box.clientWidth-16, bh = box.clientHeight-16;
-      const sw = pre.scrollWidth,  sh = pre.scrollHeight;
-      const s = Math.min(bw/sw, bh/sh) * 1.02;
-      pre.style.transform = 'scale('+s+')';
-    });
-  }
-
-  // Routing & init
-  window.addEventListener('hashchange', handleRoute);
-  document.addEventListener('DOMContentLoaded', ()=>{
-    buildGallery();
-    handleRoute();
-    initNavInstant();
-    hardenExternalLinks();
-    injectMail();
-    enableFisheye();
-    fitAsciiCow();
+  articles.forEach((a,idx)=>{
+    const el = buildThumb(a);
+    const img = el.querySelector('img');
+    if(idx<2 && img) img.setAttribute('fetchpriority','high');
+    thumbsWrap.appendChild(el);
   });
-  window.addEventListener('resize', fitAsciiCow);
-  </script>
+}
+
+/* ===== Detail routing ===== */
+function createEmbedIframe(kind, id, title){
+  const div = document.createElement('div'); div.className='embed';
+  if(kind==='yt'){
+    div.innerHTML = `<iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/${id}" title="${title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  }else if(kind==='vimeo'){
+    div.innerHTML = `<iframe loading="lazy" src="https://player.vimeo.com/video/${id}?dnt=1&byline=0&portrait=0" title="${title}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+  }else if(kind==='drive'){
+    div.innerHTML = `<iframe loading="lazy" src="https://drive.google.com/file/d/${id}/preview" title="${title}"></iframe>`;
+  }
+  return div;
+}
+
+function createMediaBlock(article){
+  const ds = article.dataset;
+  const title = ds.title || article.id;
+  const entries = [];
+  if(ds.ytList){ ds.ytList.split(',').map(s=>s.trim()).filter(Boolean).forEach(id=>entries.push(['yt',id])); }
+  if(ds.vimeoList){ ds.vimeoList.split(',').map(s=>s.trim()).filter(Boolean).forEach(id=>entries.push(['vimeo',id])); }
+  if(ds.driveList){ ds.driveList.split(',').map(s=>s.trim()).filter(Boolean).forEach(id=>entries.push(['drive',id])); }
+  if(ds.yt) entries.push(['yt', ds.yt]);
+  if(ds.vimeo) entries.push(['vimeo', ds.vimeo]);
+  if(ds.drive) entries.push(['drive', ds.drive]);
+
+  if(entries.length===0) return null;
+
+  if(entries.length===1 && ds.poster && !article.querySelector('img')){
+    const wrap = document.createElement('div'); wrap.className='detail-media-grid';
+    wrap.appendChild(createEmbedIframe(entries[0][0], entries[0][1], title));
+    const img = document.createElement('img'); img.src = ds.poster; img.alt=title; img.loading='lazy'; img.decoding='async';
+    wrap.appendChild(img); return wrap;
+  }
+
+  const container = document.createElement('div'); if(entries.length>1) container.className='video-grid';
+  entries.forEach(([kind,id])=>container.appendChild(createEmbedIframe(kind,id,title)));
+  return container;
+}
+
+function setActiveNav(section){
+  $$('nav a[href^="#"]').forEach(a=>{
+    a.removeAttribute('aria-current');
+    if(a.getAttribute('href')===`#${section}`) a.setAttribute('aria-current','page');
+  });
+}
+
+function showTop(section){
+  ['works','bio','contact'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.hidden = (id!==section);
+  });
+  document.body.classList.remove('is-detail');
+  const d = document.getElementById('work-detail');
+  if(d){ d.setAttribute('hidden',''); d.innerHTML=''; }
+  if(section==='works') window.scrollTo(0,0);
+  setActiveNav(section);
+}
+
+function showWork(slug){
+  const article = document.getElementById(slug);
+  if(!article){ showTop('works'); return; }
+  document.body.classList.add('is-detail');
+  const detail = document.getElementById('work-detail');
+  detail.removeAttribute('hidden');
+  detail.innerHTML = `<a href="#works" class="back">← all works</a>`;
+  const media = createMediaBlock(article); if(media) detail.appendChild(media);
+  const clone = article.cloneNode(true); clone.removeAttribute('id'); detail.appendChild(clone);
+  window.scrollTo(0,0);
+}
+
+function handleRoute(){
+  const h = decodeURIComponent(location.hash || '#works');
+  const m = h.match(/^#work\/(.+)$/);
+  if(m){ showWork(m[1]); return; }
+  const sec = h.replace('#','');
+  if(['bio','contact','works'].includes(sec)) showTop(sec); else showTop('works');
+}
+window.addEventListener('hashchange', handleRoute);
+
+function initNavInstant(){
+  $$('nav a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      const target = a.getAttribute('href').slice(1);
+      if(['bio','contact','works'].includes(target)){
+        e.preventDefault(); history.replaceState(null,'',`#${target}`); showTop(target);
+      }
+    });
+  });
+}
+
+/* ===== Custom Cow Cursor (photo if available) ===== */
+function initCursor(){
+  const cursor = document.getElementById('cursorCow');
+  // Try to use photo
+  const candidates = ['assets/cow-cursor.png','assets/cow_cursor.png','assets/cow.jpg'];
+  let usedImage = false;
+  const tryNext = (i=0)=>{
+    if(i>=candidates.length){ // fallback: inline SVG
+      const tpl = document.getElementById('cowSVG');
+      if(tpl) cursor.appendChild(tpl.content.cloneNode(true));
+      return;
+    }
+    const img = new Image();
+    img.onload = ()=>{ cursor.style.backgroundImage = `url(${candidates[i]})`; usedImage=true; };
+    img.onerror = ()=> tryNext(i+1);
+    img.src = candidates[i];
+  };
+  tryNext();
+
+  window.addEventListener('mousemove', (e)=>{
+    cursor.style.left = e.clientX+'px';
+    cursor.style.top  = e.clientY+'px';
+  }, {passive:true});
+}
+
+/* ===== Title cow-fireworks (slower, around title box) ===== */
+function initTitleFireworks(){
+  const title = document.getElementById('siteTitle');
+  const fx = document.getElementById('fxLayer');
+  let cooling = false;
+
+  function spawnBurst(cx, cy){
+    const count = 26; // numero mucche
+    for(let i=0;i<count;i++){
+      const p = document.createElement('div');
+      p.className='cow-particle';
+      // random angle and radius (ring-ish)
+      const ang = Math.random()*Math.PI*2;
+      const rad = 40 + Math.random()*120;
+      const dx = Math.cos(ang)*rad;
+      const dy = Math.sin(ang)*rad;
+      p.style.setProperty('--dx', dx+'px');
+      p.style.setProperty('--dy', dy+'px');
+      p.style.setProperty('--rot', (Math.random()*540-270)+'deg');
+      p.style.setProperty('--dur', (2200 + Math.random()*900) +'ms');
+      p.style.left = (cx - 16)+'px';
+      p.style.top  = (cy - 16)+'px';
+
+      // content: tiny cow (SVG or bg)
+      const t = document.getElementById('cowSVG');
+      if(t) p.appendChild(t.content.cloneNode(true));
+      fx.appendChild(p);
+      p.addEventListener('animationend', ()=>p.remove(), {once:true});
+    }
+  }
+
+  title.addEventListener('mouseenter', ()=>{
+    if(cooling) return;
+    const r = title.getBoundingClientRect();
+    const cx = r.left + r.width/2;
+    const cy = r.top  + r.height/2;
+    spawnBurst(cx, cy);
+    cooling = true;
+    setTimeout(()=>cooling=false, 1600); // cooldown
+  });
+}
+
+/* ===== Continuous fish-eye for the gallery (autopilot) ===== */
+function initFisheye(){
+  const items = $$('.thumbs .thumb');
+  if(items.length===0) return;
+  let t = 0;
+  const amp = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--fisheye-amp')) || .55;
+
+  function loop(){
+    t += 0.008; // speed
+    // Lissajous curve through viewport in [0,1]
+    const cx = 0.5 + Math.sin(t*0.9)*0.28;
+    const cy = 0.5 + Math.cos(t*1.13)*0.22;
+
+    // compute scaling per item based on distance to center
+    items.forEach(el=>{
+      const r = el.getBoundingClientRect();
+      const ex = (r.left + r.width/2) / window.innerWidth;
+      const ey = (r.top  + r.height/2) / window.innerHeight;
+      const dx = ex - cx, dy = ey - cy;
+      const d2 = dx*dx + dy*dy;
+      // gaussian-like bump
+      const s = 1 + amp * Math.exp(-d2 / 0.03);
+      el.style.setProperty('--s', s.toFixed(3));
+      el.style.zIndex = (1000 + Math.floor(s*100))+'';
+    });
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+}
+
+/* ===== Resolution Lab toggles (scanlines, grid, posterize, intensity) ===== */
+function initResolutionLab(){
+  const chkScan = document.getElementById('chkScan');
+  const chkGrid = document.getElementById('chkGrid');
+  const chkPost = document.getElementById('chkPoster');
+  const resRange = document.getElementById('resRange');
+
+  chkScan.addEventListener('change', ()=> document.body.classList.toggle('scanlines', chkScan.checked));
+  chkGrid.addEventListener('change', ()=> document.body.classList.toggle('calibration', chkGrid.checked));
+  chkPost.addEventListener('change', ()=> document.body.classList.toggle('posterize', chkPost.checked));
+  resRange.addEventListener('input', ()=>{
+    const v = parseInt(resRange.value,10)/100; // 0.5..2
+    document.documentElement.style.setProperty('--res-intensity', v.toFixed(2));
+    const g = clamp(Math.round(8 / v), 4, 24); // grid size changes with resolution
+    document.documentElement.style.setProperty('--grid-size', g+'px');
+    const scanA = clamp(.05 * v, .02, .12);
+    document.documentElement.style.setProperty('--scan-alpha', scanA.toFixed(3));
+  });
+
+  // sensible initial: grid off, scan off, posterize off
+  chkScan.checked=false; chkGrid.checked=false; chkPost.checked=false; resRange.value=100;
+}
+
+/* ===== External links hardening ===== */
+function hardenExternalLinks(){
+  $$('a[target="_blank"]').forEach(a=>{
+    const rel = (a.getAttribute('rel')||'').split(/\s+/).filter(Boolean);
+    if(!rel.includes('noopener')) rel.push('noopener');
+    if(!rel.includes('noreferrer')) rel.push('noreferrer');
+    a.setAttribute('rel', rel.join(' '));
+  });
+}
+
+/* ===== Init ===== */
+document.addEventListener('DOMContentLoaded', ()=>{
+  buildGallery();
+  handleRoute();
+  initNavInstant();
+  hardenExternalLinks();
+  initCursor();
+  initTitleFireworks();
+  initFisheye();
+  initResolutionLab();
+});
+</script>
 </body>
 </html>
